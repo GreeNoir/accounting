@@ -6,9 +6,8 @@
     <script language="javascript" type="text/javascript" src="book.js"></script>
     <script language="javascript" type="text/javascript" src="database.js"></script>
     <script>
+        Database.init();
         $(function() {
-            Database.init();
-
             $('#find').click(function() {
                 var id = $('#index').val();
                 Database.findHeader(id, function(result) {
