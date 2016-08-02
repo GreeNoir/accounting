@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="jquery-3.1.0.min.js"></script>
+    <script language="javascript" type="text/javascript" src="book.js"></script>
+    <script language="javascript" type="text/javascript" src="database.js"></script>
+    <script>
+        $(function() {
+            Database.init();
+
+            $('#find').click(function() {
+                var id = $('#index').val();
+                Database.findHeader(id, function(result) {
+                    if (result !== -1) {
+                        $('#text').text(result.text);
+                    } else {
+                        $('#text').text('Not found');
+                    }
+                });
+            });
+
+            $('#clear').click(function() {
+                Database.removeDB();
+            });
+        });
+    </script>
+</head>
+<body>
+    <br>
+    <button id="clear">Refresh</button>
+    <h1>Type header id</h1>
+    <input id="index" type="text">
+    <button id="find">Find</button>
+    <div>Header text:</div>
+    <div id="text"></div>
+</body>
+</html>
