@@ -21,14 +21,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Logo</a>
+                <a class="navbar-brand" href="index.html">Главная</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="form.html">Анкета</a>
-                    </li>
                     <li>
                         <a href="#">О приложении</a>
                     </li>
@@ -39,7 +36,326 @@
         <!-- /.container -->
     </nav>
     <div class="container">
+        <div class="row">
+            <div class="col-sm-3 well">
+                <p><a href="#">Link</a></p>
+                <p><a href="#">Link</a></p>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default text-left">
+                            <div class="panel-body">
+                                <h3>Центр</h3>
+                                <br>
+                                <form class="form-horizontal" role="form" id="form_main">
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Диагностику провел:</label>
+                                        <div class="col-md-8">
+                                            <input type="text" class="form-control" id="diagnost">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Дата:</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" id="date">
+                                        </div>
 
+                                        <label class="col-md-2 control-label">Диагн№</label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" id="diagnNumber">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">Дата рождения:</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="birthdate">
+                                        </div>
+                                        <label class="col-md-1 control-label">Телефон</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="phone">
+                                        </div>
+                                        <label class="col-md-1 control-label">e-mail</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">Адрес:</label>
+                                        <div class="col-md-7">
+                                            <input type="text" class="form-control" id="address">
+                                        </div>
+
+                                        <label class="col-md-2 control-label">Семейное положение</label>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" id="family_status">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Цель обращения</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="goal">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-2">
+                                            <label class="control-label">№ записи</label>
+                                            <input type="text" class="form-control" id="recordId">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 control-label">Артер. давл. до</label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="pressure_before">
+                                                </div>
+                                                <label class="col-md-3 control-label">Артер. давл. после</label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="pressure_after">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 control-label">Пульс до</label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="pulse_before">
+                                                </div>
+                                                <label class="col-md-3 control-label">Пульс после</label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="pulse_after">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="panel panel-default text-left">
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#main">Чакры</a></li>
+                                    <li><a data-toggle="tab" href="#small">Мелкие чакры</a></li>
+                                    <li><a data-toggle="tab" href="#parameters">Параметры</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="main" class="tab-pane fade in active">
+                                        <form class="form-horizontal" id="chakra_main_form" role="form">
+                                            <br>
+                                            <div class="form-group row">
+                                                <div class="col-md-3">Чакры спереди:</div>
+                                                <div class="col-md-3">Чакры сзади:</div>
+                                                <div class="col-md-3">Чакры по центру:</div>
+                                                <div class="col-md-3">Дополнительные чакры:</div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="1" value="">Коронная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="1" value="">Коронная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="1" value="">Коронная</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="2" value="">3-го глаза</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="2" value="">3-го глаза</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="2" value="">3-го глаза</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" value="">Верхняя шама</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="3" value="">Головная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="3" value="">Головная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="3" value="">Головная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" value="">Нижняя шама</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="4" value="">Сердечная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="4" value="">Сердечная</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="4" value="">Сердечная</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="5" value="">Солн. сплетения</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="5" value="">Солн. сплетения</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="5" value="">Солн. сплетения</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group row">
+                                                        <label class="control-label col-md-5">Эстроген</label>
+                                                        <div class="col-md-7"><input class="form-control" id="estrogen" type="text"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="6" value="">Хара</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="6" value="">Хара</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="6" value="">Хара</label>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group row">
+                                                        <label class="control-label col-md-5">Прогестерон</label>
+                                                        <div class="col-md-7"><input class="form-control" id="progesteron" type="text"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="front" data-id="7" value="">Корневая</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="back" data-id="7" value="">Корневая</label>
+                                                </div>
+                                                <div class="checkbox col-md-3">
+                                                    <label><input type="checkbox" data-position="middle" data-id="7" value="">Корневая</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="small" class="tab-pane fade">
+                                        <form class="form-horizontal" id="chakra_small_form" role="form">
+                                            <br>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="2" value="">Чакры глаз</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="13" value="">Чакра пупка</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакры подподошвенные</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="1" value="">Височные чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакра селезенки</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="20" value="">Чакры подошв</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="4" value="">Заушные чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакра печени</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="10" value="">Чакры лучезапяст. суставов</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="5" value="">Подчелюстные чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="14" value="">Паховые чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="9" value="">Локтевые чакры</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="7" value="">Подмышечные чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="16" value="">Чакра тазобедрен. сустава</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="8" value="">Лопаточные чакры</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="11" value="">Чакры груди</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакры бедра</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="8" value="">Подлопаточные чакры</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Тимус</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="17" value="">Чакры коленей</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакры почек</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="5" value="">Чакры челюсти</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="18" value="">Икороножные чакры</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="" value="">Чакры надпочечников</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="12" value="">Чакра диафрагмы</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="19" value="">Чакры голеностоп. суставов</label>
+                                                </div>
+                                                <div class="checkbox col-md-4">
+                                                    <label><input type="checkbox" data-id="3" value="">Чакра носа</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="parameters" class="tab-pane fade">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
