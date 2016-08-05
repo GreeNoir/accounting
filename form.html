@@ -3,12 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Анкета</title>
-    <script src="js/jquery-1.9.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jquery-1.9.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/moment.js"></script>
+    <script language="javascript" type="text/javascript" src="js/ru.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery.indexeddb.js"></script>
     <script language="javascript" type="text/javascript" src="js/book.js"></script>
     <script language="javascript" type="text/javascript" src="js/main.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -62,9 +66,19 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Дата:</label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" id="date">
+                                            <div class='input-group date' id='date'>
+                                                <input type='text' class="form-control">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $(function() {
+                                                    $('#date').datetimepicker({
+                                                    });
+                                                });
+                                            </script>
                                         </div>
-
                                         <label class="col-md-2 control-label">Диагн№</label>
                                         <div class="col-md-4">
                                             <input type="text" class="form-control" id="diagnNumber">
@@ -73,13 +87,27 @@
                                     <div class="form-group">
                                         <label class="col-md-1 control-label">Дата рождения:</label>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" id="birthdate">
+                                            <div class='input-group date' id='birthdate'>
+                                                <input type='text' class="form-control">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $(function() {
+                                                    $('#birthdate').datetimepicker({
+                                                        useCurrent: false,
+                                                        format: "DD.MM.YYYY",
+                                                        viewMode: 'years'
+                                                    });
+                                                });
+                                            </script>
                                         </div>
                                         <label class="col-md-1 control-label">Телефон</label>
                                         <div class="col-md-3">
                                             <input type="text" class="form-control" id="phone">
                                         </div>
-                                        <label class="col-md-1 control-label">e-mail</label>
+                                        <label class="col-md-1 control-label">E-mail</label>
                                         <div class="col-md-3">
                                             <input type="text" class="form-control" id="email">
                                         </div>
@@ -572,5 +600,8 @@
             </div>
         </div>
     </div>
+    <footer class="container-fluid text-center">
+        <p>Footer Text</p>
+    </footer>
 </body>
 </html>
