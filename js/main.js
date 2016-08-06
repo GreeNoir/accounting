@@ -56,3 +56,44 @@ function _(promise){
         console.log("Action completed", a, e);
     })
 }
+
+var Form = {
+
+    initMainChakraPanel: function() {
+        var positions = ['front', 'back', 'middle'];
+        var translate = ['спереди', 'сзади', 'по центру']
+        for (var i=0; i<3; i++) {
+            var fieldset = $('<div class="col-md-4"><fieldset><legend></legend>Чакры '+translate[i]+'<legend></fieldset></legend></div>');
+            for (var j=0; j<MainChakraViolations.length; j++) {
+                var id = j+1;
+                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" data-position="' +positions[i]+'" data-id="'+id+'" value="">'+ MainChakraViolations[j].chakra +'</label></div>');
+                fieldset.append(checkbox);
+            }
+            $('#chakra_main_form').append(fieldset);
+        }
+    },
+
+    initSmallChakraPanel: function() {
+        var index = 0;
+        for (var i=0; i<3; i++) {
+            var div = $('<div class="col-md-4"></div>');
+            for (var j=0; j<9; j++) {
+                var id = index+1;
+                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" data-id="'+ id +'" value="">'+ SmallChakraViolations[index].chakra +'</label></div></div>');
+                div.append(checkbox);
+                index++;
+            }
+            $('#chakra_small_form').append(div);
+        }
+    },
+
+    initCocoonPart: function() {
+        var div = $('<div class="form-group row"></div>');
+        for (var i=1; i<6; i++) {
+            var id = i+1;
+            var radio = $('<label class="radio-inline"><input type="radio" name="cocoon" data-id="'+id+'" value="">'+CocoonViolations[i].subname+'</label>');
+            div.append(radio);
+        }
+        $('#cocoon_violations').append(div);
+    }
+}
