@@ -155,267 +155,288 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-default text-left">
-                            <div class="panel-body">
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#main">Чакры</a></li>
-                                    <li><a data-toggle="tab" href="#small">Мелкие чакры</a></li>
-                                    <li><a data-toggle="tab" href="#energetics">Энергетика</a></li>
-                                    <li><a data-toggle="tab" href="#confidence">Уверенность</a></li>
-                                </ul>
 
-                                <div class="tab-content">
-                                    <div id="main" class="tab-pane fade in active">
-                                        <form class="form-horizontal" id="chakra_main_form" role="form">
-                                            <br>
-                                            <script>
-                                                Form.initMainChakraPanel();
-                                            </script>
-                                            <div class="col-md-6">
-                                                <fieldset>
-                                                    <legend>Дополнительные чакры</legend>
-                                                    <div class="form-group row">
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox">Верхняя шама</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox">Нижняя шама</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="control-label col-md-5">Эстроген</label>
-                                                        <div class="col-md-7"><input class="form-control" id="estrogen" type="text"></div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="control-label col-md-5">Прогестерон</label>
-                                                        <div class="col-md-7"><input class="form-control" id="progesteron" type="text"></div>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div id="small" class="tab-pane fade">
-                                        <form class="form-horizontal" id="chakra_small_form" role="form">
-                                            <br>
-                                            <script>
-                                                Form.initSmallChakraPanel();
-                                            </script>
-                                        </form>
-                                    </div>
-                                    <div id="energetics" class="tab-pane fade">
-                                        <form class="form-horizontal" id="energetic_form" role="form">
-                                            <br>
-                                            <fieldset id="meridians">
-                                                <legend>Состояние энергетики меридианов</legend>
-                                                <div class="form-group row col-md-12">
-                                                    <textarea class="form-control" rows="4" id="meridians_description"></textarea>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset id="cocoon">
-                                                <legend>Кокон</legend>
-                                                <div class="form-group row">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Форма кокона:</label></div>
-                                                        <div class="col-md-9" id="cocoon_violations">
-                                                            <script>
-                                                                Form.initCocoonPart();
-                                                            </script>
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="pill" href="#bioenergy">Диагностика биоэнергетического состояния</a></li>
+                            <li><a data-toggle="pill" href="#organ">Диагностика энергетики внутренних органов</a></li>
+                        </ul>
+                        <br>
+                        <div class="tab-content">
+
+                            <div id="bioenergy" class="tab-pane fade in active">
+
+                                <div class="panel panel-default text-left">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#main">Чакры</a></li>
+                                            <li><a data-toggle="tab" href="#small">Мелкие чакры</a></li>
+                                            <li><a data-toggle="tab" href="#energetics">Энергетика</a></li>
+                                            <li><a data-toggle="tab" href="#confidence">Уверенность</a></li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div id="main" class="tab-pane fade in active">
+                                                <form class="form-horizontal" id="chakra_main_form" role="form">
+                                                    <br>
+                                                    <script>
+                                                        Form.initMainChakraPanel();
+                                                    </script>
+                                                    <div class="col-md-6">
+                                                        <fieldset>
+                                                            <legend>Дополнительные чакры</legend>
                                                             <div class="form-group row">
-                                                                <div class="col-md-3">
-                                                                    <label class="radio-inline"><input type="radio" name="cocoon" data-id="1">Неопр</label>
-                                                                </div>
-                                                                <div class="col-md-9">
-                                                                    <input class="form-control" id="cocoon_undef_descript" data-id="7" value="" type="text">
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox">Верхняя шама</label>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group row">
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox">Нижняя шама</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="control-label col-md-5">Эстроген</label>
+                                                                <div class="col-md-7"><input class="form-control" id="estrogen" type="text"></div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="control-label col-md-5">Прогестерон</label>
+                                                                <div class="col-md-7"><input class="form-control" id="progesteron" type="text"></div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div id="small" class="tab-pane fade">
+                                                <form class="form-horizontal" id="chakra_small_form" role="form">
+                                                    <br>
+                                                    <script>
+                                                        Form.initSmallChakraPanel();
+                                                    </script>
+                                                </form>
+                                            </div>
+                                            <div id="energetics" class="tab-pane fade">
+                                                <form class="form-horizontal" id="energetic_form" role="form">
+                                                    <br>
+                                                    <fieldset id="meridians">
+                                                        <legend>Состояние энергетики меридианов</legend>
+                                                        <div class="form-group row col-md-12">
+                                                            <textarea class="form-control" rows="4" id="meridians_description"></textarea>
                                                         </div>
-                                                </div>
-                                            </fieldset>
+                                                    </fieldset>
+                                                    <fieldset id="cocoon">
+                                                        <legend>Кокон</legend>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-3">
+                                                                <label class="control-label">Форма кокона:</label></div>
+                                                                <div class="col-md-9" id="cocoon_violations">
+                                                                    <script>
+                                                                        Form.initCocoonPart();
+                                                                    </script>
+                                                                    <div class="form-group row">
+                                                                        <div class="col-md-3">
+                                                                            <label class="radio-inline"><input type="radio" name="cocoon" data-id="1">Неопр</label>
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            <input class="form-control" id="cocoon_undef_descript" data-id="7" value="" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </fieldset>
 
-                                            <fieldset id="kharicheskaya_violation">
-                                                <legend>Харическая линия</legend>
-                                                <div class="form-group row">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Нарушения харической линии:</label>
-                                                    </div>
-                                                    <div class="col-md-9">
+                                                    <fieldset id="kharicheskaya_violation">
+                                                        <legend>Харическая линия</legend>
                                                         <div class="form-group row">
-                                                            <div class="checkbox col-md-3">
-                                                                <label class="control-label"><input type="checkbox" data-id="top" value="">Вверху</label>
+                                                            <div class="col-md-3">
+                                                                <label class="control-label">Нарушения харической линии:</label>
                                                             </div>
-                                                            <div class="checkbox col-md-9">
-                                                                <input class="form-control" type="text" id="top_description" value="">
+                                                            <div class="col-md-9">
+                                                                <div class="form-group row">
+                                                                    <div class="checkbox col-md-3">
+                                                                        <label class="control-label"><input type="checkbox" data-id="top" value="">Вверху</label>
+                                                                    </div>
+                                                                    <div class="checkbox col-md-9">
+                                                                        <input class="form-control" type="text" id="top_description" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="checkbox col-md-3">
+                                                                        <label class="control-label"><input type="checkbox" data-id="middle" value="">В центре</label>
+                                                                    </div>
+                                                                    <div class="checkbox col-md-9">
+                                                                        <input class="form-control" type="text" id="middle_description" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="checkbox col-md-3">
+                                                                        <label class="control-label"><input type="checkbox" data-id="bottom" value="">Внизу</label>
+                                                                    </div>
+                                                                    <div class="checkbox col-md-9">
+                                                                        <input class="form-control" type="text" id="bottom_description" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="checkbox col-md-3">
+                                                                        <label class="control-label"><input type="checkbox" data-id="abort" value="">Прерывается</label>
+                                                                    </div>
+                                                                    <div class="checkbox col-md-9">
+                                                                        <input class="form-control" type="text" id="abort_description" value="">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </fieldset>
+                                                    <fieldset id="basic_problems">
+                                                        <legend>Основные проблемы на уровне 4 тонких тел</legend>
                                                         <div class="form-group row">
-                                                            <div class="checkbox col-md-3">
-                                                                <label class="control-label"><input type="checkbox" data-id="middle" value="">В центре</label>
+                                                            <div class="col-md-3">
+                                                                <label class="control-label">Отражены на уровне:</label>
                                                             </div>
-                                                            <div class="checkbox col-md-9">
-                                                                <input class="form-control" type="text" id="middle_description" value="">
+                                                            <div class="col-md-9">
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" data-id="1" value="">Физический</label>
+                                                                </div>
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" data-id="2" value="">Эфирный</label>
+                                                                </div>
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" data-id="3" value="">Астральный</label>
+                                                                </div>
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" data-id="4" value="">Ментальный</label>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </fieldset>
+                                                    <fieldset id="biofield_sizes">
+                                                        <legend>Показатели связей</legend>
+                                                        <div class="form-group row" class="biofield_sizes">
+                                                            <label class="col-md-3 control-label">Связь с Космосом</label>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" id="cosmos">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row" class="biofield_sizes">
+                                                            <label class="col-md-3 control-label">Связь с Землей</label>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" id="earth">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row" class="biofield_sizes">
+                                                            <label class="col-md-3 control-label">Связь с Родом</label>
+                                                            <div class="col-md-4">
+                                                                <input type="text" class="form-control" id="native">
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div id="confidence" class="tab-pane fade">
+                                                <form class="form-horizontal" id="confidence_form" role="form">
+                                                    <br>
+                                                    <fieldset id="inside">
+                                                        <legend>Внутренняя уверенность</legend>
                                                         <div class="form-group row">
-                                                            <div class="checkbox col-md-3">
-                                                                <label class="control-label"><input type="checkbox" data-id="bottom" value="">Внизу</label>
+                                                            <div class="col-md-3">
+                                                                <label class="control-label">Сколько % энергии:</label>
                                                             </div>
-                                                            <div class="checkbox col-md-9">
-                                                                <input class="form-control" type="text" id="bottom_description" value="">
+                                                            <div class="col-md-9">
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-3 control-label">Сознание</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" id="conscious" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-3 control-label">Подсознание</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" id="subconscious" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-3 control-label">Разум</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" id="mind" value="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-3 control-label">Душа</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control" type="text" id="soul" value="">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </fieldset>
+                                                    <fieldset id="outside">
+                                                        <legend>Внешняя уверенность</legend>
                                                         <div class="form-group row">
-                                                            <div class="checkbox col-md-3">
-                                                                <label class="control-label"><input type="checkbox" data-id="abort" value="">Прерывается</label>
-                                                            </div>
-                                                            <div class="checkbox col-md-9">
-                                                                <input class="form-control" type="text" id="abort_description" value="">
-                                                            </div>
+                                                            <label class="col-md-12">Свободно энергия протекает через (%):</label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset id="basic_problems">
-                                                <legend>Основные проблемы на уровне 4 тонких тел</legend>
-                                                <div class="form-group row">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Отражены на уровне:</label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="1" value="">Физический</label>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <th></th>
+                                                                    <th class="text-center">Физический</th>
+                                                                    <th class="text-center">Эфирный</th>
+                                                                    <th class="text-center">Астральный</th>
+                                                                    <th class="text-center">Ментальный</th>
+                                                                </thead>
+                                                                <tbody class="text-center">
+                                                                    <tr>
+                                                                        <td class="text-left text-nowrap">Правая нога</td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="4"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-left text-nowrap">Левая нога</td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="4"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-left text-nowrap">Правая рука</td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="4"></td>
+                                                                    <tr>
+                                                                        <td class="text-left text-nowrap">Левая рука</td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="4"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-left">Спина</td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="4"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="2" value="">Эфирный</label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="3" value="">Астральный</label>
-                                                        </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="4" value="">Ментальный</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset id="biofield_sizes">
-                                                <legend>Показатели связей</legend>
-                                                <div class="form-group row" class="biofield_sizes">
-                                                    <label class="col-md-3 control-label">Связь с Космосом</label>
-                                                    <div class="col-md-4">
-                                                        <input type="text" class="form-control" id="cosmos">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row" class="biofield_sizes">
-                                                    <label class="col-md-3 control-label">Связь с Землей</label>
-                                                    <div class="col-md-4">
-                                                        <input type="text" class="form-control" id="earth">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row" class="biofield_sizes">
-                                                    <label class="col-md-3 control-label">Связь с Родом</label>
-                                                    <div class="col-md-4">
-                                                        <input type="text" class="form-control" id="native">
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                    <div id="confidence" class="tab-pane fade">
-                                        <form class="form-horizontal" id="confidence_form" role="form">
-                                            <br>
-                                            <fieldset id="inside">
-                                                <legend>Внутренняя уверенность</legend>
-                                                <div class="form-group row">
-                                                    <div class="col-md-3">
-                                                        <label class="control-label">Сколько % энергии:</label>
-                                                    </div>
-                                                    <div class="col-md-9">
-                                                        <div class="form-group row">
-                                                            <label class="col-md-3 control-label">Сознание</label>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control" type="text" id="conscious" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-3 control-label">Подсознание</label>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control" type="text" id="subconscious" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-3 control-label">Разум</label>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control" type="text" id="mind" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-md-3 control-label">Душа</label>
-                                                            <div class="col-md-6">
-                                                                <input class="form-control" type="text" id="soul" value="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <fieldset id="outside">
-                                                <legend>Внешняя уверенность</legend>
-                                                <div class="form-group row">
-                                                    <label class="col-md-12">Свободно энергия протекает через (%):</label>
-                                                </div>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <th></th>
-                                                            <th class="text-center">Физический</th>
-                                                            <th class="text-center">Эфирный</th>
-                                                            <th class="text-center">Астральный</th>
-                                                            <th class="text-center">Ментальный</th>
-                                                        </thead>
-                                                        <tbody class="text-center">
-                                                            <tr>
-                                                                <td class="text-left text-nowrap">Правая нога</td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="1"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="2"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="3"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="4"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left text-nowrap">Левая нога</td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="1"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="2"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="3"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="4"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left text-nowrap">Правая рука</td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="1"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="2"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="3"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="4"></td>
-                                                            <tr>
-                                                                <td class="text-left text-nowrap">Левая рука</td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="1"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="2"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="3"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="4"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-left">Спина</td>
-                                                                <td><input type="text" class="form-control no-border" data-id="rear" data-level="1"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="rear" data-level="2"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="rear" data-level="3"></td>
-                                                                <td><input type="text" class="form-control no-border" data-id="rear" data-level="4"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> <!-- bioenergy -->
+
+                            <div id="organ" class="tab-pane fade">
+                                <div class="panel panel-default text-left">
+                                    <div class="panel-body">
+                                        O
+                                    </div>
+                                </div>
+                            </div> <!-- oragan -->
+                        </div> <!-- tab-content -->
+
                     </div>
                 </div>
             </div>
