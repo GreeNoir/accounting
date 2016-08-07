@@ -1,3 +1,71 @@
+footer {
+    background-color: #292c2f;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    font: bold 16px sans-serif;
+    color: #ffffff;
+    margin-top: 80px;
+    padding: 55px 50px;
+    text-align: left;
+}
+
+footer .row {
+    text-align: left;
+    padding: 5px 0;
+}
+
+footer .glyphicon {
+    background-color: #33383b;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 22px;
+    height: 38px;
+    line-height: 42px;
+    margin: 10px 15px;
+    text-align: center;
+    vertical-align: middle;
+    width: 38px;
+}
+
+footer .glyphicon.no-background {
+    background: none;
+    color: #5383d3;
+    margin-left: 0;
+    margin-top: 0;
+    width: 22px;
+    height: 30px;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer .right-part {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+footer p a {
+    color: #5383d3;
+    text-decoration: none;
+}
+
+footer .company-about {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+    margin-bottom: 20px;
+    color: #92999f;
+}
+
+footer .company-about .title {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
 .no-border {
     border: none;
 }
