@@ -63,7 +63,7 @@ var Form = {
         var positions = ['front', 'back', 'middle'];
         var translate = ['спереди', 'сзади', 'по центру']
         for (var i=0; i<3; i++) {
-            var fieldset = $('<div class="col-md-4"><fieldset><legend></legend>Чакры '+translate[i]+'<legend></fieldset></legend></div>');
+            var fieldset = $('<div class="col-md-4"><fieldset><legend>Чакры '+translate[i]+'</legend></fieldset></div>');
             for (var j=0; j<MainChakraViolations.length; j++) {
                 var id = j+1;
                 var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" data-position="' +positions[i]+'" data-id="'+id+'" value="">'+ MainChakraViolations[j].chakra +'</label></div>');

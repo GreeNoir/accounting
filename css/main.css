@@ -66,6 +66,10 @@ footer .company-about .title {
     margin-bottom: 20px;
 }
 
+.nav-pills {
+    margin-bottom: 7px;
+}
+
 .no-border {
     border: none;
 }
