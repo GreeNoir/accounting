@@ -69,3 +69,16 @@ footer .company-about .title {
 .no-border {
     border: none;
 }
+
+#organ .panel-body div.col-md-6.second {
+    padding-top: 20px;
+}
+
+#organ .panel-body hr {
+    margin: 5px 0 15px 0;
+}
+
+#organ .panel-body .form-group.row .checkbox-inline.pair-0,
+#organ .panel-body .form-group.row .checkbox-inline.additional {
+    margin-left: 20px;
+}

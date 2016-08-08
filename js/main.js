@@ -95,5 +95,68 @@ var Form = {
             div.append(radio);
         }
         $('#cocoon_violations').append(div);
+    },
+
+    initOrganDiagnosticsPart: function() {
+        var levels = ["Ф", "Э", "А", "М"];
+
+        var n = OrganDiagnostics.length;
+        for (var i in OrganDiagnostics) {
+            if (OrganDiagnostics[i].hasOwnProperty('parts')) {
+                n++;
+                n += OrganDiagnostics[i].parts.length;
+            }
+        }
+
+
+        var m = Math.trunc(n/2)-1;
+        var k = 1;
+
+        var initOrganCheckboxes = function(obj, pair) {
+            var levels = ["Ф", "Э", "А", "М"];
+            var pairs = ["Л", "П"];
+
+            var row = $('<div class="form-group row"><div class="col-md-4"><label class="control-label">'+ obj.organ +'</label></div></div>');
+            for (var j in levels) {
+                var checkbox = '<div class="checkbox-inline"><label><input type="checkbox" data-id="'+ obj.organ +' data-level=' + levels[j] +'">'+ levels[j] +'</label></div>';
+                row.append(checkbox);
+            }
+
+            if (obj.pair || pair) {
+                for (var i in pairs) {
+                    var checkbox = $('<div class="checkbox-inline pair-'+i+'"><label><input type="checkbox" data-pair="' + pairs[i] +'">' + pairs[i] +'</label></div>');
+                    row.append(checkbox);
+                }
+            }
+
+            if (obj.hasOwnProperty('additional')) {
+                var checkbox = $('<div class="checkbox-inline additional"><label><input type="checkbox" data-additional="1">' + obj.additional +'</label></div>');
+                row.append(checkbox);
+            }
+
+            k++;
+            return row;
+        };
+
+        var part1 = $('<div class="col-md-6"></div>');
+        var part2 = $('<div class="col-md-6 second"></div>');
+
+        for (var i=0; i<OrganDiagnostics.length; i++) {
+            var obj = OrganDiagnostics[i];
+
+            if (!obj.hasOwnProperty('parts')) {
+                k < m ? part1.append(initOrganCheckboxes(obj)) : part2.append(initOrganCheckboxes(obj));
+            } else {
+                var fieldset = $('<fieldset><legend>'+ obj.section +'</legend></fieldset>');
+                k++;
+                for (var p in obj.parts) {
+                    fieldset.append(initOrganCheckboxes(obj.parts[p], obj.pair));
+                }
+                k < m ? part1.append(fieldset) : part2.append(fieldset);
+                k < m ? part1.append('<hr>') : part2.append('<hr>');
+            }
+        }
+
+        $('#organ .panel-body').append(part1).append(part2);
     }
 }
