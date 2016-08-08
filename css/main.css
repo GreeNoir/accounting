@@ -74,7 +74,13 @@ footer .company-about .title {
     border: none;
 }
 
-#cocoon_violations {}
+#account {
+    font-size: 12px;
+}
+
+#account label {
+    text-align: left;
+}
 
 #organs div.col-md-6.second {
     padding-top: 20px;

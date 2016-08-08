@@ -52,23 +52,46 @@
                     <div class="col-sm-12">
                         <div class="panel panel-default text-left">
                             <div class="panel-body">
-                                <h3>Центр</h3>
+                                <h3>Центр оздоровительной практики</h3>
+                                <h3>Индийская школа Рейки</h3>
                             </div>
                         </div>
-                        <div class="panel panel-default text-left">
+                        <div id="account" class="panel panel-default text-left">
                             <div class="panel-body">
                                 <form class="form-horizontal" role="form" id="form_main">
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Диагностику провел:</label>
-                                        <div class="col-md-8">
-                                            <input type="text" class="form-control" id="diagnost">
+                                        <label class="col-md-3 control-label">Диагностику провел</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" id="diagnost" placeholder="Диагностику провел">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Дата:</label>
-                                        <div class="col-md-4">
+                                        <label class="col-md-1 control-label">Фамилия</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="firstname" placeholder="Фамилия">
+                                        </div>
+                                        <label class="col-md-1 control-label">Имя</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="name" placeholder="Имя">
+                                        </div>
+                                        <label class="col-md-1 control-label">Отчество</label>
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" id="lastname" placeholder="Отчество">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">Пол</label>
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="gender">
+                                                <option>-Выберете-</option>
+                                                <option>Мужской</option>
+                                                <option>Женский</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-md-1 control-label">Дата</label>
+                                        <div class="col-md-3">
                                             <div class='input-group date' id='date'>
-                                                <input type='text' class="form-control">
+                                                <input type='text' class="form-control" placeholder="Дата">
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -77,16 +100,16 @@
                                                 $('#date').datetimepicker({});
                                             </script>
                                         </div>
-                                        <label class="col-md-2 control-label">Диагн№</label>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control" id="diagnNumber">
+                                        <label class="col-md-2 control-label">Диагностика №</label>
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" id="diagnNumber" placeholder="Диагностика №">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-1 control-label">Дата рождения:</label>
+                                        <label class="col-md-1 control-label" style="font-size: 11px;">Дата рождения</label>
                                         <div class="col-md-3">
                                             <div class='input-group date' id='birthdate'>
-                                                <input type='text' class="form-control">
+                                                <input type='text' class="form-control" placeholder="Дата рождения">
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -101,42 +124,46 @@
                                         </div>
                                         <label class="col-md-1 control-label">Телефон</label>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" id="phone">
+                                            <input type="text" class="form-control" id="phone" placeholder="Телефон">
                                         </div>
                                         <label class="col-md-1 control-label">E-mail</label>
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" id="email">
+                                            <input type="text" class="form-control" id="email" placeholder="E-mail">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-1 control-label">Адрес:</label>
-                                        <div class="col-md-7">
-                                            <input type="text" class="form-control" id="address">
+                                        <label class="col-md-1 control-label">Адрес</label>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control" id="address" placeholder="Адрес">
                                         </div>
 
-                                        <label class="col-md-2 control-label">Семейное положение</label>
-                                        <div class="col-md-2">
-                                            <input type="text" class="form-control" id="family_status">
+                                        <label class="col-md-2 control-label" style="font-size: 11px;">Семейное положение</label>
+                                        <div class="col-md-3">
+                                            <select class="form-control" id="family_status">
+                                                <option>-Выберете-</option>
+                                                <option>Холост</option>
+                                                <option>Женат/Замужем</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Цель обращения</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" id="goal">
+                                        <label class="col-md-2 control-label">Цель обращения</label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" id="goal" placeholder="Цель обращения">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-2">
-                                            <label class="control-label">№ записи</label>
-                                            <input type="text" class="form-control" id="recordId">
+                                            <label class="control-label" style="margin-bottom: 5px;">№ записи</label>
+                                            <input type="text" class="form-control" id="recordId" placeholder="№ записи">
                                         </div>
                                         <div class="col-md-10">
                                             <div class="form-group row">
-                                                <label class="col-md-3 control-label">Артер. давл. до</label>
+                                                <label class="col-md-3 control-label">Артер. давление до</label>
                                                 <div class="col-md-3">
                                                     <input type="text" class="form-control" id="pressure_before">
                                                 </div>
-                                                <label class="col-md-3 control-label">Артер. давл. после</label>
+                                                <label class="col-md-3 control-label">Артер. давление после</label>
                                                 <div class="col-md-3">
                                                     <input type="text" class="form-control" id="pressure_after">
                                                 </div>
