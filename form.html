@@ -158,7 +158,7 @@
 
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#bioenergy">Диагностика биоэнергетического состояния</a></li>
-                            <li><a data-toggle="pill" href="#organ">Диагностика энергетики внутренних органов</a></li>
+                            <li><a data-toggle="pill" href="#organ">Диагностика организма</a></li>
                         </ul>
                         <br>
                         <div class="tab-content">
@@ -309,7 +309,7 @@
                                                         </div>
                                                     </fieldset>
                                                     <fieldset id="biofield_sizes">
-                                                        <legend>Показатели связей</legend>
+                                                        <legend>Размер биополя</legend>
                                                         <div class="form-group row" class="biofield_sizes">
                                                             <label class="col-md-3 control-label">Связь с Космосом</label>
                                                             <div class="col-md-4">
@@ -431,9 +431,25 @@
                             <div id="organ" class="tab-pane fade">
                                 <div class="panel panel-default text-left">
                                     <div class="panel-body">
-                                        <script>
-                                            Form.initOrganDiagnosticsPart();
-                                        </script>
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#systems">Диагностика систем организма</a></li>
+                                            <li><a data-toggle="tab" href="#organs">Диагостика энергетики внутренних органов</a></li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div id="systems" class="tab-pane fade in active">
+                                                <br>
+                                                <script>
+                                                    Form.initOrganSystemsDiagnosticsPart();
+                                                </script>
+                                            </div>
+                                            <div id="organs" class="tab-pane fade">
+                                                <br>
+                                                <script>
+                                                    Form.initOrganDiagnosticsPart();
+                                                </script>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div> <!-- oragan -->
@@ -474,7 +490,7 @@
                     Центр оздоровительной практики <br>Индийская школа рейки
                 </p>
                 <p>
-                    Система электронной диагностики биоэнергетического состояния и энергетики внутренних органов
+                    Система электронной диагностики биоэнергетического состояния, систем организма и внутренних органов
                 </p>
             </div>
             <div class="row">

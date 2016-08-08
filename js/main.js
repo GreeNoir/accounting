@@ -88,7 +88,7 @@ var Form = {
     },
 
     initCocoonPart: function() {
-        var div = $('<div class="form-group row"></div>');
+        var div = $('<div class="form-group row col-md-12"></div>');
         for (var i=1; i<6; i++) {
             var id = i+1;
             var radio = $('<label class="radio-inline"><input type="radio" name="cocoon" data-id="'+id+'" value="">'+CocoonViolations[i].subname+'</label>');
@@ -97,9 +97,33 @@ var Form = {
         $('#cocoon_violations').append(div);
     },
 
-    initOrganDiagnosticsPart: function() {
-        var levels = ["Ф", "Э", "А", "М"];
+    initOrganSystemsDiagnosticsPart: function() {
+        var part1 = $('<div class="col-md-6"></div>');
+        var part2 = $('<div class="col-md-6"></div>');
 
+        var k = 1;
+        var m = Math.trunc(OrganSystems.length / 2);
+
+        for (var i in OrganSystems) {
+            var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i] +'</label></div></div>');
+            var checkboxes = $('<div class="col-md-7"></div>');
+            for (var j in Thinlevels) {
+                var level = Thinlevels[j];
+                var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-level="'+ level.L +'">'+ level.L +'</label></div>');
+                checkboxes.append(checkbox);
+            }
+            row.append(checkboxes);
+            if (k <= m) {
+                part1.append(row);
+            } else {
+                part2.append(row);
+            }
+            k++;
+        }
+        $('#organ #systems').append(part1).append(part2);
+    },
+
+    initOrganDiagnosticsPart: function() {
         var n = OrganDiagnostics.length;
         for (var i in OrganDiagnostics) {
             if (OrganDiagnostics[i].hasOwnProperty('parts')) {
@@ -157,6 +181,6 @@ var Form = {
             }
         }
 
-        $('#organ .panel-body').append(part1).append(part2);
+        $('#organs').append(part1).append(part2);
     }
 }
