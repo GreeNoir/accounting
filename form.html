@@ -65,6 +65,11 @@
                                 <h3>Индийская школа Рейки</h3>
                             </div>
                         </div>
+                        <div id="account_form_msg" class="alert alert-danger fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
+                            <small>(незаполненные обязательные поля формы помечены красным)</small>
+                        </div>
                         <div id="account" class="panel panel-default text-left">
                             <div class="panel-body">
                                 <form method="" action="" class="form-horizontal" role="form" id="account_form" novalidate="novalidate">
@@ -92,7 +97,7 @@
                                         <label class="col-md-1 control-label">Пол*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="gender" name="gender" required="true">
-                                                <option value="">-Выберете-</option>
+                                                <option value="" disabled>-Выберете-</option>
                                                 <option value="1">Мужской</option>
                                                 <option value="2">Женский</option>
                                             </select>
@@ -149,7 +154,7 @@
                                         <label class="col-md-2 control-label" style="font-size: 11px;">Семейное положение*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="family_status" name="family_status" required="true">
-                                                <option value="">-Выберете-</option>
+                                                <option value="" disabled>-Выберете-</option>
                                                 <option value="1">Холост</option>
                                                 <option value="2">Женат/Замужем</option>
                                             </select>
@@ -192,7 +197,11 @@
                                 </form>
                             </div>
                         </div>
-
+                        <div id="tabs_form_msg" class="alert alert-danger fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
+                            <small>(незаполненные обязательные поля и вкладки помечены красным)</small>
+                        </div>
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#bioenergy">Диагностика биоэнергетического состояния</a></li>
                             <li><a data-toggle="pill" href="#organ">Диагностика организма</a></li>

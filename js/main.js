@@ -60,6 +60,7 @@ function _(promise){
 var Form = {
 
     accountFormValid: false,
+    tabsFormValid: false,
 
     initMainChakraPanel: function() {
         var positions = ['front', 'back', 'middle'];
@@ -214,8 +215,6 @@ var Form = {
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
-        } else {
-            alert('Не заполнены обязательные поля.');
         }
 
         /*
@@ -228,6 +227,7 @@ var Form = {
     //returns true if all forms is valid
     validFormData: function() {
         var valid = true;
+        Form.tabsFormValid = true;
 
         Form.accountFormValid = $('#account_form').valid();
 
@@ -239,6 +239,7 @@ var Form = {
         }
 
         if (!$('#energetic_form').valid()) {
+            Form.tabsFormValid = false;
             valid = false;
             $('#tab_energetics').addClass('error');
         } else {
@@ -246,6 +247,7 @@ var Form = {
         }
 
         if (!$('#confidence_form').valid()) {
+            Form.tabsFormValid = false;
             valid = false;
             $('#tab_confidence').addClass('error');
             $('#outside label').addClass('red');
@@ -258,6 +260,18 @@ var Form = {
             $('html, body').animate({
                 scrollTop: $("#bioenergy").offset().top
             }, 100);
+        }
+
+        if (!Form.accountFormValid) {
+            $('#account_form_msg').removeClass('hidden');
+        } else {
+            $('#account_form_msg').addClass('hidden');
+        }
+
+        if (!Form.tabsFormValid) {
+            $('#tabs_form_msg').removeClass('hidden');
+        } else {
+            $('#tabs_form_msg').addClass('hidden');
         }
 
         return valid;
