@@ -199,6 +199,11 @@ var Form = {
 
     analyseFormData: function() {
         $('#account_form').submit();
-
+        $('#chakra_main_form').submit();
+        $('#chakra_small_form').submit();
+        $('#energetic_form').submit();
+        $('#confidence_form').submit();
+        $('#organ_systems_form').submit();
+        $('#organs_form').submit();
     }
 }
