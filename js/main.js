@@ -59,6 +59,8 @@ function _(promise){
 
 var Form = {
 
+    accountFormValid: false,
+
     initMainChakraPanel: function() {
         var positions = ['front', 'back', 'middle'];
         var translate = ['спереди', 'сзади', 'по центру']
@@ -66,7 +68,7 @@ var Form = {
             var fieldset = $('<div class="col-md-4"><fieldset><legend>Чакры '+translate[i]+'</legend></fieldset></div>');
             for (var j=0; j<MainChakraViolations.length; j++) {
                 var id = j+1;
-                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" data-position="' +positions[i]+'" data-id="'+id+'" value="">'+ MainChakraViolations[j].chakra +'</label></div>');
+                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" name="'+positions[i]+'" value="'+j+'">'+ MainChakraViolations[j].chakra +'</label></div>');
                 fieldset.append(checkbox);
             }
             $('#chakra_main_form').append(fieldset);
@@ -78,8 +80,7 @@ var Form = {
         for (var i=0; i<3; i++) {
             var div = $('<div class="col-md-4"></div>');
             for (var j=0; j<9; j++) {
-                var id = index+1;
-                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" data-id="'+ id +'" value="">'+ SmallChakraViolations[index].chakra +'</label></div></div>');
+                var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" name="'+ index +'" value="1">'+ SmallChakraViolations[index].chakra +'</label></div></div>');
                 div.append(checkbox);
                 index++;
             }
@@ -91,7 +92,7 @@ var Form = {
         var div = $('<div class="form-group row col-md-12"></div>');
         for (var i=1; i<6; i++) {
             var id = i+1;
-            var radio = $('<label class="radio-inline"><input type="radio" name="cocoon" data-id="'+id+'" value="">'+CocoonViolations[i].subname+'</label>');
+            var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ id +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
         }
         $('#cocoon_violations').append(div);
@@ -185,25 +186,131 @@ var Form = {
     },
 
     initValidator: function() {
-        $('#account_form').validate({
-            lang: 'ru',
-            errorPlacement: function(error, element) {
-                if (element.parent('div').hasClass('date')) {
-                    error.appendTo(element.parent('div').parent('div'));
-                } else {
-                    error.appendTo(element.parent('div'));
+        $('form').each(function(){
+            $(this).validate({
+                ignore: false,
+                lang: 'ru',
+                messages: {
+                    'cocoon': 'Выберете форму кокона.'
+                },
+                errorPlacement: function(error, element) {
+                    if (element.parent('div').hasClass('date')) {
+                        error.appendTo(element.parent('div').parent('div'));
+                    }
+                    else if (element.attr('name') == 'cocoon') {
+                        error.insertAfter('#cocoon_form');
+                    }
+                    else {
+                        error.appendTo(element.parent('div'));
+                    }
                 }
-            }
+            });
         });
     },
 
     analyseFormData: function() {
-        $('#account_form').submit();
-        $('#chakra_main_form').submit();
-        $('#chakra_small_form').submit();
+        if (this.validFormData()) {
+            var oDiagnostics = new Diagnostics();
+            Form.processChakraMainForm(oDiagnostics);
+            Form.processChakraSmallForm(oDiagnostics);
+            Form.processEnergeticForm(oDiagnostics);
+        } else {
+            alert('Не заполнены обязательные поля.');
+        }
+
+        /*
         $('#energetic_form').submit();
         $('#confidence_form').submit();
         $('#organ_systems_form').submit();
-        $('#organs_form').submit();
+        $('#organs_form').submit();*/
+    },
+
+    //returns true if all forms is valid
+    validFormData: function() {
+        var valid = true;
+
+        Form.accountFormValid = $('#account_form').valid();
+
+        if (!Form.accountFormValid) {
+            valid = false;
+            $('html, body').animate({
+                scrollTop: $("#account_form").offset().top
+            }, 100);
+        }
+
+        if (!$('#energetic_form').valid()) {
+            valid = false;
+            $('#tab_energetics').addClass('error');
+        } else {
+            $('#tab_energetics').removeClass('error');
+        }
+
+        if (!$('#confidence_form').valid()) {
+            valid = false;
+            $('#tab_confidence').addClass('error');
+        } else {
+            $('#tab_confidence').removeClass('error');
+        }
+
+        if (Form.accountFormValid && !valid) {
+            $('html, body').animate({
+                scrollTop: $("#bioenergy").offset().top
+            }, 100);
+        }
+
+        return valid;
+    },
+
+    processChakraMainForm: function(oDiagnostics) {
+        var data = $('#chakra_main_form').serializeArray();
+        var diagnostics = [];
+        for (var i in data) {
+            var obj = data[i];
+            var position = obj.name;
+            var id = obj.value;
+            var s = MainChakraViolations[id][position];
+            diagnostics.push(s);
+        }
+        oDiagnostics.setChakraMain(diagnostics);
+    },
+
+    processChakraSmallForm: function(oDiagnostics) {
+        var data = $('#chakra_small_form').serializeArray();
+        var diagnostics = [];
+        for (var i in data) {
+            var obj = data[i];
+            var id = obj.name;
+            var s = SmallChakraViolations[id].description;
+            diagnostics.push(s);
+        }
+        oDiagnostics.setChakraSmall(diagnostics);
+    },
+
+    processEnergeticForm: function(oDiagnostics) {
+
     }
 }
+
+function Diagnostics(prop) {
+    prop = prop || {};
+}
+
+Diagnostics.prototype = {
+    setChakraMain: function(diagnostics) {
+        this.chakraMain = diagnostics;
+    },
+
+    setChakraSmall: function(diagnostics) {
+        this.chakraSmall = diagnostics;
+    }
+};
+/*
+var Diagnostics = {
+    'chakraMainForm': [],
+    'chakraSmallForm': [],
+    'energeticForm': [],
+    'confidenceForm': [],
+    'organSystemsForm': [],
+    'organsForm': []
+}
+*/

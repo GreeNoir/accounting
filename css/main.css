@@ -12,6 +12,11 @@ form select.form-control.error:focus {
     border-color: #ff0000;
 }
 
+ul.nav.nav-tabs li.error a {
+    color: #ff0000;
+    font-weight: bold;
+}
+
 form input.form-control.error:focus,
 form select.form-control.error:focus {
     box-shadow: 0 1px 1px rgba(150, 0, 0, 0.03) inset, 0 0 8px rgba(233, 100, 102, 0.6);
@@ -89,8 +94,18 @@ footer .company-about .title {
     margin-bottom: 7px;
 }
 
-.no-border {
+#confidence table td {
+    padding: 0;
+}
+
+#confidence table td.left-col {
+    padding: 10px;
+}
+
+.no-border,
+.no-border:focus {
     border: none;
+    box-shadow: none;
 }
 
 #account {
