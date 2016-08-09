@@ -9,6 +9,7 @@ form input.form-control.error,
 form input.form-control.error:focus,
 form select.form-control.error,
 form select.form-control.error:focus {
+    border-width: 1px;
     border-color: #ff0000;
 }
 
@@ -17,9 +18,21 @@ ul.nav.nav-tabs li.error a {
     font-weight: bold;
 }
 
+.red {
+    color: #ff0000;
+}
+
+th, td.left-col {
+    background-color: #f5f5f5;
+}
+
 form input.form-control.error:focus,
 form select.form-control.error:focus {
     box-shadow: 0 1px 1px rgba(150, 0, 0, 0.03) inset, 0 0 8px rgba(233, 100, 102, 0.6);
+}
+
+form #outside table input {
+    border-radius: 0;
 }
 
 footer {
@@ -96,6 +109,7 @@ footer .company-about .title {
 
 #confidence table td {
     padding: 0;
+    line-height: 1;
 }
 
 #confidence table td.left-col {

@@ -248,8 +248,10 @@ var Form = {
         if (!$('#confidence_form').valid()) {
             valid = false;
             $('#tab_confidence').addClass('error');
+            $('#outside label').addClass('red');
         } else {
             $('#tab_confidence').removeClass('error');
+            $('#outside label').removeClass('red');
         }
 
         if (Form.accountFormValid && !valid) {
