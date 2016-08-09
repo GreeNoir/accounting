@@ -182,5 +182,23 @@ var Form = {
         }
 
         $('#organs #organs_form').append(part1).append(part2);
+    },
+
+    initValidator: function() {
+        $('#account_form').validate({
+            lang: 'ru',
+            errorPlacement: function(error, element) {
+                if (element.parent('div').hasClass('date')) {
+                    error.appendTo(element.parent('div').parent('div'));
+                } else {
+                    error.appendTo(element.parent('div'));
+                }
+            }
+        });
+    },
+
+    analyseFormData: function() {
+        $('#account_form').submit();
+
     }
 }

@@ -1,3 +1,22 @@
+form label.error {
+    color: #ff0000;
+    font-size: 10px;
+    display: block;
+    padding-left: 6px;
+}
+
+form input.form-control.error,
+form input.form-control.error:focus,
+form select.form-control.error,
+form select.form-control.error:focus {
+    border-color: #ff0000;
+}
+
+form input.form-control.error:focus,
+form select.form-control.error:focus {
+    box-shadow: 0 1px 1px rgba(150, 0, 0, 0.03) inset, 0 0 8px rgba(233, 100, 102, 0.6);
+}
+
 footer {
     background-color: #292c2f;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
