@@ -120,7 +120,7 @@ var Form = {
             }
             k++;
         }
-        $('#organ #systems').append(part1).append(part2);
+        $('#organ #organ_systems_form').append(part1).append(part2);
     },
 
     initOrganDiagnosticsPart: function() {
@@ -181,6 +181,6 @@ var Form = {
             }
         }
 
-        $('#organs').append(part1).append(part2);
+        $('#organs #organs_form').append(part1).append(part2);
     }
 }
