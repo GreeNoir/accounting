@@ -59,8 +59,24 @@ function _(promise){
 
 var Form = {
 
+    validators: [],
     accountFormValid: false,
     tabsFormValid: false,
+    needValidate: true,
+
+    setNeedValidate: function(v) {
+        Form.needValidate = v;
+    },
+
+    addValidator: function(v) {
+        Form.validators.push(v);
+    },
+
+    resetValidators: function() {
+        for (var i in Form.validators) {
+            Form.validators[i].resetForm();
+        }
+    },
 
     initMainChakraPanel: function() {
         var positions = ['front', 'back', 'middle'];
@@ -188,7 +204,7 @@ var Form = {
 
     initValidator: function() {
         $('form').each(function(){
-            $(this).validate({
+            var validator = $(this).validate({
                 ignore: false,
                 lang: 'ru',
                 messages: {
@@ -206,6 +222,7 @@ var Form = {
                     }
                 }
             });
+            Form.addValidator(validator);
         });
     },
 
@@ -224,9 +241,21 @@ var Form = {
         $('#organs_form').submit();*/
     },
 
-    //returns true if all forms is valid
+    //--- returns true if all forms is valid
     validFormData: function() {
         var valid = true;
+        if (!Form.needValidate) {
+            Form.resetValidators();
+            $('#validation_disabled').removeClass('hidden');
+            $('#account_form_msg').addClass('hidden');
+            $('#tabs_form_msg').addClass('hidden');
+            $('html, body').animate({
+                scrollTop: 0
+            }, 100);
+            return true;
+        }
+
+        $('#validation_disabled').addClass('hidden');
         Form.tabsFormValid = true;
 
         Form.accountFormValid = $('#account_form').valid();

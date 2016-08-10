@@ -12,15 +12,30 @@
     <script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/messages_ru.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery.indexeddb.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap-switch.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/book.js"></script>
     <script language="javascript" type="text/javascript" src="js/main.js"></script>
     <script>
         $(function () {
             Form.initValidator();
+            $("#validationEnabled").bootstrapSwitch({
+                size: 'normal',
+                onColor: 'success',
+                offColor: 'warning',
+                onText: 'Да',
+                offText: 'Нет',
+                onInit: function(event) {
+                    Form.setNeedValidate(this.checked);
+                },
+                onSwitchChange: function(event, state) {
+                    Form.setNeedValidate(state);
+                }
+            });
         });
     </script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/bootstrap-switch.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -48,7 +63,6 @@
         <!-- /.container -->
     </nav>
     <div class="container">
-        <!--<form action="" method="post" id="anketa" novalidate="novalidate">-->
         <div class="row">
             <div class="col-sm-3 well">
                 <p><a href="#">Анкета посетителя</a></p>
@@ -65,11 +79,16 @@
                                 <h3>Индийская школа Рейки</h3>
                             </div>
                         </div>
+                        <div id="validation_disabled" class="alert alert-warning fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Валидация форм была отключена!</strong>
+                        </div>
                         <div id="account_form_msg" class="alert alert-danger fade in hidden">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
                             <small>(незаполненные обязательные поля формы помечены красным)</small>
                         </div>
+
                         <div id="account" class="panel panel-default text-left">
                             <div class="panel-body">
                                 <form method="" action="" class="form-horizontal" role="form" id="account_form" novalidate="novalidate">
@@ -97,7 +116,7 @@
                                         <label class="col-md-1 control-label">Пол*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="gender" name="gender" required="true">
-                                                <option value="" disabled>-Выберете-</option>
+                                                <option value="" selected disabled>-Выберете-</option>
                                                 <option value="1">Мужской</option>
                                                 <option value="2">Женский</option>
                                             </select>
@@ -154,7 +173,7 @@
                                         <label class="col-md-2 control-label" style="font-size: 11px;">Семейное положение*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="family_status" name="family_status" required="true">
-                                                <option value="" disabled>-Выберете-</option>
+                                                <option value="" selected disabled>-Выберете-</option>
                                                 <option value="1">Холост</option>
                                                 <option value="2">Женат/Замужем</option>
                                             </select>
@@ -502,12 +521,16 @@
                                 </div>
                             </div> <!-- oragan -->
                         </div> <!-- tab-content -->
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <label class="control-label" style="padding-right: 15px;">Валидация</label><input type="checkbox" id="validationEnabled" checked>
+                            </div>
+                        </div>
                         <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Обработать данные анкеты</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!--</form>-->
     </div>
     <footer class="container-fluid">
         <div class="col-md-4"></div>
