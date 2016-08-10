@@ -76,6 +76,15 @@ var Form = {
         for (var i in Form.validators) {
             Form.validators[i].resetForm();
         }
+        $('#validation_disabled').removeClass('hidden');
+        $('#account_form_msg').addClass('hidden');
+        $('#tabs_form_msg').addClass('hidden');
+        $('#tab_energetics').removeClass('error');
+        $('#tab_confidence').removeClass('error');
+        $('html, body').animate({
+            scrollTop: 0
+        }, 100);
+        return true;
     },
 
     initMainChakraPanel: function() {
@@ -203,12 +212,19 @@ var Form = {
     },
 
     initValidator: function() {
+        var numberRules = {  number: true, min: 0, max: 100 };
+
         $('form').each(function(){
             var validator = $(this).validate({
                 ignore: false,
                 lang: 'ru',
                 messages: {
                     'cocoon': 'Выберете форму кокона.'
+                },
+                rules: {
+                    cosmos: numberRules,
+                    earth: numberRules,
+                    native: numberRules
                 },
                 errorPlacement: function(error, element) {
                     if (element.parent('div').hasClass('date')) {
@@ -232,6 +248,7 @@ var Form = {
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
+            console.log(oDiagnostics);
         }
 
         /*
@@ -245,14 +262,7 @@ var Form = {
     validFormData: function() {
         var valid = true;
         if (!Form.needValidate) {
-            Form.resetValidators();
-            $('#validation_disabled').removeClass('hidden');
-            $('#account_form_msg').addClass('hidden');
-            $('#tabs_form_msg').addClass('hidden');
-            $('html, body').animate({
-                scrollTop: 0
-            }, 100);
-            return true;
+            return Form.resetValidators();
         }
 
         $('#validation_disabled').addClass('hidden');
@@ -332,7 +342,78 @@ var Form = {
     },
 
     processEnergeticForm: function(oDiagnostics) {
+        var diagnostics = [];
+        var cocoon = $('input[name="cocoon"]:checked').val();
+        if (cocoon !== undefined) {
+            for (var i in CocoonViolations) {
+                if (CocoonViolations[i].id == cocoon) {
+                    diagnostics['cocoon'] = CocoonViolations[i].description;
+                    break;
+                }
+            }
+        }
 
+        diagnostics['kharicheskaya'] = [];
+
+        $('#kharicheskaya_violation input[type="checkbox"]:checked').each(function() {
+            var position = $(this).data('id');
+            for (var i in KharicheskayaLineViolations) {
+                if (KharicheskayaLineViolations[i].position == position) {
+                    diagnostics['kharicheskaya'].push(KharicheskayaLineViolations[i].description);
+                }
+            }
+        });
+
+        diagnostics['thin_levels'] = [];
+        $('#thin_levels input[type="checkbox"]:checked').each(function() {
+            var level = $(this).data('id');
+            for (var i in Thinlevels) {
+                if (Thinlevels[i].id == level) {
+                    diagnostics['thin_levels'].push(Thinlevels[i].description);
+                }
+            }
+        });
+
+        diagnostics['biofield'] = [];
+        diagnostics['biofield']['description'] = BiofieldCheck[0].description;
+        var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
+        var earth = +$('#biofield_sizes input[name="earth"]').val();
+        var native = +$('#biofield_sizes input[name="native"]').val();
+        console.log(cosmos);
+        console.log(earth);
+        console.log(native);
+        var s = '';
+
+        if (!isNaN(cosmos) && !isNaN(earth)) {
+            if (cosmos > earth) {
+                s = BiofieldCheck[1].description;
+            } else
+            if (cosmos < earth) {
+                s = BiofieldCheck[2].description;
+            } else
+            if (cosmos === earth) {
+                s = BiofieldCheck[3].description;
+            }
+
+            diagnostics['biofield']['cosmoearth'] = s;
+        }
+
+        s = '';
+        if (!isNaN(native)) {
+            for (var i=4; i<7; i++) {
+                var parallel = BiofieldCheck[i];
+                var min = +parallel.min;
+                var max = +parallel.max;
+
+                if (native >= min && native <= max) {
+                    s = parallel.description;
+                    break;
+                }
+            }
+            diagnostics['biofield']['native'] = s;
+        }
+
+        oDiagnostics.setEnergeticForm(diagnostics);
     }
 }
 
@@ -347,6 +428,10 @@ Diagnostics.prototype = {
 
     setChakraSmall: function(diagnostics) {
         this.chakraSmall = diagnostics;
+    },
+
+    setEnergeticForm: function(diagnostics) {
+        this.energeticForm = diagnostics;
     }
 };
 /*
