@@ -224,7 +224,11 @@ var Form = {
                 rules: {
                     cosmos: numberRules,
                     earth: numberRules,
-                    native: numberRules
+                    native: numberRules,
+                    conscious: numberRules,
+                    subconscious: numberRules,
+                    mind: numberRules,
+                    soul: numberRules
                 },
                 errorPlacement: function(error, element) {
                     if (element.parent('div').hasClass('date')) {
@@ -248,12 +252,12 @@ var Form = {
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
+            Form.processConfidenceForm(oDiagnostics);
             console.log(oDiagnostics);
         }
 
         /*
-        $('#energetic_form').submit();
-        $('#confidence_form').submit();
+
         $('#organ_systems_form').submit();
         $('#organs_form').submit();*/
     },
@@ -374,14 +378,12 @@ var Form = {
             }
         });
 
+        $('#biofield_sizes input').valid();
         diagnostics['biofield'] = [];
         diagnostics['biofield']['description'] = BiofieldCheck[0].description;
         var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
         var earth = +$('#biofield_sizes input[name="earth"]').val();
         var native = +$('#biofield_sizes input[name="native"]').val();
-        console.log(cosmos);
-        console.log(earth);
-        console.log(native);
         var s = '';
 
         if (!isNaN(cosmos) && !isNaN(earth)) {
@@ -414,6 +416,63 @@ var Form = {
         }
 
         oDiagnostics.setEnergeticForm(diagnostics);
+    },
+
+    processConfidenceForm: function(oDiagnostics) {
+        var diagnostics = [];
+        diagnostics['inside'] = {
+            'harmonic': 'В целом состояние гармоничное',
+            'priority': ''
+        };
+
+        var diff = [5, 10];
+        $('#confidence #inside input').valid();
+
+        var inside = [
+            { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
+            { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
+            { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
+            { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
+        ];
+
+        var isInsideOk = true;
+        for (var i in inside) {
+            if (isNaN(inside[i].value)) {
+                isInsideOk = false;
+            }
+        }
+
+        if (isInsideOk) {
+            inside.sort(function(a,b){
+                if (a.value > b.value)
+                    return -1;
+                if (a.value < b.value)
+                    return 1;
+                return 0;
+            });
+
+            var middle = 0;
+            for (var i in inside) {
+                middle += inside[i].value;
+            }
+
+            middle /= 4;
+            for (var i in inside) {
+                if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
+                    diagnostics['inside'].harmonic = 'В целом состояние негармоничное';
+                    break;
+                }
+            }
+
+            var maxName = inside[0].name;
+            for (var i in IndicatorsPersonal) {
+                if (IndicatorsPersonal[i].name === maxName) {
+                    diagnostics['inside'].priority = IndicatorsPersonal[i].description;
+                    break;
+                }
+            }
+        }
+        oDiagnostics.setConfidenceForm(diagnostics);
     }
 }
 
@@ -432,6 +491,10 @@ Diagnostics.prototype = {
 
     setEnergeticForm: function(diagnostics) {
         this.energeticForm = diagnostics;
+    },
+
+    setConfidenceForm: function(diagnostics) {
+        this.confidenceForm = diagnostics;
     }
 };
 /*
