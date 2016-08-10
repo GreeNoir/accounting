@@ -214,6 +214,21 @@ var Form = {
     initValidator: function() {
         var numberRules = {  number: true, min: 0, max: 100 };
 
+        var rules = {
+            cosmos: numberRules,
+            earth: numberRules,
+            native: numberRules,
+            conscious: numberRules,
+            subconscious: numberRules,
+            mind: numberRules,
+            soul: numberRules
+        };
+
+        $('#outside input[type="text"]').each(function() {
+            var name = $(this).attr('name');
+            rules[name] = numberRules;
+        });
+
         $('form').each(function(){
             var validator = $(this).validate({
                 ignore: false,
@@ -221,15 +236,7 @@ var Form = {
                 messages: {
                     'cocoon': 'Выберете форму кокона.'
                 },
-                rules: {
-                    cosmos: numberRules,
-                    earth: numberRules,
-                    native: numberRules,
-                    conscious: numberRules,
-                    subconscious: numberRules,
-                    mind: numberRules,
-                    soul: numberRules
-                },
+                rules: rules,
                 errorPlacement: function(error, element) {
                     if (element.parent('div').hasClass('date')) {
                         error.appendTo(element.parent('div').parent('div'));
