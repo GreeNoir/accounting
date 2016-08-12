@@ -63,6 +63,7 @@ var Form = {
     accountFormValid: false,
     tabsFormValid: false,
     needValidate: true,
+    levels: ['Ф', 'Э', 'А', 'М'],
 
     setNeedValidate: function(v) {
         Form.needValidate = v;
@@ -163,13 +164,12 @@ var Form = {
         var m = Math.trunc(n/2)-1;
         var k = 1;
 
-        var initOrganCheckboxes = function(obj, pair) {
-            var levels = ["Ф", "Э", "А", "М"];
+        var initOrganCheckboxes = function(obj, pair, i, p) {
             var pairs = ["Л", "П"];
 
             var row = $('<div class="form-group row"><div class="col-md-4"><label class="control-label">'+ obj.organ +'</label></div></div>');
-            for (var j in levels) {
-                var checkbox = '<div class="checkbox-inline"><label><input type="checkbox" data-id="'+ obj.organ +' data-level=' + levels[j] +'">'+ levels[j] +'</label></div>';
+            for (var j in Form.levels) {
+                var checkbox = '<div class="checkbox-inline"><label><input type="checkbox" data-main-index="'+ i +'" data-part-index="' + p + '" data-id="'+ obj.organ +'" data-level="' +j+'">'+ Form.levels[j] +'</label></div>';
                 row.append(checkbox);
             }
 
@@ -196,12 +196,12 @@ var Form = {
             var obj = OrganDiagnostics[i];
 
             if (!obj.hasOwnProperty('parts')) {
-                k < m ? part1.append(initOrganCheckboxes(obj)) : part2.append(initOrganCheckboxes(obj));
+                k < m ? part1.append(initOrganCheckboxes(obj, false, i, -1)) : part2.append(initOrganCheckboxes(obj, false, i, -1));
             } else {
                 var fieldset = $('<fieldset><legend>'+ obj.section +'</legend></fieldset>');
                 k++;
                 for (var p in obj.parts) {
-                    fieldset.append(initOrganCheckboxes(obj.parts[p], obj.pair));
+                    fieldset.append(initOrganCheckboxes(obj.parts[p], obj.pair, i, p));
                 }
                 k < m ? part1.append(fieldset) : part2.append(fieldset);
                 k < m ? part1.append('<hr>') : part2.append('<hr>');
@@ -260,13 +260,9 @@ var Form = {
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
-            console.log(oDiagnostics);
+            Form.processOrgansForm(oDiagnostics);
+//            console.log(oDiagnostics);
         }
-
-        /*
-
-        $('#organ_systems_form').submit();
-        $('#organs_form').submit();*/
     },
 
     //--- returns true if all forms is valid
@@ -480,6 +476,57 @@ var Form = {
             }
         }
         oDiagnostics.setConfidenceForm(diagnostics);
+    },
+
+    processOrgansForm: function(oDiagnostics) {
+        var mainSelector = 'form#organs_form div.checkbox-inline ';
+        var diagnostics = [];
+        for (var i in OrganDiagnostics) {
+            diagnostics.push([]);
+
+            var obj = OrganDiagnostics[i];
+            if (obj.hasOwnProperty('parts')) {
+                for (var p in obj.parts) {
+                    var part = obj.parts[p];
+                    for (var l in Form.levels) {
+                        if ($(mainSelector + 'input[type="checkbox"][data-main-index="'+i+'"][data-part-index="'+p+'"][data-level="'+l+'"]').prop('checked')) {
+                            if (part.diagnostics[l] !== undefined) {
+                                var s = part.diagnostics[l].description;
+                                diagnostics[i].push(s);
+                            }
+                        }
+                    }
+                }
+            } else {
+                for (var l in Form.levels) {
+                    if ($(mainSelector + 'input[type="checkbox"][data-main-index="'+i+'"][data-level="'+l+'"]').prop('checked')) {
+                        if (obj.diagnostics[l] !== undefined) {
+                            var s = obj.diagnostics[l].description;
+                            diagnostics[i].push(s);
+                        }
+                    }
+                }
+            }
+        }
+
+        var explanations = [];
+        for (var i in diagnostics) {
+            var m = diagnostics[i].length;
+            var name = (OrganDiagnostics[i].hasOwnProperty('section')) ? OrganDiagnostics[i].section : OrganDiagnostics[i].organ;
+
+            if (m > 0) {
+                var explanation = name + ': ';
+                for (var j=0; j<m; j++) {
+                    explanation += diagnostics[i][j];
+                    if (j < m-1) {
+                        explanation += '; ';
+                    }
+                }
+                explanations.push(explanation);
+            }
+        }
+
+        oDiagnostics.setOrgansForm(explanations);
     }
 }
 
@@ -502,6 +549,10 @@ Diagnostics.prototype = {
 
     setConfidenceForm: function(diagnostics) {
         this.confidenceForm = diagnostics;
+    },
+
+    setOrgansForm: function(diagnostics) {
+        this.organsForm = diagnostics;
     }
 };
 /*
