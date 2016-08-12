@@ -168,7 +168,7 @@ var Form = {
             var pairs = ["Л", "П"];
 
             var organLength = obj.organ.length;
-            var className = organLength > 20 ? " small" : "";
+            var className = organLength > 20 ? ' small' : '';
 
             var row = $('<div class="form-group row"><div class="col-md-4"><label class="control-label'+className+'">'+ obj.organ +'</label></div></div>');
             for (var j in Form.levels) {
@@ -295,11 +295,23 @@ var Form = {
             $('#tab_energetics').removeClass('error');
         }
 
+        var validOutsideTable = function() {
+            var valid = true;
+            $('#confidence_form #outside table input').each(function() {
+                valid = $(this).valid();
+            });
+            return valid;
+        }
+
         if (!$('#confidence_form').valid()) {
             Form.tabsFormValid = false;
             valid = false;
             $('#tab_confidence').addClass('error');
-            $('#outside label').addClass('red');
+            if (!validOutsideTable()) {
+                $('#outside label').addClass('red');
+            } else {
+                $('#outside label').removeClass('red');
+            }
         } else {
             $('#tab_confidence').removeClass('error');
             $('#outside label').removeClass('red');
