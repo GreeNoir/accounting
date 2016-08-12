@@ -148,3 +148,13 @@ footer .company-about .title {
 #organs .form-group.row .checkbox-inline.additional {
     margin-left: 20px;
 }
+
+#organs_form legend {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#organs_form label.control-label,
+#organs_form .checkbox-inline.additional label {
+    font-weight: normal;
+}
