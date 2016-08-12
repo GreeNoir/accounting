@@ -167,7 +167,10 @@ var Form = {
         var initOrganCheckboxes = function(obj, pair, i, p) {
             var pairs = ["Л", "П"];
 
-            var row = $('<div class="form-group row"><div class="col-md-4"><label class="control-label">'+ obj.organ +'</label></div></div>');
+            var organLength = obj.organ.length;
+            var className = organLength > 20 ? " small" : "";
+
+            var row = $('<div class="form-group row"><div class="col-md-4"><label class="control-label'+className+'">'+ obj.organ +'</label></div></div>');
             for (var j in Form.levels) {
                 var checkbox = '<div class="checkbox-inline"><label><input type="checkbox" data-main-index="'+ i +'" data-part-index="' + p + '" data-id="'+ obj.organ +'" data-level="' +j+'">'+ Form.levels[j] +'</label></div>';
                 row.append(checkbox);
