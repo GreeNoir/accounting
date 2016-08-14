@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/bootstrap-switch.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-spy="scroll" data-target="#scrollspy" data-offset="15">
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -46,25 +46,23 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 well">
-                <p><a href="#">Анкета посетителя</a></p>
-                <p><a href="#">Результаты</a></p>
-                <p><a href="#">Архив посещений</a></p>
-                <p><a href="#">Архив посетителей</a></p>
-            </div>
-            <div class="col-sm-9">
+            <nav class="col-md-3 hidden-sm hidden-xs" id="scrollspy">
+                <ul class="nav nav-pills nav-stacked" data-spy="affix">
+                    <li><a href="#Form">Анкета посетителя</a></li>
+                    <li><a href="#Results">Результаты</a></li>
+                    <!--<li><a href="#">Архив посещений</a></li>-->
+                    <!--<li><a href="#">Архив посетителей</a></li>-->
+                </ul>
+            </nav>
+            <div class="col-md-9">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="panel panel-default text-left">
+                    <div id="Form" class="col-md-12">
+                        <div class="panel panel-primary text-left part-header">
                             <div class="panel-body">
                                 <h3>Центр оздоровительной практики</h3>
                                 <h3>Индийская школа Рейки</h3>
+                                <p><small>Экспертная система диагностики биоэнергетического состояния</small></p>
                             </div>
-                        </div>
-                        <div id="validation_disabled" class="alert alert-warning fade in hidden">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Валидация форм была отключена!</strong><br>
-                            <small>Для получения полного набора результатов диагностики включите валидацию, заполните все обязательные поля во вкладках и повторно нажмите на кнопку обработки данных.</small>
                         </div>
                         <div id="account_form_msg" class="alert alert-danger fade in hidden">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -519,12 +517,36 @@
                             </div> <!-- oragan -->
                         </div> <!-- tab-content -->
                         <div class="form-group row">
-                            <div class="col-md-12 text-right">
-                                <label class="control-label" style="padding-right: 15px;">Валидация</label><input type="checkbox" id="validationEnabled" checked>
+                            <div class="col-md-12 text-center">
+                                <div class="text-right form-group">
+                                    <label class="control-label" style="padding-right: 15px;">Валидация</label><input type="checkbox" id="validationEnabled" checked>
+                                </div>
+                                <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Обработать данные анкеты</button>
                             </div>
                         </div>
-                        <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Обработать данные анкеты</button>
                     </div>
+                    <!--#Form-->
+
+                    <div id="Results" class="col-md-12">
+                        <div class="panel panel-default text-left part-header">
+                            <div class="panel-body">
+                                <h3>Результаты диагностики</h3>
+                            </div>
+                        </div>
+                        <div class="panel panel-success text-left">
+                            <div class="panel-body">
+                                <div class="header col-md-3"><h4>Биоэнергетика</h4></div>
+                                <div id="bioenergy-part" class="col-md-9 content"><p><br>Результаты не были получены.</p></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-warning text-left">
+                            <div class="panel-body">
+                                <div class="header col-md-3"><h4>Организм</h4></div>
+                                <div id="organism-part" class="col-md-9 content"><p><br>Результаты не были получены.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--#Results-->
                 </div>
             </div>
         </div>
@@ -553,17 +575,13 @@
                 </div>
             </div>
             <div class="row copy">
-                <span>&copy;</span>Разработка сайта Анжелика Балута
+                <span>&copy;</span>Разработка сайта Анжелика Балута, 2016
             </div>
         </div>
         <div class="col-md-3">
             <div class="row company-about">
-                <p class="title">
-                    Центр оздоровительной практики <br>Индийская школа рейки
-                </p>
-                <p>
-                    Экспертная система электронной диагностики биоэнергетического состояния, систем организма и внутренних органов
-                </p>
+                <p class="title">Центр оздоровительной практики <br>Индийская школа рейки</p>
+                <p>Экспертная система диагностики биоэнергетического состояния, систем организма и внутренних органов</p>
             </div>
             <div class="row">
                 <div class="glyphicon glyphicon-globe no-background" aria-hidden="true"></div>
@@ -573,6 +591,22 @@
             </div>
         </div>
     </footer>
+    <div id="validation_disabled" class="modal warning fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Валидация форм была отключена!</h4>
+                </div>
+                <div class="modal-body">
+                    Для получения полного набора результатов диагностики включите валидацию, заполните все обязательные поля во вкладках и повторно нажмите на кнопку обработки данных.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script language="javascript" type="text/javascript">

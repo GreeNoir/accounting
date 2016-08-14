@@ -77,14 +77,11 @@ var Form = {
         for (var i in Form.validators) {
             Form.validators[i].resetForm();
         }
-        $('#validation_disabled').removeClass('hidden');
+        $('#validation_disabled').modal();
         $('#account_form_msg').addClass('hidden');
         $('#tabs_form_msg').addClass('hidden');
         $('#tab_energetics').removeClass('error');
         $('#tab_confidence').removeClass('error');
-        $('html, body').animate({
-            scrollTop: 0
-        }, 100);
         return true;
     },
 
@@ -264,7 +261,8 @@ var Form = {
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
-//            console.log(oDiagnostics);
+            console.log(oDiagnostics);
+            Form.printDiagnostics(oDiagnostics);
         }
     },
 
@@ -275,7 +273,6 @@ var Form = {
             return Form.resetValidators();
         }
 
-        $('#validation_disabled').addClass('hidden');
         Form.tabsFormValid = true;
 
         Form.accountFormValid = $('#account_form').valid();
@@ -439,7 +436,7 @@ var Form = {
     processConfidenceForm: function(oDiagnostics) {
         var diagnostics = [];
         diagnostics['inside'] = {
-            'harmonic': 'В целом состояние гармоничное',
+            'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
             'priority': ''
         };
 
@@ -477,7 +474,7 @@ var Form = {
             middle /= 4;
             for (var i in inside) {
                 if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
-                    diagnostics['inside'].harmonic = 'В целом состояние негармоничное';
+                    diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
                     break;
                 }
             }
@@ -542,6 +539,86 @@ var Form = {
         }
 
         oDiagnostics.setOrgansForm(explanations);
+    },
+
+    printDiagnostics: function(oDiagnostics) {
+
+        var selector = '#Results #bioenergy-part';
+        $(selector).empty();
+        if (oDiagnostics.chakraMain.length) {
+            $(selector).append('<label>Чакры</label>');
+            for (var i in oDiagnostics.chakraMain) {
+                var s = oDiagnostics.chakraMain[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+            $(selector).append('<hr/>');
+        }
+        if (oDiagnostics.chakraSmall.length) {
+            $(selector).append('<label>Мелкие чакры</label>');
+            for (var i in oDiagnostics.chakraSmall) {
+                var s = oDiagnostics.chakraSmall[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+            $(selector).append('<hr/>');
+        }
+
+        $(selector).append('<label>Энергетика</label>');
+        if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
+            var s = '<b>Форма кокона:</b>&nbsp;' + oDiagnostics.energeticForm.cocoon;
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        if (oDiagnostics.energeticForm.kharicheskaya.length) {
+            for (var i in oDiagnostics.energeticForm.kharicheskaya) {
+                var s = oDiagnostics.energeticForm.kharicheskaya[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+        }
+
+        if (oDiagnostics.energeticForm.thin_levels.length) {
+            for (var i in oDiagnostics.energeticForm.thin_levels) {
+                var s = oDiagnostics.energeticForm.thin_levels[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+        }
+
+        var s = oDiagnostics.energeticForm.biofield.description;
+        $(selector).append('<p><small>'+s+'</small></p>');
+
+        if (oDiagnostics.energeticForm.biofield.cosmoearth.length) {
+            var s = oDiagnostics.energeticForm.biofield.cosmoearth;
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        if (oDiagnostics.energeticForm.biofield.native.length) {
+            var s = oDiagnostics.energeticForm.biofield.native;
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        $(selector).append('<hr>');
+        $(selector).append('<label>Уверенность</label>');
+        var s = oDiagnostics.confidenceForm.inside.harmonic;
+        $(selector).append('<p>'+s+'</p>');
+        if (oDiagnostics.confidenceForm.hasOwnProperty('priority')) {
+            var s = oDiagnostics.confidenceForm.inside.priority;
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        if ($(selector).html().length === 0) {
+            $(selector).append('<p>Результаты не были получены.</p>');
+        }
+
+        selector = '#Results #organism-part';
+        $(selector).empty();
+        if (oDiagnostics.organsForm) {
+            for (var i in oDiagnostics.organsForm) {
+                var s = oDiagnostics.organsForm[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+        }
+        if ($(selector).html().length === 0) {
+            $(selector).append('<p>Результаты не были получены.</p>');
+        }
     }
 }
 

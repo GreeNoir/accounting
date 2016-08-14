@@ -162,11 +162,29 @@ footer .company-about .title {
 div.copy {
     font-weight: normal;
     font-size: 11px;
-    padding: 7px 0 0 17px;
+    padding: 10px 0 0 17px;
     color: gray;
 }
 
 div.copy span {
     padding-right: 6px;
     font-size: 12px;
+}
+
+#Results {
+    margin-top: 15px;
+}
+
+#Results .part-header {
+    color: #fff;
+    background-color: #673ab7;
+    border-color: #673ab7;
+}
+
+#Results .panel {
+    margin: 5px 0;
+}
+
+#scrollspy ul li {
+    padding: 4px 0;
 }
