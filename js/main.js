@@ -273,6 +273,7 @@ var Form = {
             return Form.resetValidators();
         }
 
+        Form.clearResults();
         Form.tabsFormValid = true;
 
         Form.accountFormValid = $('#account_form').valid();
@@ -539,6 +540,11 @@ var Form = {
         }
 
         oDiagnostics.setOrgansForm(explanations);
+    },
+
+    clearResults: function() {
+        $('#Results #bioenergy-part, #Results #organism-part').empty();
+        $('#Results #bioenergy-part, #Results #organism-part').append('<p>Результаты не были получены.</p>');
     },
 
     printDiagnostics: function(oDiagnostics) {
