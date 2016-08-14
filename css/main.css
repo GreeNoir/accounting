@@ -262,5 +262,22 @@ div.copy span {
     }
     .col-md-1 {
         width: 8.33333333%;
-    }    
+    }
+
+    .form-control::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    .form-control::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    .form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+
+    #Form input[name="date"] {
+        font-size: 9px;
+    }
 }
