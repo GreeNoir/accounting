@@ -49,13 +49,11 @@
             <nav class="col-md-3 hidden-sm hidden-xs" id="scrollspy">
                 <ul class="nav nav-pills nav-stacked" data-spy="affix">
                     <li><a href="#Form">Анкета посетителя</a></li>
-                    <li><a href="#Diagnostics">Форма диагностики</a></li>
+                    <li><a href="#Diagnostics">Диагностика</a></li>
                     <li id="link_results" class="disabled"><a href="#Results">Результаты</a></li>
-                    <!--<li><a href="#">Архив посещений</a></li>-->
-                    <!--<li><a href="#">Архив посетителей</a></li>-->
                 </ul>
             </nav>
-            <div class="col-md-9">
+            <div class="col-md-9 col-print-12">
                 <div class="row">
                     <div id="Form" class="col-md-12">
                         <div class="panel panel-primary text-left part-header">
@@ -213,7 +211,7 @@
                         <div class="tab-content">
 
                             <div id="bioenergy" class="tab-pane fade in active">
-
+                                <h2 class="print">Диагностика биоэнергетического состояния</h2>
                                 <div class="panel panel-default text-left">
                                     <div class="panel-body">
                                         <ul class="nav nav-tabs">
@@ -226,11 +224,12 @@
                                         <div class="tab-content">
                                             <div id="main" class="tab-pane fade in active">
                                                 <form class="form-horizontal" id="chakra_main_form" role="form">
+                                                    <h3 class="print">Чакры</h3>
                                                     <br>
                                                     <script>
                                                         Form.initMainChakraPanel();
                                                     </script>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 col-print-12">
                                                         <fieldset>
                                                             <legend>Дополнительные чакры</legend>
                                                             <div class="form-group row">
@@ -256,6 +255,7 @@
                                                 </form>
                                             </div>
                                             <div id="small" class="tab-pane fade">
+                                                <h3 class="print">Мелкие чакры</h3>
                                                 <form class="form-horizontal" id="chakra_small_form" role="form">
                                                     <br>
                                                     <script>
@@ -264,6 +264,7 @@
                                                 </form>
                                             </div>
                                             <div id="energetics" class="tab-pane fade">
+                                                <h3 class="print">Энергетика</h3>
                                                 <form method="" action="" class="form-horizontal" id="energetic_form" role="form">
                                                     <br>
                                                     <fieldset id="meridians">
@@ -384,6 +385,7 @@
                                                 </form>
                                             </div>
                                             <div id="confidence" class="tab-pane fade">
+                                                <h3 class="print">Уверенность</h3>
                                                 <form action="" method="" class="form-horizontal" id="confidence_form" role="form">
                                                     <br>
                                                     <fieldset id="inside">
@@ -492,6 +494,7 @@
                             </div> <!-- bioenergy -->
 
                             <div id="organ" class="tab-pane fade">
+                                <h2 class="print">Диагностика организма</h2>
                                 <div class="panel panel-default text-left">
                                     <div class="panel-body">
                                         <ul class="nav nav-tabs">
@@ -501,6 +504,7 @@
 
                                         <div class="tab-content">
                                             <div id="systems" class="tab-pane fade in active">
+                                                <h3 class="print">Диагностика систем организма</h3>
                                                 <br>
                                                 <form id="organ_systems_form">
                                                 </form>
@@ -509,6 +513,7 @@
                                                 </script>
                                             </div>
                                             <div id="organs" class="tab-pane fade">
+                                                <h3 class="print">Диагостика внутренних органов</h3>
                                                 <br>
                                                 <form id="organs_form"></form>
                                                 <script>
@@ -520,7 +525,7 @@
                                 </div>
                             </div> <!-- oragan -->
                         </div> <!-- tab-content -->
-                        <div class="form-group row">
+                        <div class="form-group row validation">
                             <div class="col-md-12 text-center">
                                 <div class="text-right form-group">
                                     <label class="control-label" style="padding-right: 15px;">Валидация</label><input type="checkbox" id="validationEnabled" checked>
@@ -539,16 +544,17 @@
                         </div>
                         <div class="panel panel-success text-left">
                             <div class="panel-body">
-                                <div class="header col-md-3"><label>Биоэнергетическое состояние</label></div>
-                                <div id="bioenergy-part" class="col-md-9 content"><p>Результаты не были получены.</p></div>
+                                <div class="header col-md-3 col-print-12"><label>Биоэнергетическое состояние</label></div>
+                                <div id="bioenergy-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
                             </div>
                         </div>
                         <div class="panel panel-warning text-left">
                             <div class="panel-body">
-                                <div class="header col-md-3"><label>Организм</label></div>
-                                <div id="organism-part" class="col-md-9 content"><p>Результаты не были получены.</p></div>
+                                <div class="header col-md-3 col-print-12"><label>Организм</label></div>
+                                <div id="organism-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
                             </div>
                         </div>
+                        <button id="print" class="btn btn-primary btn-lg btn-block disabled" onclick="Form.printResults();">Печать результатов</button>
                     </div>
                     <!--#Results-->
                 </div>

@@ -63,10 +63,16 @@ var Form = {
     accountFormValid: false,
     tabsFormValid: false,
     needValidate: true,
+    isValid: false,
+
     levels: ['Ф', 'Э', 'А', 'М'],
 
     setNeedValidate: function(v) {
         Form.needValidate = v;
+    },
+
+    setValid: function(v) {
+        Form.isValid = v;
     },
 
     addValidator: function(v) {
@@ -317,7 +323,7 @@ var Form = {
 
         if (Form.accountFormValid && !valid) {
             $('html, body').animate({
-                scrollTop: $("#bioenergy").offset().top
+                scrollTop: $("#Diagnostics").offset().top
             }, 100);
         }
 
@@ -333,6 +339,7 @@ var Form = {
             $('#tabs_form_msg').addClass('hidden');
         }
 
+        Form.setValid(valid);
         return valid;
     },
 
@@ -630,6 +637,14 @@ var Form = {
         if ($(selector).html().length === 0) {
             $(selector).append('<p>Результаты не были получены.</p>');
         }
+
+        if (Form.needValidate && Form.isValid) {
+            $('button#print').removeClass('disabled');
+        }
+    },
+
+    printResults: function() {
+        window.print();
     }
 }
 
@@ -658,13 +673,3 @@ Diagnostics.prototype = {
         this.organsForm = diagnostics;
     }
 };
-/*
-var Diagnostics = {
-    'chakraMainForm': [],
-    'chakraSmallForm': [],
-    'energeticForm': [],
-    'confidenceForm': [],
-    'organSystemsForm': [],
-    'organsForm': []
-}
-*/
