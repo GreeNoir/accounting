@@ -49,7 +49,8 @@
             <nav class="col-md-3 hidden-sm hidden-xs" id="scrollspy">
                 <ul class="nav nav-pills nav-stacked" data-spy="affix">
                     <li><a href="#Form">Анкета посетителя</a></li>
-                    <li><a href="#Results">Результаты</a></li>
+                    <li><a href="#Diagnostics">Форма диагностики</a></li>
+                    <li id="link_results" class="disabled"><a href="#Results">Результаты</a></li>
                     <!--<li><a href="#">Архив посещений</a></li>-->
                     <!--<li><a href="#">Архив посетителей</a></li>-->
                 </ul>
@@ -202,6 +203,9 @@
                             <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
                             <small>(незаполненные обязательные поля и вкладки помечены красным)</small>
                         </div>
+                    </div>
+                    <!--#Form-->
+                    <div id="Diagnostics" class="col-md-12">
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#bioenergy">Диагностика биоэнергетического состояния</a></li>
                             <li><a data-toggle="pill" href="#organ">Диагностика организма</a></li>
@@ -525,7 +529,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--#Form-->
+                    <!--#Diagnostics-->
 
                     <div id="Results" class="col-md-12">
                         <div class="panel panel-default text-left part-header">

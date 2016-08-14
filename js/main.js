@@ -543,6 +543,11 @@ var Form = {
 
     printDiagnostics: function(oDiagnostics) {
 
+        $('#link_results').removeClass('disabled');
+        $('html, body').animate({
+            scrollTop: $("#Results").offset().top
+        }, 100);
+
         var selector = '#Results #bioenergy-part';
         $(selector).empty();
         if (oDiagnostics.chakraMain.length) {
