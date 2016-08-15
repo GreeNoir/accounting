@@ -555,6 +555,7 @@ var Form = {
     },
 
     printDiagnostics: function(oDiagnostics) {
+        $('#diagnostics_success').modal();
 
         $('#link_results').removeClass('disabled');
         $('html, body').animate({

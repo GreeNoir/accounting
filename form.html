@@ -554,7 +554,12 @@
                                 <div id="organism-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
                             </div>
                         </div>
-                        <button id="print" class="btn btn-primary btn-lg btn-block disabled" onclick="Form.printResults();">Печать результатов</button>
+                        <button id="print" class="btn btn-success btn-lg btn-block disabled" onclick="Form.printResults();" data-toggle="tooltip" title="Проверьте подключение принтера перед печатью">
+                            <span class="glyphicon glyphicon-print"></span>&nbsp;Печать результатов
+                        </button>
+                        <script>
+                            $('#print').tooltip({ trigger: 'hover' });
+                        </script>
                     </div>
                     <!--#Results-->
                 </div>
@@ -601,7 +606,7 @@
             </div>
         </div>
     </footer>
-    <div id="validation_disabled" class="modal warning fade" role="dialog">
+    <div id="validation_disabled" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-warning">
@@ -610,10 +615,23 @@
                 </div>
                 <div class="modal-body">
                     <p>Для получения полного набора результатов диагностики включите валидацию, заполните все обязательные поля во вкладках и повторно нажмите на кнопку обработки данных.</p>
-                    <small>Результаты без валидации не сохраняются в архив.</small>
+                    <p>Результаты без валидации не сохраняются в архив.</p><br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="diagnostics_success" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Диагностика завершена!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Полученные данные можно просмотреть и распечатать на принтере.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
