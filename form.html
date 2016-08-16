@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Анкета</title>
+    <title>Экспертная система диагностики биоэнергетического состояния - Анкета</title>
     <link rel="shortcut icon" href="favicon.ico">
-    <script language="javascript" type="text/javascript" src="js/jquery-1.9.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/moment.js"></script>
     <script language="javascript" type="text/javascript" src="js/ru.js"></script>
@@ -12,18 +12,15 @@
     <script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/messages_ru.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery.indexeddb.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap-switch.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/book.js"></script>
     <script language="javascript" type="text/javascript" src="js/main.js"></script>
-    <script>
-        $(function () {
-            Form.initValidator();
-        });
-    </script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body data-spy="scroll" data-target="#scrollspy" data-offset="15">
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,7 +36,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">О приложении</a>
+                        <a href="#">Посетители</a>
+                    </li>
+                    <li>
+                        <a href="#">Посещения</a>
                     </li>
                 </ul>
             </div>
@@ -49,21 +49,29 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 well">
-                <p><a href="#">Анкета посетителя</a></p>
-                <p><a href="#">Результаты</a></p>
-                <p><a href="#">Архив посещений</a></p>
-                <p><a href="#">Архив посетителей</a></p>
-            </div>
-            <div class="col-sm-9">
+            <nav class="col-md-3 hidden-sm hidden-xs" id="scrollspy">
+                <ul class="nav nav-pills nav-stacked" data-spy="affix">
+                    <li><a href="#Form">Анкета посетителя</a></li>
+                    <li><a href="#Diagnostics">Диагностика</a></li>
+                    <li id="link_results" class="disabled"><a href="#Results">Результаты</a></li>
+                </ul>
+            </nav>
+            <div class="col-md-9 col-print-12">
                 <div class="row">
-                    <div class="col-sm-12">
-                        <div class="panel panel-default text-left">
+                    <div id="Form" class="col-md-12">
+                        <div class="panel panel-primary text-left part-header">
                             <div class="panel-body">
                                 <h3>Центр оздоровительной практики</h3>
                                 <h3>Индийская школа Рейки</h3>
+                                <p><small>Экспертная система диагностики биоэнергетического состояния</small></p>
                             </div>
                         </div>
+                        <div id="account_form_msg" class="alert alert-danger fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
+                            <small>(незаполненные обязательные поля формы помечены красным)</small>
+                        </div>
+
                         <div id="account" class="panel panel-default text-left">
                             <div class="panel-body">
                                 <form method="" action="" class="form-horizontal" role="form" id="account_form" novalidate="novalidate">
@@ -91,7 +99,7 @@
                                         <label class="col-md-1 control-label">Пол*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="gender" name="gender" required="true">
-                                                <option value="">-Выберете-</option>
+                                                <option value="" selected disabled>-Выберете-</option>
                                                 <option value="1">Мужской</option>
                                                 <option value="2">Женский</option>
                                             </select>
@@ -148,7 +156,7 @@
                                         <label class="col-md-2 control-label" style="font-size: 11px;">Семейное положение*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="family_status" name="family_status" required="true">
-                                                <option value="">-Выберете-</option>
+                                                <option value="" selected disabled>-Выберете-</option>
                                                 <option value="1">Холост</option>
                                                 <option value="2">Женат/Замужем</option>
                                             </select>
@@ -191,7 +199,14 @@
                                 </form>
                             </div>
                         </div>
-
+                        <div id="tabs_form_msg" class="alert alert-danger fade in hidden">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Не все обязательные поля были заполнены.</strong> Заполните все обязательные поля и повторите попытку!<br/>
+                            <small>(незаполненные обязательные поля и вкладки помечены красным)</small>
+                        </div>
+                    </div>
+                    <!--#Form-->
+                    <div id="Diagnostics" class="col-md-12">
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#bioenergy">Диагностика биоэнергетического состояния</a></li>
                             <li><a data-toggle="pill" href="#organ">Диагностика организма</a></li>
@@ -199,24 +214,25 @@
                         <div class="tab-content">
 
                             <div id="bioenergy" class="tab-pane fade in active">
-
+                                <h2 class="print">Диагностика биоэнергетического состояния</h2>
                                 <div class="panel panel-default text-left">
                                     <div class="panel-body">
                                         <ul class="nav nav-tabs">
                                             <li class="active"><a data-toggle="tab" href="#main">Чакры</a></li>
                                             <li><a data-toggle="tab" href="#small">Мелкие чакры</a></li>
-                                            <li><a data-toggle="tab" href="#energetics">Энергетика</a></li>
-                                            <li><a data-toggle="tab" href="#confidence">Уверенность</a></li>
+                                            <li id="tab_energetics"><a data-toggle="tab" href="#energetics">Энергетика</a></li>
+                                            <li id="tab_confidence"><a data-toggle="tab" href="#confidence">Уверенность</a></li>
                                         </ul>
 
                                         <div class="tab-content">
                                             <div id="main" class="tab-pane fade in active">
                                                 <form class="form-horizontal" id="chakra_main_form" role="form">
+                                                    <h3 class="print">Чакры</h3>
                                                     <br>
                                                     <script>
                                                         Form.initMainChakraPanel();
                                                     </script>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 col-print-12">
                                                         <fieldset>
                                                             <legend>Дополнительные чакры</legend>
                                                             <div class="form-group row">
@@ -242,6 +258,7 @@
                                                 </form>
                                             </div>
                                             <div id="small" class="tab-pane fade">
+                                                <h3 class="print">Мелкие чакры</h3>
                                                 <form class="form-horizontal" id="chakra_small_form" role="form">
                                                     <br>
                                                     <script>
@@ -250,7 +267,8 @@
                                                 </form>
                                             </div>
                                             <div id="energetics" class="tab-pane fade">
-                                                <form class="form-horizontal" id="energetic_form" role="form">
+                                                <h3 class="print">Энергетика</h3>
+                                                <form method="" action="" class="form-horizontal" id="energetic_form" role="form">
                                                     <br>
                                                     <fieldset id="meridians">
                                                         <legend>Состояние энергетики меридианов</legend>
@@ -262,17 +280,17 @@
                                                         <legend>Кокон</legend>
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
-                                                                <label class="control-label">Форма кокона:</label></div>
+                                                                <label class="control-label" id="cocoon_form">Форма кокона:</label></div>
                                                                 <div class="col-md-9" id="cocoon_violations">
                                                                     <script>
                                                                         Form.initCocoonPart();
                                                                     </script>
                                                                     <div class="form-group row">
                                                                         <div class="col-md-3">
-                                                                            <label class="radio-inline"><input type="radio" name="cocoon" data-id="1">Неопределённая</label>
+                                                                            <label class="radio-inline"><input type="radio" name="cocoon" required="true" value="1">Неопределённая</label>
                                                                         </div>
                                                                         <div class="col-md-9">
-                                                                            <input class="form-control" id="cocoon_undef_descript" data-id="7" value="" type="text">
+                                                                            <input class="form-control" id="cocoon_undef_descript" data-id="1" value="" type="text">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -321,7 +339,7 @@
                                                             </div>
                                                         </div>
                                                     </fieldset>
-                                                    <fieldset id="basic_problems">
+                                                    <fieldset id="thin_levels">
                                                         <legend>Основные проблемы на уровне 4 тонких тел</legend>
                                                         <div class="form-group row">
                                                             <div class="col-md-3">
@@ -347,27 +365,31 @@
                                                         <legend>Размер биополя</legend>
                                                         <div class="form-group row" class="biofield_sizes">
                                                             <label class="col-md-3 control-label">Связь с Космосом</label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" class="form-control" id="cosmos">
+                                                            <div class="col-md-4 has-feedback">
+                                                                <input type="text" class="form-control" name="cosmos" required="true">
+                                                                <span class="form-control-feedback">&#37;</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row" class="biofield_sizes">
                                                             <label class="col-md-3 control-label">Связь с Землей</label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" class="form-control" id="earth">
+                                                            <div class="col-md-4 has-feedback">
+                                                                <input type="text" class="form-control" name="earth" required="true">
+                                                                <span class="form-control-feedback">&#37;</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row" class="biofield_sizes">
                                                             <label class="col-md-3 control-label">Связь с Родом</label>
-                                                            <div class="col-md-4">
-                                                                <input type="text" class="form-control" id="native">
+                                                            <div class="col-md-4 has-feedback">
+                                                                <input type="text" class="form-control" name="native" required="true">
+                                                                <span class="form-control-feedback">&#37;</span>
                                                             </div>
                                                         </div>
                                                     </fieldset>
                                                 </form>
                                             </div>
                                             <div id="confidence" class="tab-pane fade">
-                                                <form class="form-horizontal" id="confidence_form" role="form">
+                                                <h3 class="print">Уверенность</h3>
+                                                <form action="" method="" class="form-horizontal" id="confidence_form" role="form">
                                                     <br>
                                                     <fieldset id="inside">
                                                         <legend>Внутренняя уверенность</legend>
@@ -378,26 +400,30 @@
                                                             <div class="col-md-9">
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Сознание</label>
-                                                                    <div class="col-md-6">
-                                                                        <input class="form-control" type="text" id="conscious" value="">
+                                                                    <div class="col-md-6 has-feedback">
+                                                                        <input class="form-control" type="text" name="conscious" value="" required="true">
+                                                                        <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Подсознание</label>
-                                                                    <div class="col-md-6">
-                                                                        <input class="form-control" type="text" id="subconscious" value="">
+                                                                    <div class="col-md-6 has-feedback">
+                                                                        <input class="form-control" type="text" name="subconscious" value="" required="true">
+                                                                        <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Разум</label>
-                                                                    <div class="col-md-6">
-                                                                        <input class="form-control" type="text" id="mind" value="">
+                                                                    <div class="col-md-6 has-feedback">
+                                                                        <input class="form-control" type="text" name="mind" value="" required="true">
+                                                                        <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Душа</label>
-                                                                    <div class="col-md-6">
-                                                                        <input class="form-control" type="text" id="soul" value="">
+                                                                    <div class="col-md-6 has-feedback">
+                                                                        <input class="form-control" type="text" name="soul" value="" required="true">
+                                                                        <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -419,38 +445,45 @@
                                                                 </thead>
                                                                 <tbody class="text-center">
                                                                     <tr>
-                                                                        <td class="text-left text-nowrap">Правая нога</td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="1"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="2"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="3"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_leg" data-level="4"></td>
+                                                                        <td class="text-left text-nowrap left-col">Правая нога</td>
+                                                                        <td><input type="text" class="form-control" name="rigth_leg1" required="true" data-id="right_leg" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="right_leg2" required="true" data-id="right_leg" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="right_leg3" required="true" data-id="right_leg" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="right_leg4" required="true" data-id="right_leg" data-level="4"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-left text-nowrap">Левая нога</td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="1"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="2"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="3"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_leg" data-level="4"></td>
+                                                                        <td class="text-left text-nowrap left-col">Левая нога</td>
+                                                                        <td><input type="text" class="form-control" name="left_leg1" required="true" data-id="left_leg" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="left_leg2" required="true" data-id="left_leg" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="left_leg3" required="true" data-id="left_leg" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="left_leg4" required="true" data-id="left_leg" data-level="4"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-left text-nowrap">Правая рука</td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="1"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="2"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="3"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="right_hand" data-level="4"></td>
+                                                                        <td class="text-left text-nowrap left-col">Правая рука</td>
+                                                                        <td><input type="text" class="form-control" name="rigth_hand1" required="true" data-id="right_hand" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="right_hand2" required="true" data-id="right_hand" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="right_hand3" required="true" data-id="right_hand" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="right_hand4" required="true" data-id="right_hand" data-level="4"></td>
                                                                     <tr>
-                                                                        <td class="text-left text-nowrap">Левая рука</td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="1"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="2"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="3"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="left_hand" data-level="4"></td>
+                                                                        <td class="text-left text-nowrap left-col">Левая рука</td>
+                                                                        <td><input type="text" class="form-control" name="left_hand1" required="true" data-id="left_hand" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="left_hand2" required="true" data-id="left_hand" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="left_hand3" required="true" data-id="left_hand" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="left_hand4" required="true" data-id="left_hand" data-level="4"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="text-left">Спина</td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="1"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="2"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="3"></td>
-                                                                        <td><input type="text" class="form-control no-border" data-id="rear" data-level="4"></td>
+                                                                        <td class="text-left left-col">Спина</td>
+                                                                        <td><input type="text" class="form-control" name="rear1" required="true" data-id="rear" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="rear2" required="true" data-id="rear" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="rear3" required="true" data-id="rear" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="rear4" required="true" data-id="rear" data-level="4"></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-left left-col">Голова</td>
+                                                                        <td><input type="text" class="form-control" name="head1" required="true" data-id="head" data-level="1"></td>
+                                                                        <td><input type="text" class="form-control" name="head2" required="true" data-id="head" data-level="2"></td>
+                                                                        <td><input type="text" class="form-control" name="head3" required="true" data-id="head" data-level="3"></td>
+                                                                        <td><input type="text" class="form-control" name="head4" required="true" data-id="head" data-level="4"></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -464,6 +497,7 @@
                             </div> <!-- bioenergy -->
 
                             <div id="organ" class="tab-pane fade">
+                                <h2 class="print">Диагностика организма</h2>
                                 <div class="panel panel-default text-left">
                                     <div class="panel-body">
                                         <ul class="nav nav-tabs">
@@ -473,6 +507,7 @@
 
                                         <div class="tab-content">
                                             <div id="systems" class="tab-pane fade in active">
+                                                <h3 class="print">Диагностика систем организма</h3>
                                                 <br>
                                                 <form id="organ_systems_form">
                                                 </form>
@@ -481,6 +516,7 @@
                                                 </script>
                                             </div>
                                             <div id="organs" class="tab-pane fade">
+                                                <h3 class="print">Диагостика внутренних органов</h3>
                                                 <br>
                                                 <form id="organs_form"></form>
                                                 <script>
@@ -492,8 +528,43 @@
                                 </div>
                             </div> <!-- oragan -->
                         </div> <!-- tab-content -->
-                        <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Проанализировать данные анкеты</button>
+                        <div class="form-group row validation">
+                            <div class="col-md-12 text-center">
+                                <div class="text-right form-group">
+                                    <label class="control-label" style="padding-right: 15px;">Валидация</label><input type="checkbox" id="validationEnabled" checked>
+                                </div>
+                                <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Обработать данные анкеты</button>
+                            </div>
+                        </div>
                     </div>
+                    <!--#Diagnostics-->
+
+                    <div id="Results" class="col-md-12">
+                        <div class="panel panel-default text-left part-header">
+                            <div class="panel-body">
+                                <h3>Результаты диагностики</h3>
+                            </div>
+                        </div>
+                        <div class="panel panel-success text-left">
+                            <div class="panel-body">
+                                <div class="header col-md-3 col-print-12"><h4>Биоэнергетическое состояние</h4></div>
+                                <div id="bioenergy-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-warning text-left">
+                            <div class="panel-body">
+                                <div class="header col-md-3 col-print-12"><h4>Организм</h4></div>
+                                <div id="organism-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
+                            </div>
+                        </div>
+                        <button id="print" class="btn btn-success btn-lg btn-block disabled" onclick="Form.printResults();" data-toggle="tooltip" title="Проверьте подключение принтера перед печатью">
+                            <span class="glyphicon glyphicon-print"></span>&nbsp;Печать результатов
+                        </button>
+                        <script>
+                            $('#print').tooltip({ trigger: 'hover' });
+                        </script>
+                    </div>
+                    <!--#Results-->
                 </div>
             </div>
         </div>
@@ -521,15 +592,14 @@
                     <p><a href="mailto:info-reiki@mail.ru">info-reiki@mail.ru</a></p>
                 </div>
             </div>
+            <div class="row copy">
+                <span>&copy;</span>Разработка сайта Анжелика Балута, 2016
+            </div>
         </div>
         <div class="col-md-3">
             <div class="row company-about">
-                <p class="title">
-                    Центр оздоровительной практики <br>Индийская школа рейки
-                </p>
-                <p>
-                    Система электронной диагностики биоэнергетического состояния, систем организма и внутренних органов
-                </p>
+                <p class="title">Центр оздоровительной практики <br>Индийская школа рейки</p>
+                <p>Экспертная система диагностики биоэнергетического состояния, систем организма и внутренних органов</p>
             </div>
             <div class="row">
                 <div class="glyphicon glyphicon-globe no-background" aria-hidden="true"></div>
@@ -539,5 +609,54 @@
             </div>
         </div>
     </footer>
+    <div id="validation_disabled" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Валидация форм была отключена!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Для получения полного набора результатов диагностики включите валидацию, заполните все обязательные поля во вкладках и повторно нажмите на кнопку обработки данных.</p>
+                    <p>Результаты без валидации не сохраняются в архив.</p><br />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="diagnostics_success" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Диагностика завершена!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Полученные данные можно просмотреть и распечатать на принтере.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script language="javascript" type="text/javascript">
+    $(function () {
+        Form.initValidator();
+        $("#validationEnabled").bootstrapSwitch({
+            size: 'normal',
+            onColor: 'success',
+            offColor: 'warning',
+            onText: 'Да',
+            offText: 'Нет',
+            onInit: function(event) {
+                Form.setNeedValidate(this.checked);
+            },
+            onSwitchChange: function(event, state) {
+                Form.setNeedValidate(state);
+            }
+        });
+    });
+</script>
 </html>

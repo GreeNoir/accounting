@@ -2,17 +2,23 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Главная</title>
-    <script src="js/jquery-1.9.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <title>Экспертная система диагностики биоэнергетического состояния - Главная</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <script language="javascript" type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/moment.js"></script>
+    <script language="javascript" type="text/javascript" src="js/ru.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/messages_ru.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery.indexeddb.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap-switch.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/book.js"></script>
     <script language="javascript" type="text/javascript" src="js/main.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <script>
-        DB.init();
-    </script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
@@ -31,10 +37,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="form.html">Анкета</a>
+                        <a href="form.html">Новый посетитель</a>
                     </li>
                     <li>
-                        <a href="#">О приложении</a>
+                        <a href="#">Посетители</a>
+                    </li>
+                    <li>
+                        <a href="#">Посещения</a>
                     </li>
                 </ul>
             </div>
@@ -46,120 +55,29 @@
         <div class="row">
             <div class="col-sm-3 well">
                 <div class="well">
-                    <p><a href="#">My Profile</a></p>
-                    <img src="bird.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+                    <p><a href="form.html">Новый посетитель</a></p>
+                    <p>Позволяет заполнить форму нового посетителя и получить результаты</p>
                 </div>
                 <div class="well">
-                    <p><a href="#">Interests</a></p>
-
-                    <p>
-                        <span class="label label-default">News</span>
-                        <span class="label label-primary">W3Schools</span>
-                        <span class="label label-success">Labels</span>
-                        <span class="label label-info">Football</span>
-                        <span class="label label-warning">Gaming</span>
-                        <span class="label label-danger">Friends</span>
-                    </p>
+                    <p><a href="#">Посетители</a></p>
+                    <p>Позволяет просмотреть архив посетителей</p>
                 </div>
-                <div class="alert alert-success fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-
-                    <p><strong>Ey!</strong></p>
-                    People are looking at your profile. Find out who.
+                <div class="well">
+                    <p><a href="">Посещения</a></p>
+                    <p>Позволяет просмотреть данные о посещениях одного из посетителей</p>
                 </div>
-                <p><a href="#">Link</a></p>
-
-                <p><a href="#">Link</a></p>
-
-                <p><a href="#">Link</a></p>
             </div>
             <div class="col-sm-7">
-
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="panel panel-default text-left">
+                        <div class="panel panel-primary text-left part-header">
                             <div class="panel-body">
-                                <p contenteditable="true">Status: Feeling Blue</p>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span> Like
-                                </button>
+                                <h3>Центр оздоровительной практики</h3>
+                                <h3>Индийская школа Рейки</h3>
+                                <p><small>Экспертная система диагностики биоэнергетического состояния</small></p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="well">
-                            <p>John</p>
-                            <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="well">
-                            <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                                something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="well">
-                            <p>Bo</p>
-                            <img src="bandmember.jpg" class="img-circle" height="55" width="55" alt="Avatar">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="well">
-                            <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                                something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="well">
-                            <p>Jane</p>
-                            <img src="bandmember.jpg" class="img-circle" height="55" width="55" alt="Avatar">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="well">
-                            <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                                something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="well">
-                            <p>Anja</p>
-                            <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="well">
-                            <p>Just Forgot that I had to mention something about someone to someone about how I forgot
-                                something, but now I forgot it. Ahh, forget it! Or wait. I remember.... no I don't.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2 well">
-                <div class="thumbnail">
-                    <p>Upcoming Events:</p>
-                    <img src="paris.jpg" alt="Paris" width="400" height="300">
-
-                    <p><strong>Paris</strong></p>
-
-                    <p>Fri. 27 November 2015</p>
-                    <button class="btn btn-primary">Info</button>
-                </div>
-                <div class="well">
-                    <p>ADS</p>
-                </div>
-                <div class="well">
-                    <p>ADS</p>
                 </div>
             </div>
         </div>
@@ -188,15 +106,14 @@
                     <p><a href="mailto:info-reiki@mail.ru">info-reiki@mail.ru</a></p>
                 </div>
             </div>
+            <div class="row copy">
+                <span>&copy;</span>Разработка сайта Анжелика Балута, 2016
+            </div>
         </div>
         <div class="col-md-3">
             <div class="row company-about">
-                <p class="title">
-                    Центр оздоровительной практики <br>Индийская школа рейки
-                </p>
-                <p>
-                    Система электронной диагностики биоэнергетического состояния и энергетики внутренних органов
-                </p>
+                <p class="title">Центр оздоровительной практики <br>Индийская школа рейки</p>
+                <p>Экспертная система диагностики биоэнергетического состояния, систем организма и внутренних органов</p>
             </div>
             <div class="row">
                 <div class="glyphicon glyphicon-globe no-background" aria-hidden="true"></div>

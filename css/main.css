@@ -1,3 +1,9 @@
+@media screen {
+    .print {
+        display: none;
+    }
+}
+
 form label.error {
     color: #ff0000;
     font-size: 10px;
@@ -9,12 +15,35 @@ form input.form-control.error,
 form input.form-control.error:focus,
 form select.form-control.error,
 form select.form-control.error:focus {
+    border-width: 1px;
     border-color: #ff0000;
+}
+
+ul.nav.nav-tabs li.error a {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.red {
+    color: #ff0000;
+}
+
+th, td.left-col {
+    background-color: #f5f5f5;
+}
+
+.form-control-feedback {
+    font-weight: bold;
+    font-size: 16px;
 }
 
 form input.form-control.error:focus,
 form select.form-control.error:focus {
     box-shadow: 0 1px 1px rgba(150, 0, 0, 0.03) inset, 0 0 8px rgba(233, 100, 102, 0.6);
+}
+
+form #outside table input {
+    border-radius: 0;
 }
 
 footer {
@@ -89,8 +118,20 @@ footer .company-about .title {
     margin-bottom: 7px;
 }
 
-.no-border {
+#confidence table td {
+    padding: 0;
+    line-height: 1;
+}
+
+#confidence table td.left-col {
+    padding: 10px 18px;
+    font-weight: bold;
+}
+
+.no-border,
+.no-border:focus {
     border: none;
+    box-shadow: none;
 }
 
 #account {
@@ -112,4 +153,131 @@ footer .company-about .title {
 #organs .form-group.row .checkbox-inline.pair-0,
 #organs .form-group.row .checkbox-inline.additional {
     margin-left: 20px;
+}
+
+#organs_form legend {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#organs_form label.control-label,
+#organs_form .checkbox-inline.additional label {
+    font-weight: normal;
+}
+
+div.copy {
+    font-weight: normal;
+    font-size: 11px;
+    padding: 10px 0 0 17px;
+    color: gray;
+}
+
+div.copy span {
+    padding-right: 6px;
+    font-size: 12px;
+}
+
+#Results {
+    margin-top: 15px;
+}
+
+#Results .part-header {
+    color: #fff;
+    background-color: #673ab7;
+    border-color: #673ab7;
+}
+
+#Results .panel {
+    margin: 5px 0;
+}
+
+@media print {
+
+    .print {
+        display: block;
+    }
+
+    #scrollspy,
+    .nav,
+    button, footer, .tooltip,
+    .validation {
+        display: none !important;
+    }
+
+    .tab-content > .tab-pane {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    #Diagnostics #organ, #Diagnostics #organs {
+        font-size: 12px !important;
+    }
+
+    #organs .form-group.row .checkbox-inline.pair-0, #organs .form-group.row .checkbox-inline.additional {
+        margin-left: 0;
+    }
+
+    #organs .form-group.row .checkbox-inline.pair-0,
+    #organs .form-group.row .checkbox-inline.pair-1,
+    #organs .form-group.row .checkbox-inline.additional {
+        font-size: 10px;
+    }
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+        float: left;
+    }
+    .col-md-12, .col-print-12 {
+        width: 100% !important;
+    }
+    .col-md-11 {
+        width: 91.66666667%;
+    }
+    .col-md-10 {
+        width: 83.33333333%;
+    }
+    .col-md-9 {
+        width: 75%;
+    }
+    .col-md-8 {
+        width: 66.66666667%;
+    }
+    .col-md-7 {
+        width: 58.33333333%;
+    }
+    .col-md-6 {
+        width: 50%;
+    }
+    .col-md-5 {
+        width: 41.66666667%;
+    }
+    .col-md-4 {
+        width: 33.33333333%;
+    }
+    .col-md-3 {
+        width: 25%;
+    }
+    .col-md-2 {
+        width: 16.66666667%;
+    }
+    .col-md-1 {
+        width: 8.33333333%;
+    }
+
+    .form-control::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent;
+    }
+    .form-control::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent;
+    }
+    .form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent;
+    }
+    .form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent;
+    }
+
+    #Form input[name="date"] {
+        font-size: 9px;
+    }
 }
