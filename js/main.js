@@ -24,6 +24,17 @@ var Form = {
         Form.validators.push(v);
     },
 
+    init: function() {
+        loadData(function() {
+            Form.initMainChakraPanel();
+            Form.initSmallChakraPanel();
+            Form.initCocoonPart();
+            Form.initOrganSystemsDiagnosticsPart();
+            Form.initOrganDiagnosticsPart();
+            DiagnosticsEditor.init();
+        });
+    },
+
     resetValidators: function() {
         for (var i in Form.validators) {
             Form.validators[i].resetForm();
@@ -46,7 +57,7 @@ var Form = {
                 var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" name="'+positions[i]+'" value="'+j+'">'+ MainChakraViolations[j].chakra +'</label></div>');
                 fieldset.append(checkbox);
             }
-            $('#chakra_main_form').append(fieldset);
+            $('#chakra_main_form #mainContent').append(fieldset);
         }
     },
 
@@ -70,7 +81,7 @@ var Form = {
             var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ id +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
         }
-        $('#cocoon_violations').append(div);
+        $('#cocoon_violations').prepend(div);
     },
 
     initOrganSystemsDiagnosticsPart: function() {
@@ -83,8 +94,8 @@ var Form = {
         for (var i in OrganSystems) {
             var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i] +'</label></div></div>');
             var checkboxes = $('<div class="col-md-7"></div>');
-            for (var j in Thinlevels) {
-                var level = Thinlevels[j];
+            for (var j in ThinLevels) {
+                var level = ThinLevels[j];
                 var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-level="'+ level.L +'">'+ level.L +'</label></div>');
                 checkboxes.append(checkbox);
             }
@@ -205,14 +216,13 @@ var Form = {
     },
 
     analyseFormData: function() {
-        if (this.validFormData()) {
+        if (Form.validFormData()) {
             var oDiagnostics = new Diagnostics();
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
-            console.log(oDiagnostics);
             Form.printDiagnostics(oDiagnostics);
         }
     },
@@ -339,9 +349,9 @@ var Form = {
         diagnostics['thin_levels'] = [];
         $('#thin_levels input[type="checkbox"]:checked').each(function() {
             var level = $(this).data('id');
-            for (var i in Thinlevels) {
-                if (Thinlevels[i].id == level) {
-                    diagnostics['thin_levels'].push(Thinlevels[i].description);
+            for (var i in ThinLevels) {
+                if (ThinLevels[i].id == level) {
+                    diagnostics['thin_levels'].push(ThinLevels[i].description);
                 }
             }
         });
@@ -500,7 +510,9 @@ var Form = {
     },
 
     printDiagnostics: function(oDiagnostics) {
-        $('#diagnostics_success').modal();
+        if (Form.needValidate) {
+            $('#diagnostics_success').modal();
+        }
 
         $('#link_results').removeClass('disabled');
         $('html, body').animate({
@@ -563,7 +575,7 @@ var Form = {
         $(selector).append('<label>Уверенность</label>');
         var s = oDiagnostics.confidenceForm.inside.harmonic;
         $(selector).append('<p>'+s+'</p>');
-        if (oDiagnostics.confidenceForm.hasOwnProperty('priority')) {
+        if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
             var s = oDiagnostics.confidenceForm.inside.priority;
             $(selector).append('<p>'+s+'</p>');
         }
@@ -592,7 +604,9 @@ var Form = {
     printResults: function() {
         window.print();
     }
-}
+};
+
+Form.init();
 
 function Diagnostics(prop) {
     prop = prop || {};

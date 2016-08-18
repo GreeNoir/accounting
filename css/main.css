@@ -177,7 +177,7 @@ div.copy span {
     font-size: 12px;
 }
 
-#Results {
+#Results, #Descriptions {
     margin-top: 15px;
 }
 
@@ -186,9 +186,45 @@ div.copy span {
     background-color: #673ab7;
     border-color: #673ab7;
 }
+#Descriptions .part-header {
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #ff9800;;
+}
+
+table#chakra table th {
+    border-width: 0 1px 1px 1px;
+}
+
+table#chakra td.list_pos {
+    padding: 0;
+}
+
+td.edit textarea {
+    padding: 10px;
+    min-height: 80px;
+    resize: vertical;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+td.edit input {
+    margin-right: 5px;
+}
 
 #Results .panel {
     margin: 5px 0;
+}
+
+.first_column {
+    font-weight: bold;
+}
+
+table caption {
+    padding: 0 0 10px 7px;
+    color: #333;
+    font-size: 17px;
 }
 
 @media print {

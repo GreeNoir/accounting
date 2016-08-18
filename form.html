@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Экспертная система диагностики биоэнергетического состояния - Анкета</title>
+    <title>Экспертная система диагностики биоэнергетического состояния</title>
     <link rel="shortcut icon" href="favicon.ico">
     <script language="javascript" type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -11,10 +11,12 @@
     <script language="javascript" type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery.validate.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/messages_ru.min.js"></script>
-    <script language="javascript" type="text/javascript" src="js/jquery.indexeddb.js"></script>
+    <script language="javascript" type="text/javascript" src="js/localforage.min.js"></script>
     <script language="javascript" type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/jquery.jeditable.js"></script>
     <script language="javascript" type="text/javascript" src="js/book.js"></script>
     <script language="javascript" type="text/javascript" src="js/main.js"></script>
+    <script language="javascript" type="text/javascript" src="js/edit.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="css/bootstrap-switch.min.css">
@@ -54,6 +56,7 @@
                     <li><a href="#Form">Анкета посетителя</a></li>
                     <li><a href="#Diagnostics">Диагностика</a></li>
                     <li id="link_results" class="disabled"><a href="#Results">Результаты</a></li>
+                    <li><a href="#Descriptions">Описания</a></li>
                 </ul>
             </nav>
             <div class="col-md-9 col-print-12">
@@ -228,10 +231,8 @@
                                             <div id="main" class="tab-pane fade in active">
                                                 <form class="form-horizontal" id="chakra_main_form" role="form">
                                                     <h3 class="print">Чакры</h3>
-                                                    <br>
-                                                    <script>
-                                                        Form.initMainChakraPanel();
-                                                    </script>
+                                                    <br/>
+                                                    <div id="mainContent"></div>
                                                     <div class="col-md-6 col-print-12">
                                                         <fieldset>
                                                             <legend>Дополнительные чакры</legend>
@@ -261,9 +262,6 @@
                                                 <h3 class="print">Мелкие чакры</h3>
                                                 <form class="form-horizontal" id="chakra_small_form" role="form">
                                                     <br>
-                                                    <script>
-                                                        Form.initSmallChakraPanel();
-                                                    </script>
                                                 </form>
                                             </div>
                                             <div id="energetics" class="tab-pane fade">
@@ -282,9 +280,6 @@
                                                             <div class="col-md-3">
                                                                 <label class="control-label" id="cocoon_form">Форма кокона:</label></div>
                                                                 <div class="col-md-9" id="cocoon_violations">
-                                                                    <script>
-                                                                        Form.initCocoonPart();
-                                                                    </script>
                                                                     <div class="form-group row">
                                                                         <div class="col-md-3">
                                                                             <label class="radio-inline"><input type="radio" name="cocoon" required="true" value="1">Неопределённая</label>
@@ -509,19 +504,12 @@
                                             <div id="systems" class="tab-pane fade in active">
                                                 <h3 class="print">Диагностика систем организма</h3>
                                                 <br>
-                                                <form id="organ_systems_form">
-                                                </form>
-                                                <script>
-                                                    Form.initOrganSystemsDiagnosticsPart();
-                                                </script>
+                                                <form id="organ_systems_form"></form>
                                             </div>
                                             <div id="organs" class="tab-pane fade">
                                                 <h3 class="print">Диагостика внутренних органов</h3>
                                                 <br>
                                                 <form id="organs_form"></form>
-                                                <script>
-                                                    Form.initOrganDiagnosticsPart();
-                                                </script>
                                             </div>
                                         </div>
                                     </div>
@@ -565,6 +553,95 @@
                         </script>
                     </div>
                     <!--#Results-->
+
+                    <div id="Descriptions" class="col-md-12">
+                        <div class="panel panel-default text-left part-header">
+                            <div class="panel-body">
+                                <h3>Описание диагностических результатов</h3>
+                            </div>
+                        </div>
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="pill" href="#descr_bioenergy">Диагностика биоэнергетического состояния</a></li>
+                            <li><a data-toggle="pill" href="#descr_organ">Диагностика организма</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="descr_bioenergy" class="tab-pane fade in active">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#descr_main">Чакры</a></li>
+                                    <li><a data-toggle="tab" href="#descr_small">Мелкие чакры</a></li>
+                                    <li><a data-toggle="tab" href="#descr_energetics">Энергетика</a></li>
+                                    <li><a data-toggle="tab" href="#descr_confidence">Уверенность</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="descr_main" class="tab-pane fade in active">
+                                        <br/>
+                                        <div class="table-responsive">
+                                            <table id="chakra" class="table table-bordered"></table>
+                                        </div>
+                                    </div>
+                                    <div id="descr_small" class="tab-pane fade">
+                                        <br/>
+                                        <div class="table-responsive">
+                                            <table id="small_chakra" class="table table-bordered"></table>
+                                        </div>
+                                    </div>
+                                    <div id="descr_energetics" class="tab-pane fade">
+                                        <br/>
+                                        <div class="table-responsive">
+                                            <table id="descr_cocoon" class="table table-bordered">
+                                                <caption>Форма кокона</caption>
+                                            </table>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="descr_kharicheskaya" class="table table-bordered">
+                                                <caption>Нарушения харической линии</caption>
+                                            </table>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="descr_thinlevels" class="table table-bordered">
+                                                <caption>Основные проблемы на уровне 4-х тонких тел</caption>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="descr_confidence" class="tab-pane fade">
+                                        <br/>
+                                        <div class="table-responsive">
+                                            <table id="descr_indicators" class="table table-bordered">
+                                                <caption>Внутрення уверенность</caption>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="descr_organ" class="tab-pane fade">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#d_organ_systems">Диагностика систем огранизма</a></li>
+                                    <li><a data-toggle="tab" href="#d_organs">Диагностика внутренних органов</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="d_organ_systems" class="tab-pane fade">
+                                        <br />
+                                        <div class="table-responsive">
+                                            <table id="descr_organ_systems" class="table table-bordered">
+                                                <caption>Диагностика систем огранизма</caption>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="d_organs" class="tab-pane fade">
+                                        <br />
+                                        <div class="table-responsive">
+                                            <table id="descr_organs" class="table table-bordered">
+                                                <caption>Диагностика внутрених органов</caption>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
