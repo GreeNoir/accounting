@@ -2,8 +2,16 @@
  * Created by Angelika on 04.08.16.
  */
 
-var MainChakraViolations;
-var initMainChakraViolations = [
+var MainChakraViolations = null;
+var SmallChakraViolations = null;
+var CocoonViolations = null;
+var KharicheskayaLineViolations = null;
+var ThinLevels = null;
+var IndicatorsPersonal = null;
+var OrganDiagnostics = null;
+var OrganSystems = null;
+
+const initMainChakraViolations = [
     {
         "chakra": "коронная",
         "front": "Недоверие  Господу. Нужна эмоциональная  поддержка.",
@@ -48,8 +56,7 @@ var initMainChakraViolations = [
     }
 ];
 
-var SmallChakraViolations;
-var initSmallChakraViolations = [
+const initSmallChakraViolations = [
     {
         "chakra": "Чакры глаз",
         "surname": "часкры глаз (над глазами)",
@@ -197,8 +204,7 @@ var initSmallChakraViolations = [
     }
 ];
 
-var CocoonViolations;
-var initCocoonViolations = [
+const initCocoonViolations = [
     {
         "id": "1",
         "violotion": "Неопределенной формы",
@@ -303,8 +309,7 @@ var initCocoonViolations = [
     }
 ];
 
-var KharicheskayaLineViolations;
-var initKharicheskayaLineViolations = [
+const initKharicheskayaLineViolations = [
     {
         "position": "top",
         "trans": "Вверху",
@@ -328,8 +333,7 @@ var initKharicheskayaLineViolations = [
     }
 ];
 
-var ThinLevels;
-var initThinlevels = [
+const initThinlevels = [
     {
         "id": "1",
         "level": "Физический",
@@ -393,8 +397,7 @@ var BiofieldCheck = [
 
 ];
 
-var IndicatorsPersonal;
-var initIndicatorsPersonal = [
+const initIndicatorsPersonal = [
     {
         "name": "conscious",
         "level": "Сознание",
@@ -417,8 +420,7 @@ var initIndicatorsPersonal = [
     }
 ];
 
-var OrganDiagnostics;
-var initOrganDiagnostics = [
+const initOrganDiagnostics = [
     {
         'section': 'Ноги',
         'parts': [
@@ -1258,8 +1260,7 @@ var initOrganDiagnostics = [
     }*/
 ];
 
-var OrganSystems;
-var initOrganSystems = [
+const initOrganSystems = [
     {
         "name": "Имунная",
         "diagnostics": []

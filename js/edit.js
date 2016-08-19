@@ -15,6 +15,7 @@ var DiagnosticsEditor = {
     },
 
     init: function() {
+        console.log('init start...');
         DiagnosticsEditor.chakraInit();
         DiagnosticsEditor.smallChakraInit();
         DiagnosticsEditor.cocoonPartInit();
@@ -23,9 +24,11 @@ var DiagnosticsEditor = {
         DiagnosticsEditor.confidenceInit();
         DiagnosticsEditor.organSystemsInit();
         DiagnosticsEditor.organsInit();
+        console.log('init end.');
     },
 
     chakraInit: function() {
+        $('#Descriptions table#chakra').empty();
         for (var i in MainChakraViolations) {
             var chakra = MainChakraViolations[i];
             var row = $('<tr><td class="first_column">' +chakra.chakra+ '</td><td class="list"></td></tr>');
@@ -58,6 +61,8 @@ var DiagnosticsEditor = {
     },
 
     smallChakraInit: function() {
+        $('#Descriptions table#small_chakra').empty();
+
         for (var i in SmallChakraViolations) {
             var smallChakra = SmallChakraViolations[i];
             var s = smallChakra.description;
@@ -83,6 +88,8 @@ var DiagnosticsEditor = {
     },
 
     cocoonPartInit: function() {
+        $('#Descriptions table#descr_cocoon').empty();
+
         for (var i in CocoonViolations) {
             var cocoon = CocoonViolations[i];
             var row = $('<tr><td class="first_column">'+ cocoon.violotion +'</td><td class="edit" data-id="'+i+'" class="edit">'+ cocoon.description +'</td></tr>');
@@ -107,6 +114,8 @@ var DiagnosticsEditor = {
     },
 
     kharicheskayaInit: function() {
+        $('#Descriptions table#descr_kharicheskaya').empty();
+
         for (var i in KharicheskayaLineViolations) {
             var violation = KharicheskayaLineViolations[i];
             var row = $('<tr><td class="first_column">'+ violation.trans +'</td><td class="edit" data-id="'+i+'">'+ violation.description +'</td></tr>');
@@ -131,6 +140,8 @@ var DiagnosticsEditor = {
     },
 
     thinLevelsInit: function() {
+        $('#Descriptions table#descr_thinlevels').empty();
+
         for (var i in ThinLevels) {
             var level = ThinLevels[i];
             var row = $('<tr><td class="first_column">'+level.level+'</td><td class="edit" data-id="'+i+'">'+ level.description +'</td></tr>');
@@ -155,6 +166,8 @@ var DiagnosticsEditor = {
     },
 
     confidenceInit: function() {
+        $('#Descriptions table#descr_indicators').empty();
+
         for (var i in IndicatorsPersonal) {
             var item = IndicatorsPersonal[i];
             var row = $('<tr><td class="first_column">'+item.level+'</td><td class="edit" data-id="'+i+'">'+ item.description +'</td></tr>');
@@ -179,6 +192,7 @@ var DiagnosticsEditor = {
     },
 
     organSystemsInit: function() {
+        $('#Descriptions table#descr_organ_systems').empty();
 
         var getLevelsTable = function(diagnostics, id) {
             var tableLevels = $('<table></table>');
@@ -222,6 +236,7 @@ var DiagnosticsEditor = {
     },
 
     organsInit: function() {
+        $('#Descriptions table#descr_organs').empty();
 
         var getLevelsTable = function(diagnostics, i, p) {
             var tableLevels = $('<table></table>');
@@ -287,5 +302,11 @@ var DiagnosticsEditor = {
 
     btnDesign: function() {
         $('.editable input').addClass('btn').addClass('btn-primary').addClass('btn-sm');
+    },
+
+    resetDescriptions: function() {
+        localforage.clear(function() {
+            location.reload();
+        });
     }
 }
