@@ -417,44 +417,34 @@ var initIndicatorsPersonal = [
     }
 ];
 
-var OrganDiagnostics = [
+var OrganDiagnostics;
+var initOrganDiagnostics = [
     {
         'section': 'Ноги',
         'parts': [
             {
                 'organ': 'Стеники сосудов',
-                'diagnostics': {
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Венозн. КВ',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Артериар. КВ',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Лимфоток',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Кровоток',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Нервный импульс',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Тазобедренный сустав',
@@ -1322,8 +1312,15 @@ loadData = function(f) {
                                 IndicatorsPersonal = initIndicatorsPersonal;
                             }
 
-                            return f();
-
+                            var key = 'organDiagnostics';
+                            localforage.getItem(key, function(err, readValue) {
+                                if (readValue !== null) {
+                                    OrganDiagnostics = readValue;
+                                } else {
+                                    OrganDiagnostics = initOrganDiagnostics;
+                                }
+                                return f();
+                            });
                         });
                     });
                 });

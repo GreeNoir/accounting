@@ -184,14 +184,14 @@ var DiagnosticsEditor = {
 
     organsInit: function() {
 
-        var getLevelsTable = function(diagnostics) {
+        var getLevelsTable = function(diagnostics, i, p) {
             var tableLevels = $('<table></table>');
-            for (var l in DiagnosticsEditor.levels) {
+            for (var j in DiagnosticsEditor.levels) {
                 var s = '';
-                if (diagnostics[l] !== undefined) {
-                    s = diagnostics[l].description;
+                if (diagnostics[j] !== undefined) {
+                    s = diagnostics[j].description;
                 }
-                var row = $('<tr><td class="thin_level">'+DiagnosticsEditor.levels[l]+'</td><td data-level="'+l+'">'+s+'</td></tr>');
+                var row = $('<tr><td class="thin_level">'+DiagnosticsEditor.levels[j]+'</td><td class="edit" data-main-index="'+ i +'" data-part-index="' + p +'" data-level="' +j+'">'+s+'</td></tr>');
                 tableLevels.append(row);
             }
             return $(tableLevels).html();
@@ -200,22 +200,50 @@ var DiagnosticsEditor = {
         for (var i in OrganDiagnostics) {
             var obj = OrganDiagnostics[i];
             if (obj.hasOwnProperty('parts')) {
-                var topRow = $('<tr><th colspan="2"><h3>'+obj.section+'</h3></th></tr>');
+                var topRow = $('<tr><th colspan="2"><h4>'+obj.section+'</h4></th></tr>');
                 $('#Descriptions table#descr_organs').append(topRow);
 
                 for (var p in obj.parts) {
                     var organ = obj.parts[p];
-                    var row = $('<tr><td class="first_column">'+organ.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(organ.diagnostics)+'</table></td></tr>');
+                    var row = $('<tr><td class="first_column">'+organ.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(organ.diagnostics, i, p)+'</table></td></tr>');
                     $('#Descriptions table#descr_organs').append(row);
                 }
                 var emptyRow = $('<tr class="empty_row"><th colspan="2"></th></tr>');
                 $('#Descriptions table#descr_organs').append(emptyRow);
 
             } else {
-                var row = $('<tr><td class="first_column">'+obj.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(obj.diagnostics)+'</table></td></tr>');
+                var row = $('<tr><td class="first_column">'+obj.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(obj.diagnostics, i, -1)+'</table></td></tr>');
                 $('#Descriptions table#descr_organs').append(row);
             }
         }
+
+        $('#Descriptions table#descr_organs .edit').editable(
+            function(value, settings) {
+                var main_index = $(this).attr('data-main-index');
+                var part_index = $(this).attr('data-part-index');
+                var level = $(this).attr('data-level');
+                if (OrganDiagnostics[main_index].hasOwnProperty('parts')) {
+                    if (OrganDiagnostics[main_index].parts[part_index].diagnostics[level] === undefined) {
+                        OrganDiagnostics[main_index].parts[part_index].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
+                    }
+                    OrganDiagnostics[main_index].parts[part_index].diagnostics[level].description = value;
+                } else {
+                    if (OrganDiagnostics[main_index].diagnostics[level] === undefined) {
+                        OrganDiagnostics[main_index].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
+                    }
+                    OrganDiagnostics[main_index].diagnostics[level].description = value;
+                }
+                var key = 'organDiagnostics';
+                localforage.setItem(key, OrganDiagnostics, function() {
+                    localforage.getItem(key, function(err, readValue) {
+                        OrganDiagnostics = readValue;
+                    });
+                });
+
+                return(value);
+            },
+            DiagnosticsEditor.editParams
+        ).click(DiagnosticsEditor.btnDesign);
     },
 
     btnDesign: function() {
