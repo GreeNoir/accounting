@@ -96,7 +96,7 @@ var Form = {
             var checkboxes = $('<div class="col-md-7"></div>');
             for (var j in ThinLevels) {
                 var level = ThinLevels[j];
-                var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-level="'+ level.L +'">'+ level.L +'</label></div>');
+                var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-id="'+i+'" data-level="'+j+'">'+ level.L +'</label></div>');
                 checkboxes.append(checkbox);
             }
             row.append(checkboxes);
@@ -222,6 +222,7 @@ var Form = {
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
+            Form.processOrganSystemsForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
             Form.printDiagnostics(oDiagnostics);
         }
@@ -453,6 +454,23 @@ var Form = {
         oDiagnostics.setConfidenceForm(diagnostics);
     },
 
+    processOrganSystemsForm: function(oDiagnostics) {
+        var mainSelector = 'form#organ_systems_form div.checkbox-inline ';
+        var diagnostics = [];
+        for (var i in OrganSystems) {
+            var obj = OrganSystems[i];
+            for (var l in Form.levels) {
+                if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"][data-level="'+l+'"]').prop('checked')) {
+                    var s = obj.diagnostics[l].description;
+                    if (s.length) {
+                        diagnostics.push(s);
+                    }
+                }
+            }
+        }
+        oDiagnostics.setOrganSystemsForm(diagnostics);
+    },
+
     processOrgansForm: function(oDiagnostics) {
         var mainSelector = 'form#organs_form div.checkbox-inline ';
         var diagnostics = [];
@@ -586,7 +604,17 @@ var Form = {
 
         selector = '#Results #organism-part';
         $(selector).empty();
-        if (oDiagnostics.organsForm) {
+        if (oDiagnostics.organSystemsForm.length) {
+            $(selector).append('<label>Системы организма</label>');
+            var s = '';
+            for (var i in oDiagnostics.organSystemsForm) {
+                s += oDiagnostics.organSystemsForm[i] + ' ';
+            }
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        if (oDiagnostics.organsForm.length) {
+            $(selector).append('<label>Внутренние органы</label>');
             for (var i in oDiagnostics.organsForm) {
                 var s = oDiagnostics.organsForm[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -627,6 +655,10 @@ Diagnostics.prototype = {
 
     setConfidenceForm: function(diagnostics) {
         this.confidenceForm = diagnostics;
+    },
+
+    setOrganSystemsForm: function(diagnostics) {
+        this.organSystemsForm = diagnostics;
     },
 
     setOrgansForm: function(diagnostics) {
