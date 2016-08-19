@@ -4,6 +4,7 @@
 
 var DiagnosticsEditor = {
 
+    levels: ['Ф', 'Э', 'А', 'М'],
     editParams: {
         type    : 'textarea',
         submit  : 'OK',
@@ -27,13 +28,13 @@ var DiagnosticsEditor = {
     chakraInit: function() {
         for (var i in MainChakraViolations) {
             var chakra = MainChakraViolations[i];
-            var row = $('<tr><td class="first_column">' +chakra.chakra+ '</td><td class="list_pos"></td></tr>');
+            var row = $('<tr><td class="first_column">' +chakra.chakra+ '</td><td class="list"></td></tr>');
             var subrow_front = $('<tr><td>Спереди</td><td class="edit" data-id="'+i+'" data-position="front">' + chakra.front + '</td></tr>');
             var subrow_middle = $('<tr data-position="middle"><td>По центру</td><td class="edit" data-id="'+i+'" data-position="middle">' + chakra.middle + '</td></tr>');
             var subrow_back = $('<tr data-position="back"><td>Сзади</td><td class="edit" data-id="'+i+'" data-position="back">'+ chakra.back +'</td></tr>');
             var subtable = $('<table class="table"><tr><th>Позиция</th><th>Описание</th></tr></table>');
             subtable.append(subrow_front).append(subrow_middle).append(subrow_back);
-            row.find('td.list_pos').append(subtable);
+            row.find('td.list').append(subtable);
             $('#Descriptions table#chakra').append(row);
         }
 
@@ -183,6 +184,38 @@ var DiagnosticsEditor = {
 
     organsInit: function() {
 
+        var getLevelsTable = function(diagnostics) {
+            var tableLevels = $('<table></table>');
+            for (var l in DiagnosticsEditor.levels) {
+                var s = '';
+                if (diagnostics[l] !== undefined) {
+                    s = diagnostics[l].description;
+                }
+                var row = $('<tr><td class="thin_level">'+DiagnosticsEditor.levels[l]+'</td><td data-level="'+l+'">'+s+'</td></tr>');
+                tableLevels.append(row);
+            }
+            return $(tableLevels).html();
+        };
+
+        for (var i in OrganDiagnostics) {
+            var obj = OrganDiagnostics[i];
+            if (obj.hasOwnProperty('parts')) {
+                var topRow = $('<tr><th colspan="2"><h3>'+obj.section+'</h3></th></tr>');
+                $('#Descriptions table#descr_organs').append(topRow);
+
+                for (var p in obj.parts) {
+                    var organ = obj.parts[p];
+                    var row = $('<tr><td class="first_column">'+organ.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(organ.diagnostics)+'</table></td></tr>');
+                    $('#Descriptions table#descr_organs').append(row);
+                }
+                var emptyRow = $('<tr class="empty_row"><th colspan="2"></th></tr>');
+                $('#Descriptions table#descr_organs').append(emptyRow);
+
+            } else {
+                var row = $('<tr><td class="first_column">'+obj.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(obj.diagnostics)+'</table></td></tr>');
+                $('#Descriptions table#descr_organs').append(row);
+            }
+        }
     },
 
     btnDesign: function() {
