@@ -32,6 +32,13 @@ var Form = {
             Form.initOrganSystemsDiagnosticsPart();
             Form.initOrganDiagnosticsPart();
             DiagnosticsEditor.init();
+
+            var hash = window.location.hash.substr(1);
+            if (hash.length) {
+                $('html, body').animate({
+                    scrollTop: $('#'+hash).offset().top
+                }, 100);
+            }
         });
     },
 
