@@ -92,7 +92,7 @@ var Form = {
         var m = Math.trunc(OrganSystems.length / 2);
 
         for (var i in OrganSystems) {
-            var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i] +'</label></div></div>');
+            var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i].name +'</label></div></div>');
             var checkboxes = $('<div class="col-md-7"></div>');
             for (var j in ThinLevels) {
                 var level = ThinLevels[j];

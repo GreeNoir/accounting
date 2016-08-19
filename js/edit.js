@@ -7,7 +7,7 @@ var DiagnosticsEditor = {
     levels: ['Ф', 'Э', 'А', 'М'],
     editParams: {
         type    : 'textarea',
-        submit  : 'OK',
+        submit  : 'Сохранить',
         cancel  : 'Отмена',
         cssclass : 'editable',
         tooltip : "Нажмите для редактирования..",
@@ -180,6 +180,45 @@ var DiagnosticsEditor = {
 
     organSystemsInit: function() {
 
+        var getLevelsTable = function(diagnostics, id) {
+            var tableLevels = $('<table></table>');
+            for (var j in DiagnosticsEditor.levels) {
+                var s = '';
+                if (diagnostics[j] !== undefined) {
+                    s = diagnostics[j].description;
+                }
+                var row = $('<tr><td class="thin_level">'+DiagnosticsEditor.levels[j]+'</td><td class="edit" data-id="'+id+'" data-level="'+j+'">'+s+'</td></tr>');
+                tableLevels.append(row);
+            }
+            return $(tableLevels).html();
+        }
+
+        for (var i in OrganSystems) {
+            var obj = OrganSystems[i];
+            var row = $('<tr><td class="first_column" style="width: 70px;">'+obj.name+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(obj.diagnostics, i)+'</table></td></tr>');
+            $('#Descriptions table#descr_organ_systems').append(row);
+        }
+
+        $('#Descriptions table#descr_organ_systems .edit').editable(
+            function(value, settings) {
+                var id = $(this).attr('data-id');
+                var level = $(this).attr('data-level');
+                if (OrganSystems[id].diagnostics[level] === undefined) {
+                    OrganSystems[id].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
+                }
+                OrganSystems[id].diagnostics[level].description = value;
+
+                var key = 'organSystems';
+                localforage.setItem(key, OrganSystems, function() {
+                    localforage.getItem(key, function(err, readValue) {
+                        OrganSystems = readValue;
+                    });
+                });
+
+                return(value);
+            },
+            DiagnosticsEditor.editParams
+        ).click(DiagnosticsEditor.btnDesign);
     },
 
     organsInit: function() {

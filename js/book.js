@@ -1258,9 +1258,56 @@ var initOrganDiagnostics = [
     }*/
 ];
 
-var OrganSystems = [
-    "Имунная", "Эндокринная", "Нервная", "Сосудистая", "Дыхательная", "Пищеварительная",
-    "Мочевыделительная", "Репродуктивная", "Кроветворная", "Лимфатическая", "Костно-мышечная", "Опорно-двигательная"
+var OrganSystems;
+var initOrganSystems = [
+    {
+        "name": "Имунная",
+        "diagnostics": []
+    },
+    {
+        "name": "Эндокринная",
+        "diagnostics": []
+    },
+    {
+        "name": "Нервная",
+        "diagnostics": []
+    },
+    {
+        "name": "Сосудистая",
+        "diagnostics": []
+    },
+    {
+        "name": "Дыхательная",
+        "diagnostics": []
+    },
+    {
+        "name": "Пищеварительная",
+        "diagnostics": []
+    },
+    {
+        "name": "Мочевыделительная",
+        "diagnostics": []
+    },
+    {
+        "name": "Репродуктивная",
+        "diagnostics": []
+    },
+    {
+        "name": "Кроветворная",
+        "diagnostics": []
+    },
+    {
+        "name": "Лимфатическая",
+        "diagnostics": []
+    },
+    {
+        "name": "Костно-мышечная",
+        "diagnostics": []
+    },
+    {
+        "name": "Опорно-двигательная",
+        "diagnostics": []
+    }
 ];
 
 loadData = function(f) {
@@ -1319,7 +1366,16 @@ loadData = function(f) {
                                 } else {
                                     OrganDiagnostics = initOrganDiagnostics;
                                 }
-                                return f();
+
+                                var key = 'organSystems';
+                                localforage.getItem(key, function(err, readValue) {
+                                    if (readValue !== null) {
+                                        OrganSystems = readValue;
+                                    } else {
+                                        OrganSystems = initOrganSystems;
+                                    }
+                                    return f();
+                                });
                             });
                         });
                     });
