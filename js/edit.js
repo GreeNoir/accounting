@@ -299,6 +299,8 @@ var DiagnosticsEditor = {
     },
 
     btnDesign: function() {
+        var val = $('.editable textarea').val();
+        $('.editable textarea').focus().val("").val(val);
         $('.editable input').addClass('btn').addClass('btn-primary').addClass('btn-sm');
     },
 
