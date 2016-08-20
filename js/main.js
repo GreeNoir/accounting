@@ -42,7 +42,7 @@ var Form = {
             DiagnosticsEditor.init();
 
             var hash = window.location.hash.substr(1);
-            if (hash.length) {
+            if (hash.length && hash !== 'Form') {
                 $('html, body').animate({
                     scrollTop: $('#'+hash).offset().top
                 }, 100);
@@ -561,7 +561,7 @@ var Form = {
         }
         $('head title').text(title);
 
-        $('#link_results').removeClass('disabled');
+        $('.link_results').removeClass('disabled');
         $('html, body').animate({
             scrollTop: $("#Results").offset().top
         }, 100);

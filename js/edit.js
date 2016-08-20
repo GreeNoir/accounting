@@ -305,8 +305,10 @@ var DiagnosticsEditor = {
     },
 
     resetDescriptions: function() {
-        localforage.clear(function() {
-            location.reload();
-        });
+        if (confirm('Вы уверенны что хотите продолжить?')) {
+            localforage.clear(function() {
+                location.reload();
+            });
+        }
     }
 }
