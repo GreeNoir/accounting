@@ -739,6 +739,7 @@
             offText: 'Нет',
             onInit: function(event) {
                 Form.setNeedValidate(this.checked);
+                $('.validation .bootstrap-switch-container > .bootstrap-switch-wrapper').remove();
             },
             onSwitchChange: function(event, state) {
                 Form.setNeedValidate(state);

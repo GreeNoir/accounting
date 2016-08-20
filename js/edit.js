@@ -15,7 +15,6 @@ var DiagnosticsEditor = {
     },
 
     init: function() {
-        console.log('init start...');
         DiagnosticsEditor.chakraInit();
         DiagnosticsEditor.smallChakraInit();
         DiagnosticsEditor.cocoonPartInit();
@@ -24,7 +23,6 @@ var DiagnosticsEditor = {
         DiagnosticsEditor.confidenceInit();
         DiagnosticsEditor.organSystemsInit();
         DiagnosticsEditor.organsInit();
-        console.log('init end.');
     },
 
     chakraInit: function() {

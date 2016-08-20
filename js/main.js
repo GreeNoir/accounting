@@ -56,6 +56,7 @@ var Form = {
     },
 
     initMainChakraPanel: function() {
+        $('#chakra_main_form #mainContent').empty();
         var positions = ['front', 'back', 'middle'];
         var translate = ['спереди', 'сзади', 'по центру']
         for (var i=0; i<3; i++) {
@@ -70,6 +71,7 @@ var Form = {
     },
 
     initSmallChakraPanel: function() {
+        $('#chakra_small_form').empty();
         var index = 0;
         for (var i=0; i<3; i++) {
             var div = $('<div class="col-md-4"></div>');
@@ -83,6 +85,7 @@ var Form = {
     },
 
     initCocoonPart: function() {
+        $('#cocoon_violations').empty();
         var div = $('<div class="form-group row col-md-12"></div>');
         for (var i=1; i<6; i++) {
             var id = i+1;
@@ -93,6 +96,7 @@ var Form = {
     },
 
     initOrganSystemsDiagnosticsPart: function() {
+        $('#organ #organ_systems_form').empty();
         var part1 = $('<div class="col-md-6"></div>');
         var part2 = $('<div class="col-md-6"></div>');
 
@@ -119,6 +123,7 @@ var Form = {
     },
 
     initOrganDiagnosticsPart: function() {
+        $('#organs #organs_form').empty();
         var n = OrganDiagnostics.length;
         for (var i in OrganDiagnostics) {
             if (OrganDiagnostics[i].hasOwnProperty('parts')) {
