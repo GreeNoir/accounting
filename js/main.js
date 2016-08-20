@@ -26,6 +26,7 @@ var Form = {
 
     init: function() {
         loadData(function() {
+            Form.initValidator();
             Form.initMainChakraPanel();
             Form.initSmallChakraPanel();
             Form.initCocoonPart();
@@ -640,8 +641,6 @@ var Form = {
         window.print();
     }
 };
-
-Form.init();
 
 function Diagnostics(prop) {
     prop = prop || {};
