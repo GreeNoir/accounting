@@ -11,6 +11,7 @@ var Form = {
     isValid: false,
 
     levels: ['Ф', 'Э', 'А', 'М'],
+    initTitle: 'Экспертная система диагностики биоэнергетического состояния',
 
     setNeedValidate: function(v) {
         Form.needValidate = (v == 1 ? true : false);
@@ -553,6 +554,12 @@ var Form = {
         if (Form.needValidate) {
             $('#diagnostics_success').modal();
         }
+
+        var title = Form.initTitle;
+        if (Form.needValidate && Form.isValid) {
+            title = 'Анкета - ' + $('input[name="firstname"]').val() +' '+ $('input[name="name"]').val();
+        }
+        $('head title').text(title);
 
         $('#link_results').removeClass('disabled');
         $('html, body').animate({
