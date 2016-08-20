@@ -28,7 +28,7 @@ ul.nav.nav-tabs li.error a {
     color: #ff0000;
 }
 
-th, td.left-col {
+#Descriptions th, #Descriptions td.left-col {
     background-color: #33383b;
     color: #fff;
 }
@@ -251,6 +251,7 @@ table caption {
     }
 
     #scrollspy,
+    #Descriptions,
     .nav,
     button, footer, .tooltip,
     .validation {
