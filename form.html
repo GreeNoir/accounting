@@ -279,7 +279,8 @@
                                                             <div class="col-md-3">
                                                                 <label class="control-label" id="cocoon_form">Форма кокона:</label></div>
                                                                 <div class="col-md-9" id="cocoon_violations">
-                                                                    <div class="form-group row">
+                                                                    <div class="form-group row col-md-12 basic"></div>
+                                                                    <div class="form-group row additional">
                                                                         <div class="col-md-3">
                                                                             <label class="radio-inline"><input type="radio" name="cocoon" required="true" value="1">Неопределённая</label>
                                                                         </div>
@@ -527,7 +528,7 @@
                                     </label>
                                 </div>
                                 <div class="form-group"></div>
-                                <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();">Обработать данные анкеты</button>
+                                <button id="analyse" class="btn btn-primary btn-lg btn-block" onclick="Form.analyseFormData();" data-toggle="tooltip" title="Для промежуточной проверки результатов можно отключить валидацию">Обработать данные анкеты</button>
                             </div>
                         </div>
                     </div>
@@ -556,9 +557,6 @@
                                 <button id="print" class="btn btn-success btn-lg btn-block disabled" onclick="Form.printResults();" data-toggle="tooltip" title="Печать результатов доступна только для режима с включенной валидацией. Проверьте подключение принтера перед печатью">
                                     <span class="glyphicon glyphicon-print"></span>&nbsp;Печать результатов
                                 </button>
-                                <script>
-                                    $('#print').tooltip({ trigger: 'hover' });
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -652,9 +650,6 @@
                                 <button id="reset" class="btn btn-warning btn-lg btn-block" onclick="DiagnosticsEditor.resetDescriptions();" data-toggle="tooltip" title="Сбросить описания диагностики к первоначальному состоянию. Внимание! Некоторые данные могут быть утеряны.">
                                     <span class="glyphicon glyphicon-refresh"></span>&nbsp;Сброс описаний диагностики
                                 </button>
-                                <script>
-                                    $('#reset').tooltip({ trigger: 'hover' });
-                                </script>
                             </div>
                         </div>
                     </div>

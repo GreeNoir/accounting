@@ -29,6 +29,7 @@ var Form = {
             var v = $('input[name="validate"]:checked').val();
             Form.setNeedValidate(v);
         });
+        $('button[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
         loadData(function() {
             Form.initValidator();
@@ -90,14 +91,13 @@ var Form = {
     },
 
     initCocoonPart: function() {
-        $('#cocoon_violations').empty();
-        var div = $('<div class="form-group row col-md-12"></div>');
+        var div = $('#cocoon_violations div.basic');
+        div.empty();
         for (var i=1; i<6; i++) {
             var id = i+1;
             var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ id +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
         }
-        $('#cocoon_violations').prepend(div);
     },
 
     initOrganSystemsDiagnosticsPart: function() {
@@ -375,97 +375,101 @@ var Form = {
             }
         });
 
-        $('#biofield_sizes input').valid();
         diagnostics['biofield'] = [];
         diagnostics['biofield']['description'] = BiofieldCheck[0].description;
-        var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
-        var earth = +$('#biofield_sizes input[name="earth"]').val();
-        var native = +$('#biofield_sizes input[name="native"]').val();
-        var s = '';
+        var valid = $('#biofield_sizes input').valid();
+        if (valid) {
+            var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
+            var earth = +$('#biofield_sizes input[name="earth"]').val();
+            var native = +$('#biofield_sizes input[name="native"]').val();
+            var s = '';
 
-        if (!isNaN(cosmos) && !isNaN(earth)) {
-            if (cosmos > earth) {
-                s = BiofieldCheck[1].description;
-            } else
-            if (cosmos < earth) {
-                s = BiofieldCheck[2].description;
-            } else
-            if (cosmos === earth) {
-                s = BiofieldCheck[3].description;
-            }
-
-            diagnostics['biofield']['cosmoearth'] = s;
-        }
-
-        s = '';
-        if (!isNaN(native)) {
-            for (var i=4; i<7; i++) {
-                var parallel = BiofieldCheck[i];
-                var min = +parallel.min;
-                var max = +parallel.max;
-
-                if (native >= min && native <= max) {
-                    s = parallel.description;
-                    break;
+            if (!isNaN(cosmos) && !isNaN(earth)) {
+                if (cosmos > earth) {
+                    s = BiofieldCheck[1].description;
+                } else
+                if (cosmos < earth) {
+                    s = BiofieldCheck[2].description;
+                } else
+                if (cosmos === earth) {
+                    s = BiofieldCheck[3].description;
                 }
-            }
-            diagnostics['biofield']['native'] = s;
-        }
 
+                diagnostics['biofield']['cosmoearth'] = s;
+            }
+
+            s = '';
+            if (!isNaN(native)) {
+                for (var i=4; i<7; i++) {
+                    var parallel = BiofieldCheck[i];
+                    var min = +parallel.min;
+                    var max = +parallel.max;
+
+                    if (native >= min && native <= max) {
+                        s = parallel.description;
+                        break;
+                    }
+                }
+                diagnostics['biofield']['native'] = s;
+            }
+        }
+        console.log(diagnostics);
         oDiagnostics.setEnergeticForm(diagnostics);
     },
 
     processConfidenceForm: function(oDiagnostics) {
         var diagnostics = [];
-        diagnostics['inside'] = {
-            'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
-            'priority': ''
-        };
-
         var diff = [5, 10];
-        $('#confidence #inside input').valid();
+        var valid = $('#confidence #inside input').valid();
 
-        var inside = [
-            { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
-            { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
-            { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
-            { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
-        ];
+        if (valid) {
+            diagnostics['inside'] = {
+                'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
+                'priority': ''
+            };
 
-        var isInsideOk = true;
-        for (var i in inside) {
-            if (isNaN(inside[i].value)) {
-                isInsideOk = false;
-            }
-        }
+            var inside = [
+                { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
+                { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
+                { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
+                { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
+            ];
 
-        if (isInsideOk) {
-            inside.sort(function(a,b){
-                if (a.value > b.value)
-                    return -1;
-                if (a.value < b.value)
-                    return 1;
-                return 0;
-            });
-
-            var middle = 0;
+            var isInsideOk = true;
             for (var i in inside) {
-                middle += inside[i].value;
-            }
-
-            middle /= 4;
-            for (var i in inside) {
-                if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
-                    diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
-                    break;
+                if (isNaN(inside[i].value)) {
+                    isInsideOk = false;
                 }
             }
 
-            var maxName = inside[0].name;
-            for (var i in IndicatorsPersonal) {
-                if (IndicatorsPersonal[i].name === maxName) {
-                    diagnostics['inside'].priority = IndicatorsPersonal[i].description;
-                    break;
+            if (isInsideOk) {
+                inside.sort(function(a,b){
+                    if (a.value > b.value)
+                        return -1;
+                    if (a.value < b.value)
+                        return 1;
+                    return 0;
+                });
+
+                var middle = 0;
+                for (var i in inside) {
+                    middle += inside[i].value;
+                }
+
+                middle /= 4;
+                for (var i in inside) {
+                    if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
+                        diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
+                        break;
+                    }
+                }
+
+                var maxName = inside[0].name;
+                for (var i in IndicatorsPersonal) {
+                    if (IndicatorsPersonal[i].name === maxName) {
+                        diagnostics['inside'].priority = IndicatorsPersonal[i].description;
+                        break;
+                    }
                 }
             }
         }
@@ -594,26 +598,30 @@ var Form = {
             }
         }
 
-        var s = oDiagnostics.energeticForm.biofield.description;
-        $(selector).append('<p><small>'+s+'</small></p>');
+        if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
+            var s = oDiagnostics.energeticForm.biofield.description;
+            $(selector).append('<p><small>'+s+'</small></p>');
 
-        if (oDiagnostics.energeticForm.biofield.cosmoearth.length) {
-            var s = oDiagnostics.energeticForm.biofield.cosmoearth;
-            $(selector).append('<p>'+s+'</p>');
+            if (oDiagnostics.energeticForm.biofield.hasOwnProperty('cosmoearth')) {
+                var s = oDiagnostics.energeticForm.biofield.cosmoearth;
+                $(selector).append('<p>'+s+'</p>');
+            }
+
+            if (oDiagnostics.energeticForm.biofield.hasOwnProperty('native')) {
+                var s = oDiagnostics.energeticForm.biofield.native;
+                $(selector).append('<p>'+s+'</p>');
+            }
         }
 
-        if (oDiagnostics.energeticForm.biofield.native.length) {
-            var s = oDiagnostics.energeticForm.biofield.native;
+        if (oDiagnostics.confidenceForm.hasOwnProperty('inside')) {
+            $(selector).append('<hr>');
+            $(selector).append('<label>Уверенность</label>');
+            var s = oDiagnostics.confidenceForm.inside.harmonic;
             $(selector).append('<p>'+s+'</p>');
-        }
-
-        $(selector).append('<hr>');
-        $(selector).append('<label>Уверенность</label>');
-        var s = oDiagnostics.confidenceForm.inside.harmonic;
-        $(selector).append('<p>'+s+'</p>');
-        if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
-            var s = oDiagnostics.confidenceForm.inside.priority;
-            $(selector).append('<p>'+s+'</p>');
+            if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
+                var s = oDiagnostics.confidenceForm.inside.priority;
+                $(selector).append('<p>'+s+'</p>');
+            }
         }
 
         if ($(selector).html().length === 0) {
