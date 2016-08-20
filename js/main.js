@@ -13,7 +13,7 @@ var Form = {
     levels: ['Ф', 'Э', 'А', 'М'],
 
     setNeedValidate: function(v) {
-        Form.needValidate = v;
+        Form.needValidate = (v == 1 ? true : false);
     },
 
     setValid: function(v) {
@@ -25,6 +25,11 @@ var Form = {
     },
 
     init: function() {
+        $('input[name="validate"]').change(function() {
+            var v = $('input[name="validate"]:checked').val();
+            Form.setNeedValidate(v);
+        });
+
         loadData(function() {
             Form.initValidator();
             Form.initMainChakraPanel();
