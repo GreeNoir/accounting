@@ -232,16 +232,20 @@ table#chakra table th {
     padding: 0;
 }
 
-td.edit textarea {
+textarea {
+    resize: vertical;
+    width: 100%;
+}
+
+.edit textarea {
     padding: 10px;
     min-height: 80px;
-    resize: vertical;
     background-color: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 2px;
 }
 
-td.edit input {
+.edit input {
     margin-right: 5px;
 }
 
