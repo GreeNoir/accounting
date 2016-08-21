@@ -2,7 +2,16 @@
  * Created by Angelika on 04.08.16.
  */
 
-var MainChakraViolations = [
+var MainChakraViolations = null;
+var SmallChakraViolations = null;
+var CocoonViolations = null;
+var KharicheskayaLineViolations = null;
+var ThinLevels = null;
+var IndicatorsPersonal = null;
+var OrganDiagnostics = null;
+var OrganSystems = null;
+
+const initMainChakraViolations = [
     {
         "chakra": "коронная",
         "front": "Недоверие  Господу. Нужна эмоциональная  поддержка.",
@@ -47,7 +56,7 @@ var MainChakraViolations = [
     }
 ];
 
-var SmallChakraViolations = [
+const initSmallChakraViolations = [
     {
         "chakra": "Чакры глаз",
         "surname": "часкры глаз (над глазами)",
@@ -195,12 +204,12 @@ var SmallChakraViolations = [
     }
 ];
 
-var CocoonViolations = [
+const initCocoonViolations = [
     {
         "id": "1",
         "violotion": "Неопределенной формы",
         "abbr": "N",
-        "subname": "Неопр",
+        "subname": "Неопределенная",
         "description": "Бывает при неустойчивом эмоциональном состоянии или когда в жизни человека происходит какой-то переломный момент. Нет энергии в среднем котле."
     },
     {
@@ -222,7 +231,7 @@ var CocoonViolations = [
         "violotion": "Шар",
         "abbr": "Ш",
         "subname": "Шар",
-        "description": "Много энергии в астральном теле и нет выхода, при этом верхняя и нижняя части тела обесточены.  Тогда человек «варится в своем соку» (все держит в себе), не слышит Бога, теряет устойчивость, давит на пространство и окружающих."
+        "description": "Много энергии в астральном теле и нет выхода, при этом верхняя и нижняя части тела обесточены. Тогда человек «варится в своем соку» (все держит в себе), не слышит Бога, теряет устойчивость, давит на пространство и окружающих."
     },
     {
         "id": "5",
@@ -300,27 +309,31 @@ var CocoonViolations = [
     }
 ];
 
-var KharicheskayaLineViolations = [
+const initKharicheskayaLineViolations = [
     {
         "position": "top",
+        "trans": "Вверху",
         "description": "Нарушение харической линии вверху может возникнуть после физических травм (удар, авария), стрессов, инсульта, психических перегрузок; характеризуется внутричерепным давлением, смещением шейных позвонков, сбоями в работе автономной нервной системы"
     },
     {
 
         "position": "middle",
+        "trans": "В центре",
         "description": "Нарушение харической линии в центре говорит о проблемах на уровне души. «Сломалась» уверенность в себе, наступило разочарование. Может оказаться большая связь с параллельным миром, который желает управлять человеческим телом"
     },
     {
         "position": "bottom",
+        "trans": "Внизу",
         "description": "Нарушение харической линии внизу возможно в результате травмы копчика или смещения поясничных позвонков. При этом блокируется хара-чакра и нарушается работа паховых чакр. На физическом уровне проявляется в виде геморроя, заболеваний верхней части прямой кишки, тазобедренных суставов, их деформации. Иногда нарушается кровоток и лимфоток в малом тазу"
     },
     {
         "position": "abort",
+        "trans": "Прерывается",
         "description": "Харическая линия где-то прерывается, то человек впадает в состояние комы. На восстановление линии действуют образы, ментальные программы, выстраивание намерений."
     }
 ];
 
-var Thinlevels = [
+const initThinlevels = [
     {
         "id": "1",
         "level": "Физический",
@@ -384,7 +397,7 @@ var BiofieldCheck = [
 
 ];
 
-var IndicatorsPersonal = [
+const initIndicatorsPersonal = [
     {
         "name": "conscious",
         "level": "Сознание",
@@ -407,44 +420,33 @@ var IndicatorsPersonal = [
     }
 ];
 
-var OrganDiagnostics = [
+const initOrganDiagnostics = [
     {
         'section': 'Ноги',
         'parts': [
             {
                 'organ': 'Стеники сосудов',
-                'diagnostics': {
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Венозн. КВ',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Артериар. КВ',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Лимфоток',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Кровоток',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Нервный импульс',
-                'diagnostics': {
-
-                }
+                'diagnostics': []
             },
             {
                 'organ': 'Тазобедренный сустав',
@@ -1258,7 +1260,128 @@ var OrganDiagnostics = [
     }*/
 ];
 
-var OrganSystems = [
-    "Имунная", "Эндокринная", "Нервная", "Сосудистая", "Дыхательная", "Пищеварительная",
-    "Мочевыделительная", "Репродуктивная", "Кроветворная", "Лимфатическая", "Костно-мышечная", "Опорно-двигательная"
+const initOrganSystems = [
+    {
+        "name": "Имунная",
+        "diagnostics": []
+    },
+    {
+        "name": "Эндокринная",
+        "diagnostics": []
+    },
+    {
+        "name": "Нервная",
+        "diagnostics": []
+    },
+    {
+        "name": "Сосудистая",
+        "diagnostics": []
+    },
+    {
+        "name": "Дыхательная",
+        "diagnostics": []
+    },
+    {
+        "name": "Пищеварительная",
+        "diagnostics": []
+    },
+    {
+        "name": "Мочевыделительная",
+        "diagnostics": []
+    },
+    {
+        "name": "Репродуктивная",
+        "diagnostics": []
+    },
+    {
+        "name": "Кроветворная",
+        "diagnostics": []
+    },
+    {
+        "name": "Лимфатическая",
+        "diagnostics": []
+    },
+    {
+        "name": "Костно-мышечная",
+        "diagnostics": []
+    },
+    {
+        "name": "Опорно-двигательная",
+        "diagnostics": []
+    }
 ];
+
+loadData = function(f) {
+    var key = 'mainChakra';
+    localforage.getItem(key, function(err, readValue) {
+        if (readValue !== null) {
+            MainChakraViolations = readValue;
+        } else {
+            MainChakraViolations = initMainChakraViolations;
+        }
+
+        var key = 'smallChakra';
+        localforage.getItem(key, function(err, readValue) {
+            if (readValue !== null) {
+                SmallChakraViolations = readValue;
+            } else {
+                SmallChakraViolations = initSmallChakraViolations;
+            }
+
+            var key = 'cocoonViolations';
+            localforage.getItem(key, function(err, readValue) {
+                if (readValue !== null) {
+                    CocoonViolations = readValue;
+                } else {
+                    CocoonViolations = initCocoonViolations;
+                }
+
+                var key = 'kharicheskayaViolations';
+                localforage.getItem(key, function(err, readValue) {
+                    if (readValue !== null) {
+                        KharicheskayaLineViolations = readValue;
+                    } else {
+                        KharicheskayaLineViolations = initKharicheskayaLineViolations;
+                    }
+
+                    var key = 'thinLevels';
+                    localforage.getItem(key, function(err, readValue) {
+                        if (readValue !== null) {
+                            ThinLevels = readValue;
+                        } else {
+                            ThinLevels = initThinlevels;
+                        }
+
+                        var key = 'indicatorsPersonal';
+                        localforage.getItem(key, function(err, readValue) {
+                            if (readValue !== null) {
+                                IndicatorsPersonal = readValue;
+                            } else {
+                                IndicatorsPersonal = initIndicatorsPersonal;
+                            }
+
+                            var key = 'organDiagnostics';
+                            localforage.getItem(key, function(err, readValue) {
+                                if (readValue !== null) {
+                                    OrganDiagnostics = readValue;
+                                } else {
+                                    OrganDiagnostics = initOrganDiagnostics;
+                                }
+
+                                var key = 'organSystems';
+                                localforage.getItem(key, function(err, readValue) {
+                                    if (readValue !== null) {
+                                        OrganSystems = readValue;
+                                    } else {
+                                        OrganSystems = initOrganSystems;
+                                    }
+                                    return f();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+};

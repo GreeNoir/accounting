@@ -4,6 +4,22 @@
     }
 }
 
+.navbar-brand {
+    /*
+    font-size: 35px;*/
+    padding-left: 22px;
+    padding-right: 18px;
+    margin-top: -4px;
+}
+
+.navbar.navbar-inverse {
+    font-size: 19px;
+}
+
+.navbar.navbar-inverse span.glyphicon {
+    padding-right: 10px;
+}
+
 form label.error {
     color: #ff0000;
     font-size: 10px;
@@ -28,8 +44,9 @@ ul.nav.nav-tabs li.error a {
     color: #ff0000;
 }
 
-th, td.left-col {
-    background-color: #f5f5f5;
+#Descriptions th, #Descriptions td.left-col {
+    background-color: #33383b;
+    color: #fff;
 }
 
 .form-control-feedback {
@@ -177,7 +194,7 @@ div.copy span {
     font-size: 12px;
 }
 
-#Results {
+#Results, #Descriptions {
     margin-top: 15px;
 }
 
@@ -186,9 +203,77 @@ div.copy span {
     background-color: #673ab7;
     border-color: #673ab7;
 }
+#Descriptions .part-header {
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #ff9800;;
+}
+
+table#chakra table th {
+    border-width: 0 1px 1px 1px;
+}
+
+#Descriptions table td.list {
+    padding: 0;
+}
+
+#Descriptions table td.list > table {
+    margin: 0;
+}
+
+#Descriptions table td.thin_level {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#Descriptions table tr.empty_row th {
+    height: 10px;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+    width: 100%;
+}
+
+.edit textarea {
+    padding: 10px;
+    min-height: 80px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.edit input {
+    margin-right: 5px;
+}
 
 #Results .panel {
     margin: 5px 0;
+}
+
+.first_column {
+    font-weight: bold;
+}
+
+table caption {
+    padding: 0 0 10px 7px;
+    color: #333;
+    font-size: 17px;
+}
+
+#validation label.control-label {
+    padding-right: 5px;
+}
+
+#validation label.btn {
+    opacity: 0.7;
+    padding: 7px 18px;
+}
+
+#validation label.btn.active {
+    opacity: 1;
 }
 
 @media print {
@@ -198,9 +283,10 @@ div.copy span {
     }
 
     #scrollspy,
+    #Descriptions,
     .nav,
     button, footer, .tooltip,
-    .validation {
+    #validation {
         display: none !important;
     }
 

@@ -11,9 +11,10 @@ var Form = {
     isValid: false,
 
     levels: ['Ф', 'Э', 'А', 'М'],
+    initTitle: 'Экспертная система диагностики биоэнергетического состояния',
 
     setNeedValidate: function(v) {
-        Form.needValidate = v;
+        Form.needValidate = (v == 1 ? true : false);
     },
 
     setValid: function(v) {
@@ -22,6 +23,31 @@ var Form = {
 
     addValidator: function(v) {
         Form.validators.push(v);
+    },
+
+    init: function() {
+        $('input[name="validate"]').change(function() {
+            var v = $('input[name="validate"]:checked').val();
+            Form.setNeedValidate(v);
+        });
+        $('button[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+
+        loadData(function() {
+            Form.initValidator();
+            Form.initMainChakraPanel();
+            Form.initSmallChakraPanel();
+            Form.initCocoonPart();
+            Form.initOrganSystemsDiagnosticsPart();
+            Form.initOrganDiagnosticsPart();
+            DiagnosticsEditor.init();
+
+            var hash = window.location.hash.substr(1);
+            if (hash.length && hash !== 'Form') {
+                $('html, body').animate({
+                    scrollTop: $('#'+hash).offset().top
+                }, 100);
+            }
+        });
     },
 
     resetValidators: function() {
@@ -37,6 +63,7 @@ var Form = {
     },
 
     initMainChakraPanel: function() {
+        $('#chakra_main_form #mainContent').empty();
         var positions = ['front', 'back', 'middle'];
         var translate = ['спереди', 'сзади', 'по центру']
         for (var i=0; i<3; i++) {
@@ -46,11 +73,12 @@ var Form = {
                 var checkbox = $('<div class="form-group row"><div class="checkbox"><label><input type="checkbox" name="'+positions[i]+'" value="'+j+'">'+ MainChakraViolations[j].chakra +'</label></div>');
                 fieldset.append(checkbox);
             }
-            $('#chakra_main_form').append(fieldset);
+            $('#chakra_main_form #mainContent').append(fieldset);
         }
     },
 
     initSmallChakraPanel: function() {
+        $('#chakra_small_form').empty();
         var index = 0;
         for (var i=0; i<3; i++) {
             var div = $('<div class="col-md-4"></div>');
@@ -64,16 +92,17 @@ var Form = {
     },
 
     initCocoonPart: function() {
-        var div = $('<div class="form-group row col-md-12"></div>');
+        var div = $('#cocoon_violations div.basic');
+        div.empty();
         for (var i=1; i<6; i++) {
             var id = i+1;
             var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ id +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
         }
-        $('#cocoon_violations').append(div);
     },
 
     initOrganSystemsDiagnosticsPart: function() {
+        $('#organ #organ_systems_form').empty();
         var part1 = $('<div class="col-md-6"></div>');
         var part2 = $('<div class="col-md-6"></div>');
 
@@ -81,11 +110,11 @@ var Form = {
         var m = Math.trunc(OrganSystems.length / 2);
 
         for (var i in OrganSystems) {
-            var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i] +'</label></div></div>');
+            var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i].name +'</label></div></div>');
             var checkboxes = $('<div class="col-md-7"></div>');
-            for (var j in Thinlevels) {
-                var level = Thinlevels[j];
-                var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-level="'+ level.L +'">'+ level.L +'</label></div>');
+            for (var j in ThinLevels) {
+                var level = ThinLevels[j];
+                var checkbox = $('<div class="checkbox-inline"><label><input type="checkbox" data-id="'+i+'" data-level="'+j+'">'+ level.L +'</label></div>');
                 checkboxes.append(checkbox);
             }
             row.append(checkboxes);
@@ -100,6 +129,7 @@ var Form = {
     },
 
     initOrganDiagnosticsPart: function() {
+        $('#organs #organs_form').empty();
         var n = OrganDiagnostics.length;
         for (var i in OrganDiagnostics) {
             if (OrganDiagnostics[i].hasOwnProperty('parts')) {
@@ -205,14 +235,14 @@ var Form = {
     },
 
     analyseFormData: function() {
-        if (this.validFormData()) {
+        if (Form.validFormData()) {
             var oDiagnostics = new Diagnostics();
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
+            Form.processOrganSystemsForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
-            console.log(oDiagnostics);
             Form.printDiagnostics(oDiagnostics);
         }
     },
@@ -339,108 +369,129 @@ var Form = {
         diagnostics['thin_levels'] = [];
         $('#thin_levels input[type="checkbox"]:checked').each(function() {
             var level = $(this).data('id');
-            for (var i in Thinlevels) {
-                if (Thinlevels[i].id == level) {
-                    diagnostics['thin_levels'].push(Thinlevels[i].description);
+            for (var i in ThinLevels) {
+                if (ThinLevels[i].id == level) {
+                    diagnostics['thin_levels'].push(ThinLevels[i].description);
                 }
             }
         });
 
-        $('#biofield_sizes input').valid();
         diagnostics['biofield'] = [];
         diagnostics['biofield']['description'] = BiofieldCheck[0].description;
-        var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
-        var earth = +$('#biofield_sizes input[name="earth"]').val();
-        var native = +$('#biofield_sizes input[name="native"]').val();
-        var s = '';
+        var valid = $('#biofield_sizes input').valid();
+        if (valid) {
+            var cosmos = +$('#biofield_sizes input[name="cosmos"]').val();
+            var earth = +$('#biofield_sizes input[name="earth"]').val();
+            var native = +$('#biofield_sizes input[name="native"]').val();
+            var s = '';
 
-        if (!isNaN(cosmos) && !isNaN(earth)) {
-            if (cosmos > earth) {
-                s = BiofieldCheck[1].description;
-            } else
-            if (cosmos < earth) {
-                s = BiofieldCheck[2].description;
-            } else
-            if (cosmos === earth) {
-                s = BiofieldCheck[3].description;
-            }
-
-            diagnostics['biofield']['cosmoearth'] = s;
-        }
-
-        s = '';
-        if (!isNaN(native)) {
-            for (var i=4; i<7; i++) {
-                var parallel = BiofieldCheck[i];
-                var min = +parallel.min;
-                var max = +parallel.max;
-
-                if (native >= min && native <= max) {
-                    s = parallel.description;
-                    break;
+            if (!isNaN(cosmos) && !isNaN(earth)) {
+                if (cosmos > earth) {
+                    s = BiofieldCheck[1].description;
+                } else
+                if (cosmos < earth) {
+                    s = BiofieldCheck[2].description;
+                } else
+                if (cosmos === earth) {
+                    s = BiofieldCheck[3].description;
                 }
-            }
-            diagnostics['biofield']['native'] = s;
-        }
 
+                diagnostics['biofield']['cosmoearth'] = s;
+            }
+
+            s = '';
+            if (!isNaN(native)) {
+                for (var i=4; i<7; i++) {
+                    var parallel = BiofieldCheck[i];
+                    var min = +parallel.min;
+                    var max = +parallel.max;
+
+                    if (native >= min && native <= max) {
+                        s = parallel.description;
+                        break;
+                    }
+                }
+                diagnostics['biofield']['native'] = s;
+            }
+        }
+        console.log(diagnostics);
         oDiagnostics.setEnergeticForm(diagnostics);
     },
 
     processConfidenceForm: function(oDiagnostics) {
         var diagnostics = [];
-        diagnostics['inside'] = {
-            'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
-            'priority': ''
-        };
-
         var diff = [5, 10];
-        $('#confidence #inside input').valid();
+        var valid = $('#confidence #inside input').valid();
 
-        var inside = [
-            { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
-            { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
-            { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
-            { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
-        ];
+        if (valid) {
+            diagnostics['inside'] = {
+                'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
+                'priority': ''
+            };
 
-        var isInsideOk = true;
-        for (var i in inside) {
-            if (isNaN(inside[i].value)) {
-                isInsideOk = false;
-            }
-        }
+            var inside = [
+                { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
+                { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
+                { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
+                { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
+            ];
 
-        if (isInsideOk) {
-            inside.sort(function(a,b){
-                if (a.value > b.value)
-                    return -1;
-                if (a.value < b.value)
-                    return 1;
-                return 0;
-            });
-
-            var middle = 0;
+            var isInsideOk = true;
             for (var i in inside) {
-                middle += inside[i].value;
-            }
-
-            middle /= 4;
-            for (var i in inside) {
-                if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
-                    diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
-                    break;
+                if (isNaN(inside[i].value)) {
+                    isInsideOk = false;
                 }
             }
 
-            var maxName = inside[0].name;
-            for (var i in IndicatorsPersonal) {
-                if (IndicatorsPersonal[i].name === maxName) {
-                    diagnostics['inside'].priority = IndicatorsPersonal[i].description;
-                    break;
+            if (isInsideOk) {
+                inside.sort(function(a,b){
+                    if (a.value > b.value)
+                        return -1;
+                    if (a.value < b.value)
+                        return 1;
+                    return 0;
+                });
+
+                var middle = 0;
+                for (var i in inside) {
+                    middle += inside[i].value;
+                }
+
+                middle /= 4;
+                for (var i in inside) {
+                    if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
+                        diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
+                        break;
+                    }
+                }
+
+                var maxName = inside[0].name;
+                for (var i in IndicatorsPersonal) {
+                    if (IndicatorsPersonal[i].name === maxName) {
+                        diagnostics['inside'].priority = IndicatorsPersonal[i].description;
+                        break;
+                    }
                 }
             }
         }
         oDiagnostics.setConfidenceForm(diagnostics);
+    },
+
+    processOrganSystemsForm: function(oDiagnostics) {
+        var mainSelector = 'form#organ_systems_form div.checkbox-inline ';
+        var diagnostics = [];
+        for (var i in OrganSystems) {
+            var obj = OrganSystems[i];
+            for (var l in Form.levels) {
+                if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"][data-level="'+l+'"]').prop('checked')) {
+                    var s = obj.diagnostics[l].description;
+                    if (s.length) {
+                        diagnostics.push(s);
+                    }
+                }
+            }
+        }
+        oDiagnostics.setOrganSystemsForm(diagnostics);
     },
 
     processOrgansForm: function(oDiagnostics) {
@@ -500,9 +551,17 @@ var Form = {
     },
 
     printDiagnostics: function(oDiagnostics) {
-        $('#diagnostics_success').modal();
+        if (Form.needValidate) {
+            $('#diagnostics_success').modal();
+        }
 
-        $('#link_results').removeClass('disabled');
+        var title = Form.initTitle;
+        if (Form.needValidate && Form.isValid) {
+            title = 'Анкета - ' + $('input[name="firstname"]').val() +' '+ $('input[name="name"]').val();
+        }
+        $('head title').text(title);
+
+        $('.link_results').removeClass('disabled');
         $('html, body').animate({
             scrollTop: $("#Results").offset().top
         }, 100);
@@ -546,26 +605,30 @@ var Form = {
             }
         }
 
-        var s = oDiagnostics.energeticForm.biofield.description;
-        $(selector).append('<p><small>'+s+'</small></p>');
+        if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
+            var s = oDiagnostics.energeticForm.biofield.description;
+            $(selector).append('<p><small>'+s+'</small></p>');
 
-        if (oDiagnostics.energeticForm.biofield.cosmoearth.length) {
-            var s = oDiagnostics.energeticForm.biofield.cosmoearth;
-            $(selector).append('<p>'+s+'</p>');
+            if (oDiagnostics.energeticForm.biofield.hasOwnProperty('cosmoearth')) {
+                var s = oDiagnostics.energeticForm.biofield.cosmoearth;
+                $(selector).append('<p>'+s+'</p>');
+            }
+
+            if (oDiagnostics.energeticForm.biofield.hasOwnProperty('native')) {
+                var s = oDiagnostics.energeticForm.biofield.native;
+                $(selector).append('<p>'+s+'</p>');
+            }
         }
 
-        if (oDiagnostics.energeticForm.biofield.native.length) {
-            var s = oDiagnostics.energeticForm.biofield.native;
+        if (oDiagnostics.confidenceForm.hasOwnProperty('inside')) {
+            $(selector).append('<hr>');
+            $(selector).append('<label>Уверенность</label>');
+            var s = oDiagnostics.confidenceForm.inside.harmonic;
             $(selector).append('<p>'+s+'</p>');
-        }
-
-        $(selector).append('<hr>');
-        $(selector).append('<label>Уверенность</label>');
-        var s = oDiagnostics.confidenceForm.inside.harmonic;
-        $(selector).append('<p>'+s+'</p>');
-        if (oDiagnostics.confidenceForm.hasOwnProperty('priority')) {
-            var s = oDiagnostics.confidenceForm.inside.priority;
-            $(selector).append('<p>'+s+'</p>');
+            if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
+                var s = oDiagnostics.confidenceForm.inside.priority;
+                $(selector).append('<p>'+s+'</p>');
+            }
         }
 
         if ($(selector).html().length === 0) {
@@ -574,7 +637,17 @@ var Form = {
 
         selector = '#Results #organism-part';
         $(selector).empty();
-        if (oDiagnostics.organsForm) {
+        if (oDiagnostics.organSystemsForm.length) {
+            $(selector).append('<label>Системы организма</label>');
+            var s = '';
+            for (var i in oDiagnostics.organSystemsForm) {
+                s += oDiagnostics.organSystemsForm[i] + ' ';
+            }
+            $(selector).append('<p>'+s+'</p>');
+        }
+
+        if (oDiagnostics.organsForm.length) {
+            $(selector).append('<label>Внутренние органы</label>');
             for (var i in oDiagnostics.organsForm) {
                 var s = oDiagnostics.organsForm[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -592,7 +665,7 @@ var Form = {
     printResults: function() {
         window.print();
     }
-}
+};
 
 function Diagnostics(prop) {
     prop = prop || {};
@@ -613,6 +686,10 @@ Diagnostics.prototype = {
 
     setConfidenceForm: function(diagnostics) {
         this.confidenceForm = diagnostics;
+    },
+
+    setOrganSystemsForm: function(diagnostics) {
+        this.organSystemsForm = diagnostics;
     },
 
     setOrgansForm: function(diagnostics) {
