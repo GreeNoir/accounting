@@ -36,6 +36,7 @@ var Form = {
         Form.checkIE();
 
         if (Form.isIE) {
+            $('#ie_error').modal();
             $('button#reset').addClass('disabled');
             $('button#reset').off('click');
         }
