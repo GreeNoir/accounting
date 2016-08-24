@@ -1310,8 +1310,24 @@ const initOrganSystems = [
         "diagnostics": []
     }
 ];
+loadInitData = function(f) {
+    MainChakraViolations = initMainChakraViolations;
+    SmallChakraViolations = initSmallChakraViolations;
+    CocoonViolations = initCocoonViolations;
+    KharicheskayaLineViolations = initKharicheskayaLineViolations;
+    ThinLevels = initThinlevels;
+    IndicatorsPersonal = initIndicatorsPersonal;
+    OrganDiagnostics = initOrganDiagnostics;
+    OrganSystems = initOrganSystems;
+    return f();
+}
 
 loadData = function(f) {
+    if (Form.isIE) {
+        loadInitData(f);
+        return;
+    }
+
     var key = 'mainChakra';
     localforage.getItem(key, function(err, readValue) {
         if (readValue !== null) {

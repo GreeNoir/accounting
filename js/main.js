@@ -12,6 +12,7 @@ var Form = {
 
     levels: ['Ф', 'Э', 'А', 'М'],
     initTitle: 'Экспертная система диагностики биоэнергетического состояния',
+    isIE: false,
 
     setNeedValidate: function(v) {
         Form.needValidate = (v == 1 ? true : false);
@@ -25,7 +26,21 @@ var Form = {
         Form.validators.push(v);
     },
 
+    checkIE: function() {
+        if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0) {
+            Form.isIE = true;
+        }
+    },
+
     init: function() {
+        Form.checkIE();
+
+        if (Form.isIE) {
+            $('#ie_error').modal();
+            $('button#reset').addClass('disabled');
+            $('button#reset').off('click');
+        }
+
         $('input[name="validate"]').change(function() {
             var v = $('input[name="validate"]:checked').val();
             Form.setNeedValidate(v);
@@ -107,7 +122,7 @@ var Form = {
         var part2 = $('<div class="col-md-6"></div>');
 
         var k = 1;
-        var m = Math.trunc(OrganSystems.length / 2);
+        var m = 6;// Math.trunc(OrganSystems.length / 2);
 
         for (var i in OrganSystems) {
             var row = $('<div class="form-group row"><div class="col-md-5"><label class="control-label">' + OrganSystems[i].name +'</label></div></div>');
@@ -138,8 +153,8 @@ var Form = {
             }
         }
 
-
-        var m = Math.trunc(n/2)-1;
+        var n = 64;
+        var m = 31;//Math.trunc(n/2)-1;
         var k = 1;
 
         var initOrganCheckboxes = function(obj, pair, i, p) {
