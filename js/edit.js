@@ -91,6 +91,8 @@ var DiagnosticsEditor = {
 
     cocoonPartInit: function() {
         $('#Descriptions table#descr_cocoon').empty();
+        var th = $('<tr><th colspan="2">Форма кокона</th></tr>');
+        $('#Descriptions table#descr_cocoon').append(th);
 
         for (var i in CocoonViolations) {
             var cocoon = CocoonViolations[i];
@@ -119,6 +121,8 @@ var DiagnosticsEditor = {
 
     kharicheskayaInit: function() {
         $('#Descriptions table#descr_kharicheskaya').empty();
+        var th = $('<tr><th colspan="2">Нарушения харической линии</th></tr>');
+        $('#Descriptions table#descr_kharicheskaya').append(th);
 
         for (var i in KharicheskayaLineViolations) {
             var violation = KharicheskayaLineViolations[i];
@@ -147,6 +151,8 @@ var DiagnosticsEditor = {
 
     thinLevelsInit: function() {
         $('#Descriptions table#descr_thinlevels').empty();
+        var th = $('<tr><th colspan="2">Основные проблемы на уровне 4-х тонких тел</th></tr>');
+        $('#Descriptions table#descr_thinlevels').append(th);
 
         for (var i in ThinLevels) {
             var level = ThinLevels[i];
@@ -175,6 +181,8 @@ var DiagnosticsEditor = {
 
     confidenceInit: function() {
         $('#Descriptions table#descr_indicators').empty();
+        var th = $('<tr><th colspan="2">Внутрення уверенность</th></tr>');
+        $('#Descriptions table#descr_indicators').append(th);
 
         for (var i in IndicatorsPersonal) {
             var item = IndicatorsPersonal[i];
