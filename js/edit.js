@@ -45,12 +45,14 @@ var DiagnosticsEditor = {
                 var position = $(this).attr('data-position');
                 MainChakraViolations[id][position] = value;
 
-                var key = 'mainChakra';
-                localforage.setItem(key, MainChakraViolations, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        MainChakraViolations = readValue;
+                if (!Form.isIE) {
+                    var key = 'mainChakra';
+                    localforage.setItem(key, MainChakraViolations, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            MainChakraViolations = readValue;
+                        });
                     });
-                });
+                }
 
                 return(value);
             },
@@ -72,13 +74,15 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 SmallChakraViolations[id].description = value;
-                var key = 'smallChakra';
-                localforage.setItem(key, SmallChakraViolations, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        SmallChakraViolations = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'smallChakra';
+                    localforage.setItem(key, SmallChakraViolations, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            SmallChakraViolations = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -98,13 +102,15 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 CocoonViolations[id].description = value;
-                var key = 'cocoonViolations';
-                localforage.setItem(key, CocoonViolations, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        CocoonViolations = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'cocoonViolations';
+                    localforage.setItem(key, CocoonViolations, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            CocoonViolations = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -124,13 +130,15 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 KharicheskayaLineViolations[id].description = value;
-                var key = 'kharicheskayaViolations';
-                localforage.setItem(key, KharicheskayaLineViolations, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        KharicheskayaLineViolations = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'kharicheskayaViolations';
+                    localforage.setItem(key, KharicheskayaLineViolations, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            KharicheskayaLineViolations = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -150,13 +158,15 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 ThinLevels[id].description = value;
-                var key = 'thinLevels';
-                localforage.setItem(key, ThinLevels, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        ThinLevels = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'thinLevels';
+                    localforage.setItem(key, ThinLevels, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            ThinLevels = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -176,13 +186,15 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 IndicatorsPersonal[id].description = value;
-                var key = 'indicatorsPersonal';
-                localforage.setItem(key, IndicatorsPersonal, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        IndicatorsPersonal = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'indicatorsPersonal';
+                    localforage.setItem(key, IndicatorsPersonal, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            IndicatorsPersonal = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -219,14 +231,15 @@ var DiagnosticsEditor = {
                     OrganSystems[id].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
                 }
                 OrganSystems[id].diagnostics[level].description = value;
-
-                var key = 'organSystems';
-                localforage.setItem(key, OrganSystems, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        OrganSystems = readValue;
+                
+                if (!Form.isIE) {
+                    var key = 'organSystems';
+                    localforage.setItem(key, OrganSystems, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            OrganSystems = readValue;
+                        });
                     });
-                });
-
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -285,13 +298,15 @@ var DiagnosticsEditor = {
                     }
                     OrganDiagnostics[main_index].diagnostics[level].description = value;
                 }
-                var key = 'organDiagnostics';
-                localforage.setItem(key, OrganDiagnostics, function() {
-                    localforage.getItem(key, function(err, readValue) {
-                        OrganDiagnostics = readValue;
-                    });
-                });
 
+                if (!Form.isIE) {
+                    var key = 'organDiagnostics';
+                    localforage.setItem(key, OrganDiagnostics, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            OrganDiagnostics = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
