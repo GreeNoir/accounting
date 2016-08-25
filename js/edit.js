@@ -11,6 +11,7 @@ var DiagnosticsEditor = {
         cancel  : 'Отмена',
         cssclass : 'editable',
         tooltip : "Нажмите для редактирования..",
+        placeholder: "(нет данных)",
         onblur  : 'cancel'
     },
 
@@ -324,7 +325,7 @@ var DiagnosticsEditor = {
     btnDesign: function() {
         var val = $('.editable textarea').val();
         $('.editable textarea').focus().val("").val(val);
-        $('.editable input').addClass('btn').addClass('btn-primary').addClass('btn-sm');
+        $('.editable button').addClass('btn').addClass('btn-primary').addClass('btn-sm');
     },
 
     resetDescriptions: function() {
