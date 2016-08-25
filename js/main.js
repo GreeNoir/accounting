@@ -32,8 +32,19 @@ var Form = {
         }
     },
 
+    bindRefreshConfirmation: function() {
+        $(window).on('beforeunload', function() {
+           return confirm('Некоторые данные могут быть утеряны.');
+        });
+    },
+
+    unbindRefreshConfirmation: function() {
+        $(window).off('beforeunload');
+    },
+
     init: function() {
         Form.checkIE();
+        Form.bindRefreshConfirmation();
 
         if (Form.isIE) {
             $('#ie_error').modal();

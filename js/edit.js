@@ -327,6 +327,7 @@ var DiagnosticsEditor = {
     },
 
     resetDescriptions: function() {
+        Form.unbindRefreshConfirmation();
         if (confirm('Вы уверенны что хотите сбросить описания диагностики к первоначальному состоянию?')) {
             localforage.clear(function() {
                 location.reload();
