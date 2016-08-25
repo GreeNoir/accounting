@@ -429,7 +429,6 @@ var Form = {
                 diagnostics['biofield']['native'] = s;
             }
         }
-        console.log(diagnostics);
         oDiagnostics.setEnergeticForm(diagnostics);
     },
 
