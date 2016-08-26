@@ -11,7 +11,8 @@ var DiagnosticsEditor = {
         cancel  : 'Отмена',
         cssclass : 'editable',
         tooltip : "Нажмите для редактирования..",
-        onblur  : 'cancel'
+        placeholder: "(нет данных)",
+        onblur  : 'ignore'
     },
 
     init: function() {
@@ -235,9 +236,6 @@ var DiagnosticsEditor = {
             function(value, settings) {
                 var id = $(this).attr('data-id');
                 var level = $(this).attr('data-level');
-                if (OrganSystems[id].diagnostics[level] === undefined) {
-                    OrganSystems[id].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
-                }
                 OrganSystems[id].diagnostics[level].description = value;
                 
                 if (!Form.isIE) {
@@ -296,14 +294,8 @@ var DiagnosticsEditor = {
                 var part_index = $(this).attr('data-part-index');
                 var level = $(this).attr('data-level');
                 if (OrganDiagnostics[main_index].hasOwnProperty('parts')) {
-                    if (OrganDiagnostics[main_index].parts[part_index].diagnostics[level] === undefined) {
-                        OrganDiagnostics[main_index].parts[part_index].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
-                    }
                     OrganDiagnostics[main_index].parts[part_index].diagnostics[level].description = value;
                 } else {
-                    if (OrganDiagnostics[main_index].diagnostics[level] === undefined) {
-                        OrganDiagnostics[main_index].diagnostics.push({ "level": DiagnosticsEditor.levels[level], "description": "" });
-                    }
                     OrganDiagnostics[main_index].diagnostics[level].description = value;
                 }
 
@@ -322,12 +314,11 @@ var DiagnosticsEditor = {
     },
 
     btnDesign: function() {
-        var val = $('.editable textarea').val();
-        $('.editable textarea').focus().val("").val(val);
-        $('.editable input').addClass('btn').addClass('btn-primary').addClass('btn-sm');
+        $('.editable button').addClass('btn').addClass('btn-primary').addClass('btn-sm');
     },
 
     resetDescriptions: function() {
+        Form.unbindRefreshConfirmation();
         if (confirm('Вы уверенны что хотите сбросить описания диагностики к первоначальному состоянию?')) {
             localforage.clear(function() {
                 location.reload();
