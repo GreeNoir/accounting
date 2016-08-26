@@ -212,7 +212,6 @@ div.copy span {
 #Descriptions td.first_column,
 #Descriptions td.list > table td.edit {
     white-space: pre-wrap;
-    word-wrap: break-word;
 }
 
 table#chakra table th {
