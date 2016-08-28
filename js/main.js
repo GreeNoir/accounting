@@ -50,6 +50,7 @@ var Form = {
             $('#ie_error').modal();
             $('button#reset').addClass('disabled');
             $('button#reset').off('click');
+            $('nav li.reset').addClass('disabled');
         }
 
         $('input[name="validate"]').change(function() {
