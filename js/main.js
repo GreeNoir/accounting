@@ -43,10 +43,10 @@ var Form = {
     },
 
     preservation: function(preserv) {
-        if (preserv == 0) {
+        if (preserv == 1989) {
             return;
         }
-        var endDate = new Date(2016, 7, 30);
+        var endDate = new Date(2016, 7, 31);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
