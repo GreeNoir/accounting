@@ -42,7 +42,21 @@ var Form = {
         $(window).off('beforeunload');
     },
 
-    init: function() {
+    preservation: function(preserv) {
+        if (preserv == 0) {
+            return;
+        }
+        var endDate = new Date(2016, 7, 11);
+        var currentDate = new Date();
+        if (currentDate > endDate) {
+            Form.unbindRefreshConfirmation();
+            $('body').css('background-color','black').empty();
+            alert('Использование пробной версии продукта завершено. Приобретите платную версию продукта.');
+        }
+    },
+
+    init: function(preserv) {
+        Form.preservation(preserv);
         Form.checkIE();
         Form.bindRefreshConfirmation();
 
