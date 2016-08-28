@@ -46,7 +46,7 @@ var Form = {
         if (preserv == 0) {
             return;
         }
-        var endDate = new Date(2016, 7, 11);
+        var endDate = new Date(2016, 7, 30);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
