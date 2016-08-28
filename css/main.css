@@ -210,6 +210,7 @@ div.copy span {
 }
 
 #Descriptions td.first_column,
+#Descriptions td.edit,
 #Descriptions td.list > table td.edit {
     white-space: pre-wrap;
 }
