@@ -637,7 +637,7 @@ var Form = {
             $(selector).append('<hr/>');
         }
 
-        $(selector).append('<hr/>').append('<h3>Энергетика</h3>');
+        $(selector).append('<h3>Энергетика</h3>');
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
             $(selector).append('<label>Уровень гормонов</label>');
