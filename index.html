@@ -239,30 +239,43 @@
                                                     <h3 class="print">Чакры</h3>
                                                     <br/>
                                                     <div id="mainContent"></div>
-                                                    <div class="col-md-6 col-print-12">
-                                                        <fieldset>
-                                                            <legend>Дополнительные чакры</legend>
-                                                            <div class="form-group row">
-                                                                <div class="checkbox">
-                                                                    <label><input type="checkbox">Верхняя шама</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <div class="checkbox">
-                                                                    <label><input type="checkbox">Нижняя шама</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="control-label col-md-5">Эстроген</label>
-                                                                <div class="col-md-7"><input class="form-control" id="estrogen" type="text"></div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="control-label col-md-5">Прогестерон</label>
-                                                                <div class="col-md-7"><input class="form-control" id="progesteron" type="text"></div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
                                                 </form>
+                                                <div class="col-md-12 form-horizontal">
+                                                    <br>
+                                                    <fieldset>
+                                                        <legend>Дополнительные чакры</legend>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" id="chakra_additional_1" data-id="0">Верхняя шама</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" id="chakra_additional_2" data-id="1">Нижняя шама</label>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    <br>
+                                                    <fieldset>
+                                                        <legend>Уровень гормонов</legend>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-5">Эстроген</label>
+                                                            <div class="col-md-4"><input class="form-control" name="estrogen" type="text"></div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-5">Прогестерон</label>
+                                                            <div class="col-md-4"><input class="form-control" name="progesteron" type="text"></div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-5">Тестостерон</label>
+                                                            <div class="col-md-4"><input class="form-control" name="testosteron" type="text"></div>
+                                                        </div>
+                                                        <label>Примечания:</label>
+                                                        <div class="form-group row col-md-12">
+                                                            <textarea class="form-control" rows="4"></textarea>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
                                             </div>
                                             <div id="small" class="tab-pane fade">
                                                 <h3 class="print">Мелкие чакры</h3>
@@ -617,6 +630,9 @@
                                         <br/>
                                         <div class="table-responsive">
                                             <table id="chakra" class="table table-bordered"></table>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="addit_chakra" class="table table-bordered"></table>
                                         </div>
                                     </div>
                                     <div id="descr_small" class="tab-pane fade">

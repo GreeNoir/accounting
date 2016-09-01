@@ -46,7 +46,7 @@ var Form = {
         if (preserv == 1989) {
             return;
         }
-        var endDate = new Date(2016, 7, 31);
+        var endDate = new Date(2016, 8, 15);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
@@ -58,7 +58,7 @@ var Form = {
     init: function(preserv) {
         Form.preservation(preserv);
         Form.checkIE();
-        Form.bindRefreshConfirmation();
+//        Form.bindRefreshConfirmation();
 
         if (Form.isIE) {
             $('#ie_error').modal();
@@ -280,6 +280,7 @@ var Form = {
             var oDiagnostics = new Diagnostics();
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
+            Form.processChakraAdditional(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrganSystemsForm(oDiagnostics);
@@ -370,6 +371,19 @@ var Form = {
             diagnostics.push(s);
         }
         oDiagnostics.setChakraMain(diagnostics);
+    },
+
+    processChakraAdditional: function(oDiagnostics) {
+        var diagnostics = [];
+        if ($('input#chakra_additional_1').prop('checked')) {
+            var s = AdditionalChakraViolations[0].description;
+            diagnostics.push(s);
+        }
+        if ($('input#chakra_additional_2').prop('checked')) {
+            var s = AdditionalChakraViolations[1].description;
+            diagnostics.push(s);
+        }
+        oDiagnostics.setChakraAdditional(diagnostics);
     },
 
     processChakraSmallForm: function(oDiagnostics) {
@@ -616,6 +630,14 @@ var Form = {
             }
             $(selector).append('<hr/>');
         }
+        if (oDiagnostics.chakraAdditional.length) {
+            $(selector).append('<label>Дополнительные чакры</label>');
+            for (var i in oDiagnostics.chakraAdditional) {
+                var s = oDiagnostics.chakraAdditional[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+            $(selector).append('<hr/>');
+        }
         if (oDiagnostics.chakraSmall.length) {
             $(selector).append('<label>Мелкие чакры</label>');
             for (var i in oDiagnostics.chakraSmall) {
@@ -718,6 +740,10 @@ Diagnostics.prototype = {
 
     setChakraSmall: function(diagnostics) {
         this.chakraSmall = diagnostics;
+    },
+
+    setChakraAdditional: function(diagnostocs) {
+        this.chakraAdditional = diagnostocs;
     },
 
     setEnergeticForm: function(diagnostics) {

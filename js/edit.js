@@ -17,6 +17,7 @@ var DiagnosticsEditor = {
 
     init: function() {
         DiagnosticsEditor.chakraInit();
+        DiagnosticsEditor.additChakraInit();
         DiagnosticsEditor.smallChakraInit();
         DiagnosticsEditor.cocoonPartInit();
         DiagnosticsEditor.kharicheskayaInit();
@@ -34,7 +35,7 @@ var DiagnosticsEditor = {
             var subrow_front = $('<tr><td>Спереди</td><td class="edit" data-id="'+i+'" data-position="front">' + chakra.front + '</td></tr>');
             var subrow_middle = $('<tr data-position="middle"><td>По центру</td><td class="edit" data-id="'+i+'" data-position="middle">' + chakra.middle + '</td></tr>');
             var subrow_back = $('<tr data-position="back"><td>Сзади</td><td class="edit" data-id="'+i+'" data-position="back">'+ chakra.back +'</td></tr>');
-            var subtable = $('<table class="table"><tr><th>Позиция</th><th>Описание</th></tr></table>');
+            var subtable = $('<table class="table"><tr class="bg-info"><th>Позиция</th><th>Описание</th></tr></table>');
             subtable.append(subrow_front).append(subrow_middle).append(subrow_back);
             row.find('td.list').append(subtable);
             $('#Descriptions table#chakra').append(row);
@@ -55,6 +56,37 @@ var DiagnosticsEditor = {
                     });
                 }
 
+                return(value);
+            },
+            DiagnosticsEditor.editParams
+        ).click(DiagnosticsEditor.btnDesign);
+    },
+
+    additChakraInit: function() {
+        $('#Descriptions table#addit_chakra').empty();
+        var th = $('<tr class="bg-info"><th colspan="2">Дополнительные чакры</th></tr>');
+        $('#Descriptions table#addit_chakra').append(th);
+
+        for (var i in AdditionalChakraViolations) {
+            var chakra = AdditionalChakraViolations[i];
+            var s = chakra.description;
+            var row = $('<tr><td class="first_column" style="width: 125px;">'+chakra.chakra+'</td><td class="edit" data-id="'+ i +'">'+s+'</td></tr>');
+            $('#Descriptions table#addit_chakra').append(row);
+        }
+
+        $('#Descriptions table#addit_chakra .edit').editable(
+            function(value, settings) {
+                var id = $(this).attr('data-id');
+                AdditionalChakraViolations[id].description = value;
+
+                if (!Form.isIE) {
+                    var key = 'additChakra';
+                    localforage.setItem(key, AdditionalChakraViolations, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            AdditionalChakraViolations = readValue;
+                        });
+                    });
+                }
                 return(value);
             },
             DiagnosticsEditor.editParams
@@ -92,7 +124,7 @@ var DiagnosticsEditor = {
 
     cocoonPartInit: function() {
         $('#Descriptions table#descr_cocoon').empty();
-        var th = $('<tr><th colspan="2">Форма кокона</th></tr>');
+        var th = $('<tr class="bg-info"><th colspan="2">Форма кокона</th></tr>');
         $('#Descriptions table#descr_cocoon').append(th);
 
         for (var i in CocoonViolations) {
@@ -122,7 +154,7 @@ var DiagnosticsEditor = {
 
     kharicheskayaInit: function() {
         $('#Descriptions table#descr_kharicheskaya').empty();
-        var th = $('<tr><th colspan="2">Нарушения харической линии</th></tr>');
+        var th = $('<tr class="bg-info"><th colspan="2">Нарушения харической линии</th></tr>');
         $('#Descriptions table#descr_kharicheskaya').append(th);
 
         for (var i in KharicheskayaLineViolations) {
@@ -152,7 +184,7 @@ var DiagnosticsEditor = {
 
     thinLevelsInit: function() {
         $('#Descriptions table#descr_thinlevels').empty();
-        var th = $('<tr><th colspan="2">Основные проблемы на уровне 4-х тонких тел</th></tr>');
+        var th = $('<tr class="bg-info"><th colspan="2">Основные проблемы на уровне 4-х тонких тел</th></tr>');
         $('#Descriptions table#descr_thinlevels').append(th);
 
         for (var i in ThinLevels) {
@@ -182,7 +214,7 @@ var DiagnosticsEditor = {
 
     confidenceInit: function() {
         $('#Descriptions table#descr_indicators').empty();
-        var th = $('<tr><th colspan="2">Внутрення уверенность</th></tr>');
+        var th = $('<tr class="bg-info"><th colspan="2">Внутрення уверенность</th></tr>');
         $('#Descriptions table#descr_indicators').append(th);
 
         for (var i in IndicatorsPersonal) {
@@ -271,7 +303,7 @@ var DiagnosticsEditor = {
         for (var i in OrganDiagnostics) {
             var obj = OrganDiagnostics[i];
             if (obj.hasOwnProperty('parts')) {
-                var topRow = $('<tr><th colspan="2"><h4>'+obj.section+'</h4></th></tr>');
+                var topRow = $('<tr class="bg-info"><th colspan="2"><h4>'+obj.section+'</h4></th></tr>');
                 $('#Descriptions table#descr_organs').append(topRow);
 
                 for (var p in obj.parts) {
@@ -279,7 +311,7 @@ var DiagnosticsEditor = {
                     var row = $('<tr><td class="first_column">'+organ.organ+'</td><td class="list"><table class="table table-bordered">'+getLevelsTable(organ.diagnostics, i, p)+'</table></td></tr>');
                     $('#Descriptions table#descr_organs').append(row);
                 }
-                var emptyRow = $('<tr class="empty_row"><th colspan="2"></th></tr>');
+                var emptyRow = $('<tr class="empty_row bg-info"><th colspan="2"></th></tr>');
                 $('#Descriptions table#descr_organs').append(emptyRow);
 
             } else {
