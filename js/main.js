@@ -46,7 +46,7 @@ var Form = {
         if (preserv == 1989) {
             return;
         }
-        var endDate = new Date(2016, 8, 15);
+        var endDate = new Date(2016, 8, 16);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
@@ -234,16 +234,20 @@ var Form = {
     },
 
     initValidator: function() {
-        var numberRules = {  number: true, min: 0, max: 100 };
+        var numberRules = { number: true, min: 0 };
+        var percentRules = {  number: true, min: 0, max: 100 };
 
         var rules = {
-            cosmos: numberRules,
-            earth: numberRules,
-            native: numberRules,
-            conscious: numberRules,
-            subconscious: numberRules,
-            mind: numberRules,
-            soul: numberRules
+            estrogen: numberRules,
+            progesteron: numberRules,
+            testosteron: numberRules,
+            cosmos: percentRules,
+            earth: percentRules,
+            native: percentRules,
+            conscious: percentRules,
+            subconscious: percentRules,
+            mind: percentRules,
+            soul: percentRules
         };
 
         $('#outside input[type="text"]').each(function() {
@@ -280,7 +284,7 @@ var Form = {
             var oDiagnostics = new Diagnostics();
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
-            Form.processChakraAdditional(oDiagnostics);
+            Form.processChakraAdditionalForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrganSystemsForm(oDiagnostics);
@@ -373,7 +377,7 @@ var Form = {
         oDiagnostics.setChakraMain(diagnostics);
     },
 
-    processChakraAdditional: function(oDiagnostics) {
+    processChakraAdditionalForm: function(oDiagnostics) {
         var diagnostics = [];
         if ($('input#chakra_additional_1').prop('checked')) {
             var s = AdditionalChakraViolations[0].description;
@@ -400,6 +404,23 @@ var Form = {
 
     processEnergeticForm: function(oDiagnostics) {
         var diagnostics = [];
+
+        diagnostics['hormones'] = [];
+        var hormones = [];
+        var valid = $('#hormones input').valid();
+        if (valid) {
+            $('#hormones input[type="text"]').each(function(){
+                var v = +$(this).val();
+                hormones.push(v);
+            });
+        }
+
+        if ($('#hormones input#hormons_violation').prop('checked')) {
+            diagnostics['hormones'].harmonic = 'Имеются отклонения от нормы';
+        } else {
+            diagnostics['hormones'].harmonic = 'Отклонения не отмечены';
+        }
+
         var cocoon = $('input[name="cocoon"]:checked').val();
         if (cocoon !== undefined) {
             for (var i in CocoonViolations) {
@@ -440,19 +461,17 @@ var Form = {
             var native = +$('#biofield_sizes input[name="native"]').val();
             var s = '';
 
-            if (!isNaN(cosmos) && !isNaN(earth)) {
-                if (cosmos > earth) {
-                    s = BiofieldCheck[1].description;
-                } else
-                if (cosmos < earth) {
-                    s = BiofieldCheck[2].description;
-                } else
-                if (cosmos === earth) {
-                    s = BiofieldCheck[3].description;
-                }
-
-                diagnostics['biofield']['cosmoearth'] = s;
+            if (cosmos > earth) {
+                s = BiofieldCheck[1].description;
+            } else
+            if (cosmos < earth) {
+                s = BiofieldCheck[2].description;
+            } else
+            if (cosmos === earth) {
+                s = BiofieldCheck[3].description;
             }
+
+            diagnostics['biofield']['cosmoearth'] = s;
 
             s = '';
             if (!isNaN(native)) {
@@ -474,58 +493,26 @@ var Form = {
 
     processConfidenceForm: function(oDiagnostics) {
         var diagnostics = [];
-        var diff = [5, 10];
-        var valid = $('#confidence #inside input').valid();
 
+        var valid = $('#confidence #inside input').valid();
         if (valid) {
             diagnostics['inside'] = {
-                'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
+                'harmonic': 'В целом состояние гармоничное.',
                 'priority': ''
             };
 
-            var inside = [
-                { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
-                { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
-                { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
-                { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
-            ];
+            var inside = [];
+            $('#confidence #inside input').each(function() {
+                var v = +$(this).val();
+                inside.push(v);
+            });
 
-            var isInsideOk = true;
-            for (var i in inside) {
-                if (isNaN(inside[i].value)) {
-                    isInsideOk = false;
-                }
-            }
+            var max = Max(inside);
+            diagnostics['inside'].priority = IndicatorsPersonal[max].description;
 
-            if (isInsideOk) {
-                inside.sort(function(a,b){
-                    if (a.value > b.value)
-                        return -1;
-                    if (a.value < b.value)
-                        return 1;
-                    return 0;
-                });
-
-                var middle = 0;
-                for (var i in inside) {
-                    middle += inside[i].value;
-                }
-
-                middle /= 4;
-                for (var i in inside) {
-                    if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
-                        diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
-                        break;
-                    }
-                }
-
-                var maxName = inside[0].name;
-                for (var i in IndicatorsPersonal) {
-                    if (IndicatorsPersonal[i].name === maxName) {
-                        diagnostics['inside'].priority = IndicatorsPersonal[i].description;
-                        break;
-                    }
-                }
+            var V = Covariation(inside);
+            if (V > 10) {
+                diagnostics['inside'].harmonic = 'В целом состояние негармоничное.';
             }
         }
         oDiagnostics.setConfidenceForm(diagnostics);
@@ -622,8 +609,11 @@ var Form = {
 
         var selector = '#Results #bioenergy-part';
         $(selector).empty();
+
+        $(selector).append('<h3>Чакры</h3>');
+
         if (oDiagnostics.chakraMain.length) {
-            $(selector).append('<label>Чакры</label>');
+            $(selector).append('<label>Основные чакры</label>');
             for (var i in oDiagnostics.chakraMain) {
                 var s = oDiagnostics.chakraMain[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -647,7 +637,24 @@ var Form = {
             $(selector).append('<hr/>');
         }
 
-        $(selector).append('<label>Энергетика</label>');
+        $(selector).append('<hr/>').append('<h3>Энергетика</h3>');
+
+        if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
+            $(selector).append('<label>Уровень гормонов</label>');
+            var s = oDiagnostics.energeticForm.hormones.harmonic;
+            $(selector).append('<p>'+s+'</p>');
+
+            for(var i in Hormones) {
+                var s = Hormones[i].description;
+                $(selector).append('<p>'+s+'</p>');
+            }
+
+            var s = $('textarea#hormones_notes').val().trim();
+            if (s.length) {
+                $(selector).append('<p><i>Примечания:</i> '+s+'</p>');
+            }
+        }
+
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
             var s = '<b>Форма кокона:</b>&nbsp;' + oDiagnostics.energeticForm.cocoon;
             $(selector).append('<p>'+s+'</p>');
@@ -668,6 +675,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
+            $(selector).append('<hr/>').append('<label>Размер биополя</label>');
             var s = oDiagnostics.energeticForm.biofield.description;
             $(selector).append('<p><small>'+s+'</small></p>');
 
@@ -684,7 +692,7 @@ var Form = {
 
         if (oDiagnostics.confidenceForm.hasOwnProperty('inside')) {
             $(selector).append('<hr>');
-            $(selector).append('<label>Уверенность</label>');
+            $(selector).append('<label>Внутренняя уверенность</label>');
             var s = oDiagnostics.confidenceForm.inside.harmonic;
             $(selector).append('<p>'+s+'</p>');
             if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
@@ -762,3 +770,40 @@ Diagnostics.prototype = {
         this.organsForm = diagnostics;
     }
 };
+
+
+function Covariation(x) {
+    var middle = function(arr) {
+        var m = 0;
+        for (var i in arr) {
+            m += arr[i];
+        }
+        m /= arr.length;
+        return m;
+    };
+
+    var n = x.length;
+    var m = middle(x);
+
+    var s = 0;
+    for (var i in x) {
+        s += (x[i] - m)*(x[i] - m);
+    }
+    s = Math.sqrt((1/n) * s);
+
+    var V = (s/m) * 100;
+    return V;
+}
+
+function Max(arr) {
+    var ind = 0;
+    var max = arr[ind];
+
+    for(var i in arr) {
+        if (arr[i] > max) {
+            ind = i;
+        }
+    }
+
+    return ind;
+}

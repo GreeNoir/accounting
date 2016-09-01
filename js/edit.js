@@ -19,6 +19,7 @@ var DiagnosticsEditor = {
         DiagnosticsEditor.chakraInit();
         DiagnosticsEditor.additChakraInit();
         DiagnosticsEditor.smallChakraInit();
+        DiagnosticsEditor.hormonPartInit();
         DiagnosticsEditor.cocoonPartInit();
         DiagnosticsEditor.kharicheskayaInit();
         DiagnosticsEditor.thinLevelsInit();
@@ -113,6 +114,36 @@ var DiagnosticsEditor = {
                     localforage.setItem(key, SmallChakraViolations, function() {
                         localforage.getItem(key, function(err, readValue) {
                             SmallChakraViolations = readValue;
+                        });
+                    });
+                }
+                return(value);
+            },
+            DiagnosticsEditor.editParams
+        ).click(DiagnosticsEditor.btnDesign);
+    },
+
+    hormonPartInit: function() {
+        $('#Descriptions table#descr_hormon').empty();
+        var th = $('<tr class="bg-info"><th colspan="2">Уровень гормонов</th></tr>');
+        $('#Descriptions table#descr_hormon').append(th);
+
+        for (var i in Hormones) {
+            var hormon = Hormones[i];
+            var row = $('<tr><td class="first_column" style="width: 150px;">'+ hormon.hormon +'</td><td class="edit" data-id="'+i+'" class="edit">'+ hormon.description +'</td></tr>');
+            $('#Descriptions table#descr_hormon').append(row);
+        }
+
+        $('#Descriptions table#descr_hormon .edit').editable(
+            function(value, settings) {
+                var id = $(this).attr('data-id');
+                Hormones[id].description = value;
+
+                if (!Form.isIE) {
+                    var key = 'hormones';
+                    localforage.setItem(key, Hormones, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            Hormones = readValue;
                         });
                     });
                 }
