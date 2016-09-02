@@ -365,13 +365,21 @@ var Form = {
     },
 
     processChakraMainForm: function(oDiagnostics) {
+
+        var transPosition = function(pos) {
+            if (pos == 'front') { return 'спереди'; }
+            if (pos == 'middle') { return 'по центру'; }
+            if (pos == 'back') { return 'сзади'; }
+        }
+
         var data = $('#chakra_main_form').serializeArray();
         var diagnostics = [];
         for (var i in data) {
             var obj = data[i];
             var position = obj.name;
             var id = obj.value;
-            var s = MainChakraViolations[id][position];
+            var prefix = '<b>' + MainChakraViolations[id].chakra + ' ' + transPosition(position) +'</b>';
+            var s = prefix + ': ' + MainChakraViolations[id][position];
             diagnostics.push(s);
         }
         oDiagnostics.setChakraMain(diagnostics);
@@ -380,11 +388,13 @@ var Form = {
     processChakraAdditionalForm: function(oDiagnostics) {
         var diagnostics = [];
         if ($('input#chakra_additional_1').prop('checked')) {
-            var s = AdditionalChakraViolations[0].description;
+            var prefix = '<b>верхняя шама: </b>';
+            var s = prefix + AdditionalChakraViolations[0].description;
             diagnostics.push(s);
         }
         if ($('input#chakra_additional_2').prop('checked')) {
-            var s = AdditionalChakraViolations[1].description;
+            var prefix = '<b>нижняя шама: </b>';
+            var s = prefix + AdditionalChakraViolations[1].description;
             diagnostics.push(s);
         }
         oDiagnostics.setChakraAdditional(diagnostics);
@@ -396,7 +406,8 @@ var Form = {
         for (var i in data) {
             var obj = data[i];
             var id = obj.name;
-            var s = SmallChakraViolations[id].description;
+            var prefix = '<b>'+ SmallChakraViolations[id].chakra +': </b>';
+            var s = prefix + SmallChakraViolations[id].description;
             diagnostics.push(s);
         }
         oDiagnostics.setChakraSmall(diagnostics);
@@ -641,19 +652,15 @@ var Form = {
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
             $(selector).append('<label>Уровень гормонов</label>');
-            var s = 'Эстроген: '+ $('#hormones input[name="estrogen"]').val();
-            $(selector).append('<p><small>'+s+'</small></p>');
-            var s = 'Прогестерон: '+ $('#hormones input[name="progesteron"]').val();
-            $(selector).append('<p><small>'+s+'</small></p>');
-            var s = 'Тестостерон: '+ $('#hormones input[name="testosteron"]').val();
-            $(selector).append('<p><small>'+s+'</small></p>');
+
+            for (var i in Hormones) {
+                var hormon = Hormones[i];
+                var s = hormon.hormon + ': '+ $('#hormones input[data-id="'+ i +'"]').val();
+                $(selector).append('<p>'+s+'</p>').append('<p><small>'+ hormon.description +'</small></p>');
+            }
+
             var s = oDiagnostics.energeticForm.hormones.harmonic;
             $(selector).append('<p>'+s+'</p>');
-
-            for(var i in Hormones) {
-                var s = Hormones[i].description;
-                $(selector).append('<p>'+s+'</p>');
-            }
 
             var s = $('textarea#hormones_notes').val().trim();
             if (s.length) {
