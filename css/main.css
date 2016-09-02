@@ -256,6 +256,10 @@ textarea {
     margin: 5px 0;
 }
 
+#Results h3, #Results label {
+    color: #673ab7;
+}
+
 .first_column {
     font-weight: bold;
 }

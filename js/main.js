@@ -432,11 +432,13 @@ var Form = {
             diagnostics['hormones'].harmonic = 'Отклонения не отмечены';
         }
 
+        diagnostics['cocoon'] = [];
         var cocoon = $('input[name="cocoon"]:checked').val();
         if (cocoon !== undefined) {
             for (var i in CocoonViolations) {
                 if (CocoonViolations[i].id == cocoon) {
-                    diagnostics['cocoon'] = CocoonViolations[i].description;
+                    diagnostics['cocoon'].form = CocoonViolations[i].violotion;
+                    diagnostics['cocoon'].description = CocoonViolations[i].description;
                     break;
                 }
             }
@@ -448,7 +450,8 @@ var Form = {
             var position = $(this).data('id');
             for (var i in KharicheskayaLineViolations) {
                 if (KharicheskayaLineViolations[i].position == position) {
-                    diagnostics['kharicheskaya'].push(KharicheskayaLineViolations[i].description);
+                    var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ' +  KharicheskayaLineViolations[i].description;
+                    diagnostics['kharicheskaya'].push(s);
                 }
             }
         });
@@ -621,7 +624,7 @@ var Form = {
         var selector = '#Results #bioenergy-part';
         $(selector).empty();
 
-        $(selector).append('<h3>Чакры</h3>');
+        $(selector).append('<h3>Чакры</h3><hr />');
 
         if (oDiagnostics.chakraMain.length) {
             $(selector).append('<label>Основные чакры</label>');
@@ -651,11 +654,11 @@ var Form = {
         $(selector).append('<h3>Энергетика</h3>');
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
-            $(selector).append('<label>Уровень гормонов</label>');
+            $(selector).append('<hr /><label>Уровень гормонов</label>');
 
             for (var i in Hormones) {
                 var hormon = Hormones[i];
-                var s = hormon.hormon + ': '+ $('#hormones input[data-id="'+ i +'"]').val();
+                var s = '<b>' + hormon.hormon + '</b>: '+ $('#hormones input[data-id="'+ i +'"]').val();
                 $(selector).append('<p>'+s+'</p>').append('<p><small>'+ hormon.description +'</small></p>');
             }
 
@@ -664,16 +667,18 @@ var Form = {
 
             var s = $('textarea#hormones_notes').val().trim();
             if (s.length) {
-                $(selector).append('<p><i>Примечания:</i> '+s+'</p>');
+                $(selector).append('<p>Примечания: '+s+'</p>');
             }
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
-            var s = '<b>Форма кокона:</b>&nbsp;' + oDiagnostics.energeticForm.cocoon;
+            $(selector).append('<hr><label>Форма кокона</label>');
+            var s = '<b>'+oDiagnostics.energeticForm.cocoon.form + ':&nbsp;</b>' + oDiagnostics.energeticForm.cocoon.description;
             $(selector).append('<p>'+s+'</p>');
         }
 
         if (oDiagnostics.energeticForm.kharicheskaya.length) {
+            $(selector).append('<hr />').append('<label>Нарушения харической линии</label>');
             for (var i in oDiagnostics.energeticForm.kharicheskaya) {
                 var s = oDiagnostics.energeticForm.kharicheskaya[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -681,6 +686,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.thin_levels.length) {
+            $(selector).append('<hr />').append('<label>Проблемы на уровне 4 тонких тел</label>');
             for (var i in oDiagnostics.energeticForm.thin_levels) {
                 var s = oDiagnostics.energeticForm.thin_levels[i];
                 $(selector).append('<p>'+s+'</p>');
