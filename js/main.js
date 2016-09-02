@@ -641,6 +641,12 @@ var Form = {
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
             $(selector).append('<label>Уровень гормонов</label>');
+            var s = 'Эстроген: '+ $('#hormones input[name="estrogen"]').val();
+            $(selector).append('<p><small>'+s+'</small></p>');
+            var s = 'Прогестерон: '+ $('#hormones input[name="progesteron"]').val();
+            $(selector).append('<p><small>'+s+'</small></p>');
+            var s = 'Тестостерон: '+ $('#hormones input[name="testosteron"]').val();
+            $(selector).append('<p><small>'+s+'</small></p>');
             var s = oDiagnostics.energeticForm.hormones.harmonic;
             $(selector).append('<p>'+s+'</p>');
 
