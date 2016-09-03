@@ -239,30 +239,23 @@
                                                     <h3 class="print">Чакры</h3>
                                                     <br/>
                                                     <div id="mainContent"></div>
-                                                    <div class="col-md-6 col-print-12">
-                                                        <fieldset>
-                                                            <legend>Дополнительные чакры</legend>
-                                                            <div class="form-group row">
-                                                                <div class="checkbox">
-                                                                    <label><input type="checkbox">Верхняя шама</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <div class="checkbox">
-                                                                    <label><input type="checkbox">Нижняя шама</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="control-label col-md-5">Эстроген</label>
-                                                                <div class="col-md-7"><input class="form-control" id="estrogen" type="text"></div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="control-label col-md-5">Прогестерон</label>
-                                                                <div class="col-md-7"><input class="form-control" id="progesteron" type="text"></div>
-                                                            </div>
-                                                        </fieldset>
-                                                    </div>
                                                 </form>
+                                                <div class="col-md-12 form-horizontal">
+                                                    <br>
+                                                    <fieldset>
+                                                        <legend>Дополнительные чакры</legend>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" id="chakra_additional_1" data-id="0">Верхняя шама</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" id="chakra_additional_2" data-id="1">Нижняя шама</label>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
                                             </div>
                                             <div id="small" class="tab-pane fade">
                                                 <h3 class="print">Мелкие чакры</h3>
@@ -271,14 +264,45 @@
                                             </div>
                                             <div id="energetics" class="tab-pane fade">
                                                 <h3 class="print">Энергетика</h3>
-                                                <form method="" action="" class="form-horizontal" id="energetic_form" role="form">
-                                                    <br>
-                                                    <fieldset id="meridians">
-                                                        <legend>Состояние энергетики меридианов</legend>
-                                                        <div class="form-group row col-md-12">
-                                                            <textarea class="form-control" rows="4" id="meridians_description"></textarea>
+                                                <br>
+                                                <fieldset>
+                                                    <legend>Уровень гормонов</legend>
+                                                    <form id="hormones" class="form-horizontal">
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Эстроген</label>
+                                                            <div class="col-md-4">
+                                                                <input class="form-control" name="estrogen" data-id="0" type="text" required="true">
+                                                            </div>
                                                         </div>
-                                                    </fieldset>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Прогестерон</label>
+                                                            <div class="col-md-4">
+                                                                <input class="form-control" name="progesteron" data-id="1" type="text" required="true">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Тестостерон</label>
+                                                            <div class="col-md-4">
+                                                                <input class="form-control" name="testosteron" data-id="2" type="text" required="true">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-offset-3 col-md-4">
+                                                                <div class="checkbox">
+                                                                    <label><input type="checkbox" id="hormons_violation" value="1">Отклонение от нормы</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="control-label col-md-3">Примечания:</label>
+                                                            <div class="col-md-9">
+                                                                <textarea class="form-control" id="hormones_notes" rows="3"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </fieldset>
+                                                <br>
+                                                <form method="" action="" class="form-horizontal" id="energetic_form" role="form">
                                                     <fieldset id="cocoon">
                                                         <legend>Кокон</legend>
                                                         <div class="form-group row">
@@ -546,16 +570,16 @@
                                 <h3>Результаты диагностики</h3>
                             </div>
                         </div>
-                        <div class="panel panel-success text-left">
+                        <div class="panel panel-default text-left">
                             <div class="panel-body">
                                 <div class="header col-md-3 col-print-12"><h4>Биоэнергетическое состояние</h4></div>
-                                <div id="bioenergy-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
+                                <div id="bioenergy-part" class="col-md-9 col-print-12 content"><p class="no-results">Результаты не были получены.</p></div>
                             </div>
                         </div>
-                        <div class="panel panel-warning text-left">
+                        <div class="panel panel-default text-left">
                             <div class="panel-body">
                                 <div class="header col-md-3 col-print-12"><h4>Организм</h4></div>
-                                <div id="organism-part" class="col-md-9 col-print-12 content"><p>Результаты не были получены.</p></div>
+                                <div id="organism-part" class="col-md-9 col-print-12 content"><p class="no-results">Результаты не были получены.</p></div>
                             </div>
                         </div>
                         <div class="panel panel-default text-left">
@@ -618,6 +642,9 @@
                                         <div class="table-responsive">
                                             <table id="chakra" class="table table-bordered"></table>
                                         </div>
+                                        <div class="table-responsive">
+                                            <table id="addit_chakra" class="table table-bordered"></table>
+                                        </div>
                                     </div>
                                     <div id="descr_small" class="tab-pane fade">
                                         <br/>
@@ -628,16 +655,16 @@
                                     <div id="descr_energetics" class="tab-pane fade">
                                         <br/>
                                         <div class="table-responsive">
-                                            <table id="descr_cocoon" class="table table-bordered">
-                                            </table>
+                                            <table id="descr_hormon" class="table table-bordered"></table>
                                         </div>
                                         <div class="table-responsive">
-                                            <table id="descr_kharicheskaya" class="table table-bordered">
-                                            </table>
+                                            <table id="descr_cocoon" class="table table-bordered"></table>
                                         </div>
                                         <div class="table-responsive">
-                                            <table id="descr_thinlevels" class="table table-bordered">
-                                            </table>
+                                            <table id="descr_kharicheskaya" class="table table-bordered"></table>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table id="descr_thinlevels" class="table table-bordered"></table>
                                         </div>
                                     </div>
                                     <div id="descr_confidence" class="tab-pane fade">
@@ -776,7 +803,7 @@
 
 <script language="javascript" type="text/javascript">
     $(function () {
-        Form.init();
+        Form.init(1989);
     });
 </script>
 </html>

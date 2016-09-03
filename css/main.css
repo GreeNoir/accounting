@@ -44,11 +44,6 @@ ul.nav.nav-tabs li.error a {
     color: #ff0000;
 }
 
-#Descriptions th, #Descriptions td.left-col {
-    background-color: #33383b;
-    color: #fff;
-}
-
 .form-control-feedback {
     font-weight: bold;
     font-size: 16px;
@@ -261,6 +256,21 @@ textarea {
     margin: 5px 0;
 }
 
+#Results #bioenergy-part h3,
+#Results #bioenergy-part h4,
+#Results #organism-part h3,
+#Results #organism-part h4 {
+    color: #673ab7;
+}
+
+#Results .no-results {
+    line-height: 70px;
+}
+
+#Results h4 {
+    padding-top: 15px;
+}
+
 .first_column {
     font-weight: bold;
 }
@@ -288,6 +298,10 @@ table caption {
 
     .print {
         display: block;
+    }
+
+    #Diagnostics, #Results {
+        page-break-before: always;
     }
 
     #scrollspy,
@@ -373,5 +387,11 @@ table caption {
 
     #Form input[name="date"] {
         font-size: 9px;
+    }
+
+    #Results .header h4 {
+        font-size: 24px;
+        text-decoration: underline;
+        font-weight: bold;
     }
 }

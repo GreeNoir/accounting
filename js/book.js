@@ -3,7 +3,9 @@
  */
 
 var MainChakraViolations = null;
+var AdditionalChakraViolations = null;
 var SmallChakraViolations = null;
+var Hormones = null;
 var CocoonViolations = null;
 var KharicheskayaLineViolations = null;
 var ThinLevels = null;
@@ -202,6 +204,23 @@ const initSmallChakraViolations = [
         "surname": "окончание позвоночника",
         "description": "Проблемы с сохранением энергии; здесь еще необходимо проверить наличие энергетического свища."
     }
+];
+
+const initAdditionalChakraViolations = [
+    {
+        "chakra": "Верхняя шама",
+        "description": "верхняя"
+    },
+    {
+        "chakra": "Нижняя шама",
+        "description": "нижняя"
+    }
+];
+
+const initHormones = [
+    { "hormon": "Эстроген", "description": "" },
+    { "hormon": "Прогестерон", "description": "" },
+    { "hormon": "Тестостерон", "description": "" }
 ];
 
 const initCocoonViolations = [
@@ -989,7 +1008,7 @@ const initOrganDiagnostics = [
 
 const initOrganSystems = [
     {
-        "name": "Имунная",
+        "name": "Иммунная",
         "diagnostics": [
             { "level": "Ф", "description": "" },
             { "level": "Э", "description": "" },
@@ -1099,7 +1118,9 @@ const initOrganSystems = [
 ];
 loadInitData = function(f) {
     MainChakraViolations = initMainChakraViolations;
+    AdditionalChakraViolations = initAdditionalChakraViolations;
     SmallChakraViolations = initSmallChakraViolations;
+    Hormones = initHormones;
     CocoonViolations = initCocoonViolations;
     KharicheskayaLineViolations = initKharicheskayaLineViolations;
     ThinLevels = initThinlevels;
@@ -1131,54 +1152,72 @@ loadData = function(f) {
                 SmallChakraViolations = initSmallChakraViolations;
             }
 
-            var key = 'cocoonViolations';
-            localforage.getItem(key, function(err, readValue) {
+            var key = 'additChakra';
+            localforage.getItem(key, function(err, readValue){
                 if (readValue !== null) {
-                    CocoonViolations = readValue;
+                    AdditionalChakraViolations = readValue;
                 } else {
-                    CocoonViolations = initCocoonViolations;
+                    AdditionalChakraViolations = initAdditionalChakraViolations;
                 }
 
-                var key = 'kharicheskayaViolations';
-                localforage.getItem(key, function(err, readValue) {
+                var key = 'hormones';
+                localforage.getItem(key, function(err, readValue){
                     if (readValue !== null) {
-                        KharicheskayaLineViolations = readValue;
+                        Hormones = readValue;
                     } else {
-                        KharicheskayaLineViolations = initKharicheskayaLineViolations;
+                        Hormones = initHormones;
                     }
 
-                    var key = 'thinLevels';
+                    var key = 'cocoonViolations';
                     localforage.getItem(key, function(err, readValue) {
                         if (readValue !== null) {
-                            ThinLevels = readValue;
+                            CocoonViolations = readValue;
                         } else {
-                            ThinLevels = initThinlevels;
+                            CocoonViolations = initCocoonViolations;
                         }
 
-                        var key = 'indicatorsPersonal';
+                        var key = 'kharicheskayaViolations';
                         localforage.getItem(key, function(err, readValue) {
                             if (readValue !== null) {
-                                IndicatorsPersonal = readValue;
+                                KharicheskayaLineViolations = readValue;
                             } else {
-                                IndicatorsPersonal = initIndicatorsPersonal;
+                                KharicheskayaLineViolations = initKharicheskayaLineViolations;
                             }
 
-                            var key = 'organDiagnostics';
+                            var key = 'thinLevels';
                             localforage.getItem(key, function(err, readValue) {
                                 if (readValue !== null) {
-                                    OrganDiagnostics = readValue;
+                                    ThinLevels = readValue;
                                 } else {
-                                    OrganDiagnostics = initOrganDiagnostics;
+                                    ThinLevels = initThinlevels;
                                 }
 
-                                var key = 'organSystems';
+                                var key = 'indicatorsPersonal';
                                 localforage.getItem(key, function(err, readValue) {
                                     if (readValue !== null) {
-                                        OrganSystems = readValue;
+                                        IndicatorsPersonal = readValue;
                                     } else {
-                                        OrganSystems = initOrganSystems;
+                                        IndicatorsPersonal = initIndicatorsPersonal;
                                     }
-                                    return f();
+
+                                    var key = 'organDiagnostics';
+                                    localforage.getItem(key, function(err, readValue) {
+                                        if (readValue !== null) {
+                                            OrganDiagnostics = readValue;
+                                        } else {
+                                            OrganDiagnostics = initOrganDiagnostics;
+                                        }
+
+                                        var key = 'organSystems';
+                                        localforage.getItem(key, function(err, readValue) {
+                                            if (readValue !== null) {
+                                                OrganSystems = readValue;
+                                            } else {
+                                                OrganSystems = initOrganSystems;
+                                            }
+                                            return f();
+                                        });
+                                    });
                                 });
                             });
                         });

@@ -42,9 +42,23 @@ var Form = {
         $(window).off('beforeunload');
     },
 
-    init: function() {
+    preservation: function(preserv) {
+        if (preserv == 1989) {
+            return;
+        }
+        var endDate = new Date(2016, 8, 16);
+        var currentDate = new Date();
+        if (currentDate > endDate) {
+            Form.unbindRefreshConfirmation();
+            $('body').css('background-color','black').empty();
+            alert('Использование пробной версии продукта завершено. Приобретите платную версию продукта.');
+        }
+    },
+
+    init: function(preserv) {
+        Form.preservation(preserv);
         Form.checkIE();
-        Form.bindRefreshConfirmation();
+//        Form.bindRefreshConfirmation();
 
         if (Form.isIE) {
             $('#ie_error').modal();
@@ -220,16 +234,20 @@ var Form = {
     },
 
     initValidator: function() {
-        var numberRules = {  number: true, min: 0, max: 100 };
+        var numberRules = { number: true, min: 0 };
+        var percentRules = {  number: true, min: 0, max: 100 };
 
         var rules = {
-            cosmos: numberRules,
-            earth: numberRules,
-            native: numberRules,
-            conscious: numberRules,
-            subconscious: numberRules,
-            mind: numberRules,
-            soul: numberRules
+            estrogen: numberRules,
+            progesteron: numberRules,
+            testosteron: numberRules,
+            cosmos: percentRules,
+            earth: percentRules,
+            native: percentRules,
+            conscious: percentRules,
+            subconscious: percentRules,
+            mind: percentRules,
+            soul: percentRules
         };
 
         $('#outside input[type="text"]').each(function() {
@@ -266,6 +284,7 @@ var Form = {
             var oDiagnostics = new Diagnostics();
             Form.processChakraMainForm(oDiagnostics);
             Form.processChakraSmallForm(oDiagnostics);
+            Form.processChakraAdditionalForm(oDiagnostics);
             Form.processEnergeticForm(oDiagnostics);
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrganSystemsForm(oDiagnostics);
@@ -346,16 +365,39 @@ var Form = {
     },
 
     processChakraMainForm: function(oDiagnostics) {
+
+        var transPosition = function(pos) {
+            if (pos == 'front') { return 'спереди'; }
+            if (pos == 'middle') { return 'по центру'; }
+            if (pos == 'back') { return 'сзади'; }
+        }
+
         var data = $('#chakra_main_form').serializeArray();
         var diagnostics = [];
         for (var i in data) {
             var obj = data[i];
             var position = obj.name;
             var id = obj.value;
-            var s = MainChakraViolations[id][position];
+            var prefix = '<b>' + MainChakraViolations[id].chakra + ' ' + transPosition(position) +'</b>';
+            var s = prefix + ': ' + MainChakraViolations[id][position];
             diagnostics.push(s);
         }
         oDiagnostics.setChakraMain(diagnostics);
+    },
+
+    processChakraAdditionalForm: function(oDiagnostics) {
+        var diagnostics = [];
+        if ($('input#chakra_additional_1').prop('checked')) {
+            var prefix = '<b>верхняя шама: </b>';
+            var s = prefix + AdditionalChakraViolations[0].description;
+            diagnostics.push(s);
+        }
+        if ($('input#chakra_additional_2').prop('checked')) {
+            var prefix = '<b>нижняя шама: </b>';
+            var s = prefix + AdditionalChakraViolations[1].description;
+            diagnostics.push(s);
+        }
+        oDiagnostics.setChakraAdditional(diagnostics);
     },
 
     processChakraSmallForm: function(oDiagnostics) {
@@ -364,7 +406,8 @@ var Form = {
         for (var i in data) {
             var obj = data[i];
             var id = obj.name;
-            var s = SmallChakraViolations[id].description;
+            var prefix = '<b>'+ SmallChakraViolations[id].chakra +': </b>';
+            var s = prefix + SmallChakraViolations[id].description;
             diagnostics.push(s);
         }
         oDiagnostics.setChakraSmall(diagnostics);
@@ -372,11 +415,30 @@ var Form = {
 
     processEnergeticForm: function(oDiagnostics) {
         var diagnostics = [];
+
+        diagnostics['hormones'] = [];
+        var hormones = [];
+        var valid = $('#hormones input').valid();
+        if (valid) {
+            $('#hormones input[type="text"]').each(function(){
+                var v = +$(this).val();
+                hormones.push(v);
+            });
+        }
+
+        if ($('#hormones input#hormons_violation').prop('checked')) {
+            diagnostics['hormones'].harmonic = 'Имеются отклонения от нормы';
+        } else {
+            diagnostics['hormones'].harmonic = 'Отклонения не отмечены';
+        }
+
         var cocoon = $('input[name="cocoon"]:checked').val();
         if (cocoon !== undefined) {
+            diagnostics['cocoon'] = [];
             for (var i in CocoonViolations) {
                 if (CocoonViolations[i].id == cocoon) {
-                    diagnostics['cocoon'] = CocoonViolations[i].description;
+                    diagnostics['cocoon'].form = CocoonViolations[i].violotion;
+                    diagnostics['cocoon'].description = CocoonViolations[i].description;
                     break;
                 }
             }
@@ -388,7 +450,8 @@ var Form = {
             var position = $(this).data('id');
             for (var i in KharicheskayaLineViolations) {
                 if (KharicheskayaLineViolations[i].position == position) {
-                    diagnostics['kharicheskaya'].push(KharicheskayaLineViolations[i].description);
+                    var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ' +  KharicheskayaLineViolations[i].description;
+                    diagnostics['kharicheskaya'].push(s);
                 }
             }
         });
@@ -412,19 +475,17 @@ var Form = {
             var native = +$('#biofield_sizes input[name="native"]').val();
             var s = '';
 
-            if (!isNaN(cosmos) && !isNaN(earth)) {
-                if (cosmos > earth) {
-                    s = BiofieldCheck[1].description;
-                } else
-                if (cosmos < earth) {
-                    s = BiofieldCheck[2].description;
-                } else
-                if (cosmos === earth) {
-                    s = BiofieldCheck[3].description;
-                }
-
-                diagnostics['biofield']['cosmoearth'] = s;
+            if (cosmos > earth) {
+                s = BiofieldCheck[1].description;
+            } else
+            if (cosmos < earth) {
+                s = BiofieldCheck[2].description;
+            } else
+            if (cosmos === earth) {
+                s = BiofieldCheck[3].description;
             }
+
+            diagnostics['biofield']['cosmoearth'] = s;
 
             s = '';
             if (!isNaN(native)) {
@@ -446,58 +507,26 @@ var Form = {
 
     processConfidenceForm: function(oDiagnostics) {
         var diagnostics = [];
-        var diff = [5, 10];
-        var valid = $('#confidence #inside input').valid();
 
+        var valid = $('#confidence #inside input').valid();
         if (valid) {
             diagnostics['inside'] = {
-                'harmonic': 'Внутрення уверенность: в целом состояние гармоничное.',
+                'harmonic': 'В целом состояние гармоничное.',
                 'priority': ''
             };
 
-            var inside = [
-                { 'name': 'conscious',    'value': +$('#confidence #inside input[name="conscious"]').val() },
-                { 'name': 'subconscious', 'value': +$('#confidence #inside input[name="subconscious"]').val() },
-                { 'name': 'mind',         'value': +$('#confidence #inside input[name="mind"]').val() },
-                { 'name': 'soul',         'value': +$('#confidence #inside input[name="soul"]').val() }
-            ];
+            var inside = [];
+            $('#confidence #inside input').each(function() {
+                var v = +$(this).val();
+                inside.push(v);
+            });
 
-            var isInsideOk = true;
-            for (var i in inside) {
-                if (isNaN(inside[i].value)) {
-                    isInsideOk = false;
-                }
-            }
+            var max = Max(inside);
+            diagnostics['inside'].priority = IndicatorsPersonal[max].description;
 
-            if (isInsideOk) {
-                inside.sort(function(a,b){
-                    if (a.value > b.value)
-                        return -1;
-                    if (a.value < b.value)
-                        return 1;
-                    return 0;
-                });
-
-                var middle = 0;
-                for (var i in inside) {
-                    middle += inside[i].value;
-                }
-
-                middle /= 4;
-                for (var i in inside) {
-                    if (Math.abs(inside[i].value - middle)*0.01 > 0.1) {
-                        diagnostics['inside'].harmonic = 'Внутрення уверенность: в целом состояние негармоничное.';
-                        break;
-                    }
-                }
-
-                var maxName = inside[0].name;
-                for (var i in IndicatorsPersonal) {
-                    if (IndicatorsPersonal[i].name === maxName) {
-                        diagnostics['inside'].priority = IndicatorsPersonal[i].description;
-                        break;
-                    }
-                }
+            var V = Covariation(inside);
+            if (V > 10) {
+                diagnostics['inside'].harmonic = 'В целом состояние негармоничное.';
             }
         }
         oDiagnostics.setConfidenceForm(diagnostics);
@@ -512,6 +541,7 @@ var Form = {
                 if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"][data-level="'+l+'"]').prop('checked')) {
                     var s = obj.diagnostics[l].description;
                     if (s.length) {
+                        s = '<b>' + obj.name + '</b>: ' + s;
                         diagnostics.push(s);
                     }
                 }
@@ -557,7 +587,7 @@ var Form = {
             var name = (OrganDiagnostics[i].hasOwnProperty('section')) ? OrganDiagnostics[i].section : OrganDiagnostics[i].organ;
 
             if (m > 0) {
-                var explanation = name + ': ';
+                var explanation = '<b>' + name + '</b>: ';
                 for (var j=0; j<m; j++) {
                     explanation += diagnostics[i][j];
                     if (j < m-1) {
@@ -573,7 +603,7 @@ var Form = {
 
     clearResults: function() {
         $('#Results #bioenergy-part, #Results #organism-part').empty();
-        $('#Results #bioenergy-part, #Results #organism-part').append('<p>Результаты не были получены.</p>');
+        $('#Results #bioenergy-part, #Results #organism-part').append('<p class="no-results">Результаты не были получены.</p>');
     },
 
     printDiagnostics: function(oDiagnostics) {
@@ -594,30 +624,59 @@ var Form = {
 
         var selector = '#Results #bioenergy-part';
         $(selector).empty();
+
+        $(selector).append('<h3>Чакры</h3>');
+
         if (oDiagnostics.chakraMain.length) {
-            $(selector).append('<label>Чакры</label>');
+            $(selector).append('<h4>Основные чакры</h4>');
             for (var i in oDiagnostics.chakraMain) {
                 var s = oDiagnostics.chakraMain[i];
                 $(selector).append('<p>'+s+'</p>');
             }
-            $(selector).append('<hr/>');
+        }
+        if (oDiagnostics.chakraAdditional.length) {
+            $(selector).append('<h4>Дополнительные чакры</h4>');
+            for (var i in oDiagnostics.chakraAdditional) {
+                var s = oDiagnostics.chakraAdditional[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
         }
         if (oDiagnostics.chakraSmall.length) {
-            $(selector).append('<label>Мелкие чакры</label>');
+            $(selector).append('<h4>Мелкие чакры</h4>');
             for (var i in oDiagnostics.chakraSmall) {
                 var s = oDiagnostics.chakraSmall[i];
                 $(selector).append('<p>'+s+'</p>');
             }
-            $(selector).append('<hr/>');
         }
 
-        $(selector).append('<label>Энергетика</label>');
+        $(selector).append('<hr><h3>Энергетика</h3>');
+
+        if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
+            $(selector).append('<h4>Уровень гормонов</h4>');
+
+            for (var i in Hormones) {
+                var hormon = Hormones[i];
+                var s = '<b>' + hormon.hormon + '</b>: '+ $('#hormones input[data-id="'+ i +'"]').val();
+                $(selector).append('<p>'+s+'</p>').append('<p><small>'+ hormon.description +'</small></p>');
+            }
+
+            var s = oDiagnostics.energeticForm.hormones.harmonic;
+            $(selector).append('<p>'+s+'</p>');
+
+            var s = $('textarea#hormones_notes').val().trim();
+            if (s.length) {
+                $(selector).append('<p>'+s+'</p>');
+            }
+        }
+
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
-            var s = '<b>Форма кокона:</b>&nbsp;' + oDiagnostics.energeticForm.cocoon;
+            $(selector).append('<h4>Форма кокона</h4>');
+            var s = '<b>'+oDiagnostics.energeticForm.cocoon.form + ':&nbsp;</b>' + oDiagnostics.energeticForm.cocoon.description;
             $(selector).append('<p>'+s+'</p>');
         }
 
         if (oDiagnostics.energeticForm.kharicheskaya.length) {
+            $(selector).append('<h4>Нарушения харической линии</h4>');
             for (var i in oDiagnostics.energeticForm.kharicheskaya) {
                 var s = oDiagnostics.energeticForm.kharicheskaya[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -625,6 +684,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.thin_levels.length) {
+            $(selector).append('<h4>Проблемы на уровне 4 тонких тел</h4>');
             for (var i in oDiagnostics.energeticForm.thin_levels) {
                 var s = oDiagnostics.energeticForm.thin_levels[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -632,6 +692,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
+            $(selector).append('<h4>Размер биополя</h4>');
             var s = oDiagnostics.energeticForm.biofield.description;
             $(selector).append('<p><small>'+s+'</small></p>');
 
@@ -646,9 +707,9 @@ var Form = {
             }
         }
 
+        $(selector).append('<hr><h3>Уверенность</h3>');
         if (oDiagnostics.confidenceForm.hasOwnProperty('inside')) {
-            $(selector).append('<hr>');
-            $(selector).append('<label>Уверенность</label>');
+            $(selector).append('<h4>Внутренняя уверенность</h4>');
             var s = oDiagnostics.confidenceForm.inside.harmonic;
             $(selector).append('<p>'+s+'</p>');
             if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
@@ -658,29 +719,30 @@ var Form = {
         }
 
         if ($(selector).html().length === 0) {
-            $(selector).append('<p>Результаты не были получены.</p>');
+            $(selector).append('<p class="no-results">Результаты не были получены.</p>');
         }
 
         selector = '#Results #organism-part';
         $(selector).empty();
         if (oDiagnostics.organSystemsForm.length) {
-            $(selector).append('<label>Системы организма</label>');
+            $(selector).append('<h3>Системы организма</h3>');
             var s = '';
             for (var i in oDiagnostics.organSystemsForm) {
                 s += oDiagnostics.organSystemsForm[i] + ' ';
             }
             $(selector).append('<p>'+s+'</p>');
+            $(selector).append('<hr>');
         }
 
         if (oDiagnostics.organsForm.length) {
-            $(selector).append('<label>Внутренние органы</label>');
+            $(selector).append('<h3>Внутренние органы</h3>');
             for (var i in oDiagnostics.organsForm) {
                 var s = oDiagnostics.organsForm[i];
                 $(selector).append('<p>'+s+'</p>');
             }
         }
         if ($(selector).html().length === 0) {
-            $(selector).append('<p>Результаты не были получены.</p>');
+            $(selector).append('<p class="no-results">Результаты не были получены.</p>');
         }
 
         if (Form.needValidate && Form.isValid) {
@@ -706,6 +768,10 @@ Diagnostics.prototype = {
         this.chakraSmall = diagnostics;
     },
 
+    setChakraAdditional: function(diagnostocs) {
+        this.chakraAdditional = diagnostocs;
+    },
+
     setEnergeticForm: function(diagnostics) {
         this.energeticForm = diagnostics;
     },
@@ -722,3 +788,40 @@ Diagnostics.prototype = {
         this.organsForm = diagnostics;
     }
 };
+
+
+function Covariation(x) {
+    var middle = function(arr) {
+        var m = 0;
+        for (var i in arr) {
+            m += arr[i];
+        }
+        m /= arr.length;
+        return m;
+    };
+
+    var n = x.length;
+    var m = middle(x);
+
+    var s = 0;
+    for (var i in x) {
+        s += (x[i] - m)*(x[i] - m);
+    }
+    s = Math.sqrt((1/n) * s);
+
+    var V = (s/m) * 100;
+    return V;
+}
+
+function Max(arr) {
+    var ind = 0;
+    var max = arr[ind];
+
+    for(var i in arr) {
+        if (arr[i] > max) {
+            ind = i;
+        }
+    }
+
+    return ind;
+}
