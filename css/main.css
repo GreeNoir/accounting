@@ -384,4 +384,10 @@ table caption {
     #Form input[name="date"] {
         font-size: 9px;
     }
+
+    #Results .header h4 {
+        font-size: 24px;
+        text-decoration: underline;
+        font-weight: bold;
+    }
 }

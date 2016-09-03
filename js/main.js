@@ -541,6 +541,7 @@ var Form = {
                 if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"][data-level="'+l+'"]').prop('checked')) {
                     var s = obj.diagnostics[l].description;
                     if (s.length) {
+                        s = '<b>' + obj.name + '</b>: ' + s;
                         diagnostics.push(s);
                     }
                 }
@@ -586,7 +587,7 @@ var Form = {
             var name = (OrganDiagnostics[i].hasOwnProperty('section')) ? OrganDiagnostics[i].section : OrganDiagnostics[i].organ;
 
             if (m > 0) {
-                var explanation = name + ': ';
+                var explanation = '<b>' + name + '</b>: ';
                 for (var j=0; j<m; j++) {
                     explanation += diagnostics[i][j];
                     if (j < m-1) {
@@ -664,7 +665,7 @@ var Form = {
 
             var s = $('textarea#hormones_notes').val().trim();
             if (s.length) {
-                $(selector).append('<p>Примечания: '+s+'</p>');
+                $(selector).append('<p>'+s+'</p>');
             }
         }
 
