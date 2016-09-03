@@ -300,6 +300,10 @@ table caption {
         display: block;
     }
 
+    #Diagnostics, #Results {
+        page-break-before: always;
+    }
+
     #scrollspy,
     #Descriptions,
     .nav,
