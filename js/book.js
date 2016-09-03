@@ -1008,7 +1008,7 @@ const initOrganDiagnostics = [
 
 const initOrganSystems = [
     {
-        "name": "Имунная",
+        "name": "Иммунная",
         "diagnostics": [
             { "level": "Ф", "description": "" },
             { "level": "Э", "description": "" },
