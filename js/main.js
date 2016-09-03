@@ -432,9 +432,9 @@ var Form = {
             diagnostics['hormones'].harmonic = 'Отклонения не отмечены';
         }
 
-        diagnostics['cocoon'] = [];
         var cocoon = $('input[name="cocoon"]:checked').val();
         if (cocoon !== undefined) {
+            diagnostics['cocoon'] = [];
             for (var i in CocoonViolations) {
                 if (CocoonViolations[i].id == cocoon) {
                     diagnostics['cocoon'].form = CocoonViolations[i].violotion;
@@ -602,7 +602,7 @@ var Form = {
 
     clearResults: function() {
         $('#Results #bioenergy-part, #Results #organism-part').empty();
-        $('#Results #bioenergy-part, #Results #organism-part').append('<p>Результаты не были получены.</p>');
+        $('#Results #bioenergy-part, #Results #organism-part').append('<p class="no-results">Результаты не были получены.</p>');
     },
 
     printDiagnostics: function(oDiagnostics) {
@@ -624,37 +624,34 @@ var Form = {
         var selector = '#Results #bioenergy-part';
         $(selector).empty();
 
-        $(selector).append('<h3>Чакры</h3><hr />');
+        $(selector).append('<h3>Чакры</h3>');
 
         if (oDiagnostics.chakraMain.length) {
-            $(selector).append('<label>Основные чакры</label>');
+            $(selector).append('<h4>Основные чакры</h4>');
             for (var i in oDiagnostics.chakraMain) {
                 var s = oDiagnostics.chakraMain[i];
                 $(selector).append('<p>'+s+'</p>');
             }
-            $(selector).append('<hr/>');
         }
         if (oDiagnostics.chakraAdditional.length) {
-            $(selector).append('<label>Дополнительные чакры</label>');
+            $(selector).append('<h4>Дополнительные чакры</h4>');
             for (var i in oDiagnostics.chakraAdditional) {
                 var s = oDiagnostics.chakraAdditional[i];
                 $(selector).append('<p>'+s+'</p>');
             }
-            $(selector).append('<hr/>');
         }
         if (oDiagnostics.chakraSmall.length) {
-            $(selector).append('<label>Мелкие чакры</label>');
+            $(selector).append('<h4>Мелкие чакры</h4>');
             for (var i in oDiagnostics.chakraSmall) {
                 var s = oDiagnostics.chakraSmall[i];
                 $(selector).append('<p>'+s+'</p>');
             }
-            $(selector).append('<hr/>');
         }
 
-        $(selector).append('<h3>Энергетика</h3>');
+        $(selector).append('<hr><h3>Энергетика</h3>');
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
-            $(selector).append('<hr /><label>Уровень гормонов</label>');
+            $(selector).append('<h4>Уровень гормонов</h4>');
 
             for (var i in Hormones) {
                 var hormon = Hormones[i];
@@ -672,13 +669,13 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
-            $(selector).append('<hr><label>Форма кокона</label>');
+            $(selector).append('<h4>Форма кокона</h4>');
             var s = '<b>'+oDiagnostics.energeticForm.cocoon.form + ':&nbsp;</b>' + oDiagnostics.energeticForm.cocoon.description;
             $(selector).append('<p>'+s+'</p>');
         }
 
         if (oDiagnostics.energeticForm.kharicheskaya.length) {
-            $(selector).append('<hr />').append('<label>Нарушения харической линии</label>');
+            $(selector).append('<h4>Нарушения харической линии</h4>');
             for (var i in oDiagnostics.energeticForm.kharicheskaya) {
                 var s = oDiagnostics.energeticForm.kharicheskaya[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -686,7 +683,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.thin_levels.length) {
-            $(selector).append('<hr />').append('<label>Проблемы на уровне 4 тонких тел</label>');
+            $(selector).append('<h4>Проблемы на уровне 4 тонких тел</h4>');
             for (var i in oDiagnostics.energeticForm.thin_levels) {
                 var s = oDiagnostics.energeticForm.thin_levels[i];
                 $(selector).append('<p>'+s+'</p>');
@@ -694,7 +691,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
-            $(selector).append('<hr/>').append('<label>Размер биополя</label>');
+            $(selector).append('<h4>Размер биополя</h4>');
             var s = oDiagnostics.energeticForm.biofield.description;
             $(selector).append('<p><small>'+s+'</small></p>');
 
@@ -709,9 +706,9 @@ var Form = {
             }
         }
 
+        $(selector).append('<hr><h3>Уверенность</h3>');
         if (oDiagnostics.confidenceForm.hasOwnProperty('inside')) {
-            $(selector).append('<hr>');
-            $(selector).append('<label>Внутренняя уверенность</label>');
+            $(selector).append('<h4>Внутренняя уверенность</h4>');
             var s = oDiagnostics.confidenceForm.inside.harmonic;
             $(selector).append('<p>'+s+'</p>');
             if (oDiagnostics.confidenceForm.inside.hasOwnProperty('priority')) {
@@ -721,29 +718,30 @@ var Form = {
         }
 
         if ($(selector).html().length === 0) {
-            $(selector).append('<p>Результаты не были получены.</p>');
+            $(selector).append('<p class="no-results">Результаты не были получены.</p>');
         }
 
         selector = '#Results #organism-part';
         $(selector).empty();
         if (oDiagnostics.organSystemsForm.length) {
-            $(selector).append('<label>Системы организма</label>');
+            $(selector).append('<h3>Системы организма</h3>');
             var s = '';
             for (var i in oDiagnostics.organSystemsForm) {
                 s += oDiagnostics.organSystemsForm[i] + ' ';
             }
             $(selector).append('<p>'+s+'</p>');
+            $(selector).append('<hr>');
         }
 
         if (oDiagnostics.organsForm.length) {
-            $(selector).append('<label>Внутренние органы</label>');
+            $(selector).append('<h3>Внутренние органы</h3>');
             for (var i in oDiagnostics.organsForm) {
                 var s = oDiagnostics.organsForm[i];
                 $(selector).append('<p>'+s+'</p>');
             }
         }
         if ($(selector).html().length === 0) {
-            $(selector).append('<p>Результаты не были получены.</p>');
+            $(selector).append('<p class="no-results">Результаты не были получены.</p>');
         }
 
         if (Form.needValidate && Form.isValid) {

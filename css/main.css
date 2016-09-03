@@ -256,8 +256,19 @@ textarea {
     margin: 5px 0;
 }
 
-#Results h3, #Results label {
+#Results #bioenergy-part h3,
+#Results #bioenergy-part h4,
+#Results #organism-part h3,
+#Results #organism-part h4 {
     color: #673ab7;
+}
+
+#Results .no-results {
+    line-height: 70px;
+}
+
+#Results h4 {
+    padding-top: 15px;
 }
 
 .first_column {
