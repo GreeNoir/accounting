@@ -506,7 +506,13 @@ var Form = {
             var position = $(this).data('id');
             for (var i in KharicheskayaLineViolations) {
                 if (KharicheskayaLineViolations[i].position == position) {
-                    var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ' +  KharicheskayaLineViolations[i].description;
+                    var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ';
+                    var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val();
+                    if (notes.length) {
+                        s += notes + '<br />';
+                    }
+                    s += KharicheskayaLineViolations[i].description;
+
                     diagnostics['kharicheskaya'].push(s);
                 }
             }
@@ -712,11 +718,6 @@ var Form = {
 
             for (var i in oDiagnostics.energeticForm.hormones) {
                 $(selector).append('<p>'+ oDiagnostics.energeticForm.hormones[i] +'</p>');
-            }
-
-            var s = $('textarea#hormones_notes').val().trim();
-            if (s.length) {
-                $(selector).append('<p>'+s+'</p>');
             }
         }
 
