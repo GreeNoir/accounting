@@ -186,11 +186,17 @@ var Form = {
     initCocoonPart: function() {
         var div = $('#cocoon_violations div.basic');
         div.empty();
-        for (var i=1; i<6; i++) {
-            var id = i+1;
-            var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ id +'">'+CocoonViolations[i].subname+'</label>');
+        for (var i=2; i<7; i++) {
+            var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ i +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
         }
+
+        $('#cocoon_violations input[type="radio"]').change(function() {
+            var cocoon = $('input[name="cocoon"]:checked').val();
+            if (cocoon != 1) {
+                $('#cocoon_violations input#cocoon_undef_descript').val('');
+            }
+        });
     },
 
     initOrganSystemsDiagnosticsPart: function() {
@@ -489,12 +495,19 @@ var Form = {
         }
 
         var cocoon = $('input[name="cocoon"]:checked').val();
+        console.log(cocoon);
         if (cocoon !== undefined) {
             diagnostics['cocoon'] = [];
             for (var i in CocoonViolations) {
                 if (CocoonViolations[i].id == cocoon) {
-                    diagnostics['cocoon'].form = CocoonViolations[i].violotion;
+                    diagnostics['cocoon'].form = CocoonViolations[i].violation;
                     diagnostics['cocoon'].description = CocoonViolations[i].description;
+                    if (cocoon == 1) {
+                        var notes = $('#energetic_form input#cocoon_undef_descript').val().trim();
+                        if (notes.length > 0) {
+                            diagnostics['cocoon'].notes = notes;
+                        }
+                    }
                     break;
                 }
             }
@@ -507,7 +520,7 @@ var Form = {
             for (var i in KharicheskayaLineViolations) {
                 if (KharicheskayaLineViolations[i].position == position) {
                     var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ';
-                    var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val();
+                    var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val().trim();
                     if (notes.length) {
                         s += notes + '<br />';
                     }
@@ -723,7 +736,11 @@ var Form = {
 
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
             $(selector).append('<h4>Форма кокона</h4>');
-            var s = '<b>'+oDiagnostics.energeticForm.cocoon.form + ':&nbsp;</b>' + oDiagnostics.energeticForm.cocoon.description;
+            var s = '<b>'+oDiagnostics.energeticForm.cocoon.form + ':&nbsp;</b>';
+            if (oDiagnostics.energeticForm.cocoon.hasOwnProperty('notes')) {
+                s += oDiagnostics.energeticForm.cocoon.notes + '<br>';
+            }
+            s += oDiagnostics.energeticForm.cocoon.description;
             $(selector).append('<p>'+s+'</p>');
         }
 
