@@ -9,6 +9,7 @@ var Form = {
     tabsFormValid: false,
     needValidate: true,
     isValid: false,
+    gender: 0,
 
     levels: ['Ф', 'Э', 'А', 'М'],
     initTitle: 'Экспертная система диагностики биоэнергетического состояния',
@@ -77,6 +78,7 @@ var Form = {
             Form.initValidator();
             Form.initMainChakraPanel();
             Form.initSmallChakraPanel();
+            Form.initHormonesPart();
             Form.initCocoonPart();
             Form.initOrganSystemsDiagnosticsPart();
             Form.initOrganDiagnosticsPart();
@@ -130,6 +132,55 @@ var Form = {
             }
             $('#chakra_small_form').append(div);
         }
+    },
+
+    setGender: function(g) {
+        Form.gender = g;
+    },
+
+    getGenderHormones: function() {
+        var hormones = [];
+        if (Form.gender == 1) {
+            hormones = [2];
+        } else
+        if (Form.gender == 2) {
+            hormones = [0,1,2];
+        }
+        return hormones;
+    },
+
+    //добавить анализ гормонального фона по алгоритму
+    analiseHormons: function(hormonsInfo) {
+        return 'анализ гормонов';
+    },
+
+    initHormonesPart: function() {
+        var genderHormones = function() {
+            var gender = $('select[name="gender"]').val();
+            if (gender == 1) {
+                $('#hormones div.estrogen').hide();
+                $('#hormones input[name="estrogen"]').prop('required', false);
+                $('#hormones div.progesteron').hide();
+                $('#hormones input[name="progesteron"]').prop('required', false);
+                $('#hormones').removeClass('hidden');
+                $('#selectGenderPropose').addClass('hidden');
+            }
+            else if (gender == 2) {
+                $('#hormones div.estrogen').show();
+                $('#hormones input[name="estrogen"]').prop('required', true);
+                $('#hormones div.progesteron').show();
+                $('#hormones input[name="progesteron"]').prop('required', true);
+                $('#hormones').removeClass('hidden');
+                $('#selectGenderPropose').addClass('hidden');
+            } else {
+                $('#hormones').addClass('hidden');
+                $('#selectGenderPropose').removeClass('hidden');
+            }
+            Form.setGender(gender);
+        };
+
+        genderHormones();
+        $('select[name="gender"]').change(genderHormones);
     },
 
     initCocoonPart: function() {
@@ -312,7 +363,7 @@ var Form = {
             }, 100);
         }
 
-        if (!$('#energetic_form').valid()) {
+        if (!$('#energetic_form').valid() || !$('form#hormones').valid()) {
             Form.tabsFormValid = false;
             valid = false;
             $('#tab_energetics').addClass('error');
@@ -417,19 +468,24 @@ var Form = {
         var diagnostics = [];
 
         diagnostics['hormones'] = [];
-        var hormones = [];
-        var valid = $('#hormones input').valid();
-        if (valid) {
-            $('#hormones input[type="text"]').each(function(){
-                var v = +$(this).val();
-                hormones.push(v);
-            });
+        var hormones = Form.getGenderHormones();
+        for(var i in hormones) {
+            var k = hormones[i];
+            var s = '<b>'+ Hormones[k].hormon + '</b>: ' + $('#hormones input[data-id="'+ k +'"]').val();
+            diagnostics['hormones'].push(s);
         }
 
-        if ($('#hormones input#hormons_violation').prop('checked')) {
-            diagnostics['hormones'].harmonic = 'Имеются отклонения от нормы';
-        } else {
-            diagnostics['hormones'].harmonic = 'Отклонения не отмечены';
+        var valid = $('#hormones input').valid();
+        if (valid) {
+            var hormonsInfo = [];
+            for(var i in hormones) {
+                var k = hormones[i];
+                var v = +$('#hormones input[data-id="'+ k +'"]').val();
+                var info = {'hormon': k, 'name': Hormones[k], 'value': v};
+                hormonsInfo.push(info);
+            };
+            var analise = Form.analiseHormons(hormonsInfo);
+            diagnostics['hormones'].push(analise);
         }
 
         var cocoon = $('input[name="cocoon"]:checked').val();
@@ -654,14 +710,9 @@ var Form = {
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
             $(selector).append('<h4>Уровень гормонов</h4>');
 
-            for (var i in Hormones) {
-                var hormon = Hormones[i];
-                var s = '<b>' + hormon.hormon + '</b>: '+ $('#hormones input[data-id="'+ i +'"]').val();
-                $(selector).append('<p>'+s+'</p>').append('<p><small>'+ hormon.description +'</small></p>');
+            for (var i in oDiagnostics.energeticForm.hormones) {
+                $(selector).append('<p>'+ oDiagnostics.energeticForm.hormones[i] +'</p>');
             }
-
-            var s = oDiagnostics.energeticForm.hormones.harmonic;
-            $(selector).append('<p>'+s+'</p>');
 
             var s = $('textarea#hormones_notes').val().trim();
             if (s.length) {

@@ -108,7 +108,7 @@
                                         <label class="col-md-1 control-label">Пол*</label>
                                         <div class="col-md-3">
                                             <select class="form-control" id="gender" name="gender" required="true">
-                                                <option value="" selected disabled>-Выберете-</option>
+                                                <option value="0" selected disabled>-Выберете-</option>
                                                 <option value="1">Мужской</option>
                                                 <option value="2">Женский</option>
                                             </select>
@@ -267,39 +267,27 @@
                                                 <br>
                                                 <fieldset>
                                                     <legend>Уровень гормонов</legend>
-                                                    <form id="hormones" class="form-horizontal">
-                                                        <div class="form-group row">
+                                                    <form id="hormones" class="form-horizontal hidden">
+                                                        <div class="form-group row estrogen">
                                                             <label class="control-label col-md-3">Эстроген</label>
                                                             <div class="col-md-4">
                                                                 <input class="form-control" name="estrogen" data-id="0" type="text" required="true">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group row">
+                                                        <div class="form-group row progesteron">
                                                             <label class="control-label col-md-3">Прогестерон</label>
                                                             <div class="col-md-4">
                                                                 <input class="form-control" name="progesteron" data-id="1" type="text" required="true">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group row">
+                                                        <div class="form-group row testosteron">
                                                             <label class="control-label col-md-3">Тестостерон</label>
                                                             <div class="col-md-4">
                                                                 <input class="form-control" name="testosteron" data-id="2" type="text" required="true">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <div class="col-md-offset-3 col-md-4">
-                                                                <div class="checkbox">
-                                                                    <label><input type="checkbox" id="hormons_violation" value="1">Отклонение от нормы</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="control-label col-md-3">Примечания:</label>
-                                                            <div class="col-md-9">
-                                                                <textarea class="form-control" id="hormones_notes" rows="3"></textarea>
-                                                            </div>
-                                                        </div>
                                                     </form>
+                                                    <div id="selectGenderPropose" class="red hidden">Выберете пол в анкете посетителя</div>
                                                 </fieldset>
                                                 <br>
                                                 <form method="" action="" class="form-horizontal" id="energetic_form" role="form">
