@@ -80,6 +80,7 @@ var Form = {
             Form.initSmallChakraPanel();
             Form.initHormonesPart();
             Form.initCocoonPart();
+            Form.initKharicheskayaPart();
             Form.initOrganSystemsDiagnosticsPart();
             Form.initOrganDiagnosticsPart();
             DiagnosticsEditor.init();
@@ -197,6 +198,19 @@ var Form = {
                 $('#cocoon_violations input#cocoon_undef_descript').val('');
             }
         });
+    },
+
+    initKharicheskayaPart: function() {
+
+        var clearNotes = function(elem) {
+            var id = $(elem).data('id');
+            console.log(id);
+            if (!$(elem).prop('checked')) {
+                $('#kharicheskaya_violation input[type="text"][data-id="'+ id +'"]').val('');
+            }
+        };
+
+        $('#kharicheskaya_violation input[type="checkbox"]').change(function() { clearNotes(this); });
     },
 
     initOrganSystemsDiagnosticsPart: function() {
