@@ -83,6 +83,7 @@ var Form = {
             Form.initKharicheskayaPart();
             Form.initOrganSystemsDiagnosticsPart();
             Form.initOrganDiagnosticsPart();
+            Form.initShellPart();
             DiagnosticsEditor.init();
 
             var hash = window.location.hash.substr(1);
@@ -302,6 +303,45 @@ var Form = {
         }
 
         $('#organs #organs_form').append(part1).append(part2);
+    },
+
+    initShellPart: function() {
+        $('#organ #shells_form').empty();
+
+        var getOptions = function() {
+            var options = [];
+            var opt = '<option selected disabled>&mdash;</option>';
+            options.push(opt);
+            for (var i=1; i<=7; i++) {
+                var opt = $('<option value="'+ i +'">'+ i +'</option>');
+                options.push(opt);
+            }
+            return options;
+        };
+
+        var shellsChoices = function(id) {
+
+            var div1 = $('<div class="col-md-6"><span>c:</span></div>');
+            var select1 = $('<select data-id="'+ id +'" data-for="from" class="form-control"></select>');
+            select1.append(getOptions());
+            div1.append(select1);
+
+            var div2 = $('<div class="col-md-6"><span>по:</span></div>');
+            var select2 = $('<select data-id="'+ id +'" data-for="to" class="form-control"></select>');
+            select2.append(getOptions());
+            div2.append(select2);
+
+            var div = $('<div class="col-md-4"></div>');
+            div.append(div1).append(div2);
+            return div;
+        }
+
+        for (var i in MainChakraViolations) {
+            var chakra = MainChakraViolations[i].chakra;
+            var row = $('<div class="form-group row"><div class="col-md-4"><label>'+ chakra +'</label></div></div>');
+            row.append(shellsChoices(i));
+            $('#organ #shells_form').append(row);
+        }
     },
 
     initValidator: function() {
