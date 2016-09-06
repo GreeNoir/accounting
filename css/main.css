@@ -300,6 +300,7 @@ table caption {
 
 #shells label.appendix {
     font-weight: normal;
+    padding-right: 0;
 }
 
 @media print {
