@@ -313,35 +313,23 @@ var Form = {
             var opt = '<option selected disabled>&mdash;</option>';
             options.push(opt);
             for (var i=1; i<=7; i++) {
-                var opt = $('<option value="'+ i +'">'+ i +'</option>');
+                var opt = '<option value="'+ i +'">'+ i +'</option>';
                 options.push(opt);
             }
             return options;
         };
 
-        var shellsChoices = function(id) {
-
-            var div1 = $('<div class="col-md-6"><span>c:</span></div>');
-            var select1 = $('<select data-id="'+ id +'" data-for="from" class="form-control"></select>');
-            select1.append(getOptions());
-            div1.append(select1);
-
-            var div2 = $('<div class="col-md-6"><span>по:</span></div>');
-            var select2 = $('<select data-id="'+ id +'" data-for="to" class="form-control"></select>');
-            select2.append(getOptions());
-            div2.append(select2);
-
-            var div = $('<div class="col-md-4"></div>');
-            div.append(div1).append(div2);
-            return div;
-        }
+        var wrapper = $('<div class="col-md-12"></div>');
 
         for (var i in MainChakraViolations) {
+            var id = parseInt(i);
+            id ++;
+            var num = id + ') ';
             var chakra = MainChakraViolations[i].chakra;
-            var row = $('<div class="form-group row"><div class="col-md-4"><label>'+ chakra +'</label></div></div>');
-            row.append(shellsChoices(i));
-            $('#organ #shells_form').append(row);
+            var row = $('<div class="form-group row"><label class="control-label col-sm-4 col-xs-12 name">'+ num + chakra +'</label><label class="control-label col-sm-1 col-xs-1 appendix">c:</label><div class="col-sm-2 col-xs-4"><select data-id="'+ i +'" data-for="from" class="form-control">'+getOptions()+'</select></div><label class="control-label col-sm-1 col-xs-1 appendix">по:</label><div class="col-sm-2 col-xs-4"><select data-id="'+ i +'" data-for="to" class="form-control">'+getOptions()+'</select></div></div></div>');
+            wrapper.append(row);
         }
+        $('#organ #shells_form').append(wrapper);
     },
 
     initValidator: function() {
