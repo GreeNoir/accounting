@@ -388,6 +388,7 @@ var Form = {
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrganSystemsForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
+            Form.processShellsForm(oDiagnostics);
             Form.printDiagnostics(oDiagnostics);
         }
     },
@@ -537,7 +538,6 @@ var Form = {
         }
 
         var cocoon = $('input[name="cocoon"]:checked').val();
-        console.log(cocoon);
         if (cocoon !== undefined) {
             diagnostics['cocoon'] = [];
             for (var i in CocoonViolations) {
@@ -718,6 +718,21 @@ var Form = {
         oDiagnostics.setOrgansForm(explanations);
     },
 
+    processShellsForm: function(oDiagnostics) {
+        var mainSelector = 'form#shells_form ';
+        var diagnostics = [];
+        for (var i in MainChakraViolations) {
+            var chakra = MainChakraViolations[i].chakra;
+            var from = $(mainSelector + 'select[data-for="from"][data-id="'+ i +'"]').val();
+            var to = $(mainSelector + 'select[data-for="to"][data-id="'+ i +'"]').val();
+            if (from !== null && to !== null) {
+                var s = '<b>Чакра '+ chakra +':</b> нарушены оболочки с ' + from + ' по ' + to;
+                diagnostics.push(s);
+            }
+        }
+        oDiagnostics.setShellsForm(diagnostics);
+    },
+
     clearResults: function() {
         $('#Results #bioenergy-part, #Results #organism-part').empty();
         $('#Results #bioenergy-part, #Results #organism-part').append('<p class="no-results">Результаты не были получены.</p>');
@@ -852,6 +867,15 @@ var Form = {
                 $(selector).append('<p>'+s+'</p>');
             }
         }
+
+        if (oDiagnostics.shellsForm.length) {
+            $(selector).append('<h3>Оболочки чакр</h3>');
+            for (var i in oDiagnostics.shellsForm) {
+                var s = oDiagnostics.shellsForm[i];
+                $(selector).append('<p>'+s+'</p>');
+            }
+        }
+
         if ($(selector).html().length === 0) {
             $(selector).append('<p class="no-results">Результаты не были получены.</p>');
         }
@@ -897,6 +921,10 @@ Diagnostics.prototype = {
 
     setOrgansForm: function(diagnostics) {
         this.organsForm = diagnostics;
+    },
+
+    setShellsForm: function(diagnostics) {
+        this.shellsForm = diagnostics;
     }
 };
 
