@@ -388,7 +388,7 @@ var Form = {
             Form.processConfidenceForm(oDiagnostics);
             Form.processOrganSystemsForm(oDiagnostics);
             Form.processOrgansForm(oDiagnostics);
-            Form.processShellsForm(oDiagnostics);
+            Form.processShellsForm(oDiagnostics, true);
             Form.printDiagnostics(oDiagnostics);
         }
     },
@@ -718,8 +718,41 @@ var Form = {
         oDiagnostics.setOrgansForm(explanations);
     },
 
-    processShellsForm: function(oDiagnostics) {
+    processShellsForm: function(oDiagnostics, widthDescriptions) {
         var mainSelector = 'form#shells_form ';
+
+        var getListShells = function(from, to) {
+            var list = [];
+            if (to < from) {
+                return [];
+            }
+
+            for (var i= from; i<=to; i++) {
+                list.push(+i);
+            }
+
+            return list;
+        }
+
+        var getDiagnosticsShells = function(chakraId, from, to) {
+            var list = getListShells(from, to);
+
+            if (list.length) {
+                var diagnostics = '';
+                var descriptions = Shells[chakraId];
+                for (var i in list) {
+                    var number = list[i];
+                    var s = descriptions[number];
+                    if (s.length) {
+                        diagnostics += s +'; ';
+                    }
+                }
+                return diagnostics;
+            } else {
+                return '';
+            }
+        }
+
         var diagnostics = [];
         for (var i in MainChakraViolations) {
             var chakra = MainChakraViolations[i].chakra;
@@ -728,6 +761,10 @@ var Form = {
             if (from !== null && to !== null) {
                 var s = '<b>Чакра '+ chakra +':</b> нарушены оболочки с ' + from + ' по ' + to;
                 diagnostics.push(s);
+                if (widthDescriptions == true) {
+                    var d = getDiagnosticsShells(i, from, to);
+                    diagnostics.push('<small>'+ d +'</small>');
+                }
             }
         }
         oDiagnostics.setShellsForm(diagnostics);

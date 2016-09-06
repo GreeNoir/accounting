@@ -26,6 +26,7 @@ var DiagnosticsEditor = {
         DiagnosticsEditor.confidenceInit();
         DiagnosticsEditor.organSystemsInit();
         DiagnosticsEditor.organsInit();
+        DiagnosticsEditor.shellsInit();
     },
 
     chakraInit: function() {
@@ -374,6 +375,50 @@ var DiagnosticsEditor = {
             },
             DiagnosticsEditor.editParams
         ).click(DiagnosticsEditor.btnDesign);
+    },
+
+    shellsInit: function() {
+        var selector = '#Descriptions table#descr_shells ';
+        $(selector).empty();
+
+        var shellsTable = function(id) {
+            var table = $('<table></table>');
+            for (var i=1; i<8; i++) {
+                var row = $('<tr><td style="width: 60px; text-align: center; font-weight: bold;">'+ i +'</td><td class="edit" data-chakra="'+ id +'" data-id="'+ i +'"></td></tr>');
+                table.append(row);
+            }
+            return table.html();
+        };
+
+        for (var i in MainChakraViolations) {
+            var id = parseInt(i);
+            id ++;
+            var num = id + ') ';
+            var chakra = MainChakraViolations[i].chakra;
+
+            var row = $('<tr><td class="first_column" style="width: 200px;">'+ num + chakra +'</td><td class="list"><table class="table table-bordered">'+ shellsTable(i) +'</table></td></tr>');
+            $(selector).append(row);
+        }
+
+        $(selector + '.edit').editable(
+            function(value, settings) {
+                var chakra_id = $(this).attr('data-chakra');
+                var shell_index = $(this).attr('data-id');
+                Shells[chakra_id][shell_index] = value;
+
+                if (!Form.isIE) {
+                    var key = 'shells';
+                    localforage.setItem(key, Shells, function() {
+                        localforage.getItem(key, function(err, readValue) {
+                            Shells = readValue;
+                        });
+                    });
+                }
+                return(value);
+            },
+            DiagnosticsEditor.editParams
+        ).click(DiagnosticsEditor.btnDesign);
+
     },
 
     btnDesign: function() {

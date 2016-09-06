@@ -12,6 +12,7 @@ var ThinLevels = null;
 var IndicatorsPersonal = null;
 var OrganDiagnostics = null;
 var OrganSystems = null;
+var Shells = null;
 
 const initMainChakraViolations = [
     {
@@ -1148,6 +1149,7 @@ loadInitData = function(f) {
     IndicatorsPersonal = initIndicatorsPersonal;
     OrganDiagnostics = initOrganDiagnostics;
     OrganSystems = initOrganSystems;
+    Shells = initShells;
     return f();
 }
 
@@ -1229,14 +1231,23 @@ loadData = function(f) {
                                             OrganDiagnostics = initOrganDiagnostics;
                                         }
 
-                                        var key = 'organSystems';
+                                        var key = 'shells';
                                         localforage.getItem(key, function(err, readValue) {
                                             if (readValue !== null) {
-                                                OrganSystems = readValue;
+                                                Shells = readValue;
                                             } else {
-                                                OrganSystems = initOrganSystems;
+                                                Shells = initShells;
                                             }
-                                            return f();
+
+                                            var key = 'organSystems';
+                                            localforage.getItem(key, function(err, readValue) {
+                                                if (readValue !== null) {
+                                                    OrganSystems = readValue;
+                                                } else {
+                                                    OrganSystems = initOrganSystems;
+                                                }
+                                                return f();
+                                            });
                                         });
                                     });
                                 });
