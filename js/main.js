@@ -334,6 +334,11 @@ var Form = {
         $('#organ #shells_form select').each(function() {
             $(this).rules('add', { diapasonCheck: true });
         });
+
+        $('form#shells_form select').change(function() {
+            var id = $(this).attr('data-id');
+            $('form#shells_form select[data-id="'+ id +'"]').removeClass('error');
+        });
     },
 
     initValidator: function() {
@@ -341,22 +346,23 @@ var Form = {
         var percentRules = {  number: true, min: 0, max: 100 };
 
         $.validator.addMethod("diapasonCheck", function(value, element) {
+            var v = +value;
             var chakra = $(element).attr('data-id');
             var dataFor = $(element).attr('data-for');
             if (dataFor == 'from') {
                 var to = $('select[data-id="'+ chakra +'"][data-for="to"]').val();
-                if (to == 0) {
+                if (to == 0 && v != 0) {
                     return false;
                 } else {
-                    return value <= to;
+                    return v <= to;
                 }
             }
             if (dataFor == 'to') {
                 var from = $('select[data-id="'+ chakra +'"][data-for="from"]').val();
-                if (from == 0) {
+                if (from == 0 && v != 0) {
                     return false;
                 } else {
-                    return from <= value;
+                    return from <= v;
                 }
             }
         }, 'Конец диапазона облочек должен быть больше чем начало.');
@@ -396,7 +402,7 @@ var Form = {
                     }
                     else if (element.is('select')) {
                         error.addClass('col-md-offset-5').addClass('col-xs-offset-0');
-                        error.insertBefore(element.parent().parent());
+                        error.insertAfter(element.parent().parent());
                     } else {
                         error.appendTo(element.parent('div'));
                     }
@@ -470,7 +476,7 @@ var Form = {
             $('#outside label').removeClass('red');
         }
 
-        if (!$('#shells_form').valid()) {
+        if (!$('#shells_form select').valid()) {
             Form.tabsFormValid = false;
             $('#tab_shells').addClass('error');
         } else {
