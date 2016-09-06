@@ -345,12 +345,20 @@ var Form = {
             var dataFor = $(element).attr('data-for');
             if (dataFor == 'from') {
                 var to = $('select[data-id="'+ chakra +'"][data-for="to"]').val();
-                return (value <= to);
-            } else
-                if (dataFor == 'to') {
-                    var from = $('select[data-id="'+ chakra +'"][data-for="from"]').val();
-                    return (from <= value);
+                if (to == 0) {
+                    return false;
+                } else {
+                    return value <= to;
                 }
+            }
+            if (dataFor == 'to') {
+                var from = $('select[data-id="'+ chakra +'"][data-for="from"]').val();
+                if (from == 0) {
+                    return false;
+                } else {
+                    return from <= value;
+                }
+            }
         }, 'Конец диапазона облочек должен быть больше чем начало.');
 
         var rules = {
@@ -386,7 +394,10 @@ var Form = {
                     else if (element.attr('name') == 'cocoon') {
                         error.insertAfter('#cocoon_form');
                     }
-                    else {
+                    else if (element.is('select')) {
+                        error.addClass('col-md-offset-5').addClass('col-xs-offset-0');
+                        error.insertBefore(element.parent().parent());
+                    } else {
                         error.appendTo(element.parent('div'));
                     }
                 }
