@@ -396,7 +396,7 @@ var DiagnosticsEditor = {
             var num = id + ') ';
             var chakra = MainChakraViolations[i].chakra;
 
-            var row = $('<tr><td class="first_column" style="width: 200px;">'+ num + chakra +'</td><td class="list"><table class="table table-bordered">'+ shellsTable(i) +'</table></td></tr>');
+            var row = $('<tr><td class="first_column" style="width: 125px;">'+ num + chakra +'</td><td class="list"><table class="table table-bordered">'+ shellsTable(i) +'</table></td></tr>');
             $(selector).append(row);
         }
 
