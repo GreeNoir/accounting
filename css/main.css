@@ -294,6 +294,14 @@ table caption {
     opacity: 1;
 }
 
+#shells label.name {
+    text-align: left;
+}
+
+#shells label.appendix {
+    font-weight: normal;
+}
+
 @media print {
 
     .print {
