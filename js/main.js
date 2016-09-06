@@ -102,6 +102,8 @@ var Form = {
         $('#validation_disabled').modal();
         $('#account_form_msg').addClass('hidden');
         $('#tabs_form_msg').addClass('hidden');
+        $('#tab_bioenergy').removeClass('bg-danger');
+        $('#tab_organism').removeClass('bg-danger');
         $('#tab_energetics').removeClass('error');
         $('#tab_confidence').removeClass('error');
         return true;
@@ -450,8 +452,10 @@ var Form = {
             Form.tabsFormValid = false;
             valid = false;
             $('#tab_energetics').addClass('error');
+            $('#tab_bioenergy').addClass('bg-danger');
         } else {
             $('#tab_energetics').removeClass('error');
+            $('#tab_bioenergy').removeClass('bg-danger');
         }
 
         var validOutsideTable = function() {
@@ -468,8 +472,10 @@ var Form = {
             $('#tab_confidence').addClass('error');
             if (!validOutsideTable()) {
                 $('#outside label').addClass('red');
+                $('#tab_bioenergy').addClass('bg-danger');
             } else {
                 $('#outside label').removeClass('red');
+                $('#tab_bioenergy').removeClass('bg-danger');
             }
         } else {
             $('#tab_confidence').removeClass('error');
@@ -479,8 +485,10 @@ var Form = {
         if (!$('#shells_form select').valid()) {
             Form.tabsFormValid = false;
             $('#tab_shells').addClass('error');
+            $('#tab_organism').addClass('bg-danger');
         } else {
             $('#tab_shells').removeClass('error');
+            $('#tab_organism').removeClass('bg-danger');
         }
 
         if (Form.accountFormValid && !valid) {
