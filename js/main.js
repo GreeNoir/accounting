@@ -744,7 +744,7 @@ var Form = {
                     var number = list[i];
                     var s = descriptions[number];
                     if (s.length) {
-                        diagnostics += s +'; ';
+                        diagnostics += s + ' ';
                     }
                 }
                 return diagnostics;
