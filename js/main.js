@@ -310,7 +310,7 @@ var Form = {
 
         var getOptions = function() {
             var options = [];
-            var opt = '<option selected disabled>&mdash;</option>';
+            var opt = '<option value="0" selected>&mdash;</option>';
             options.push(opt);
             for (var i=1; i<=7; i++) {
                 var opt = '<option value="'+ i +'">'+ i +'</option>';
@@ -330,11 +330,28 @@ var Form = {
             wrapper.append(row);
         }
         $('#organ #shells_form').append(wrapper);
+
+        $('#organ #shells_form select').each(function() {
+            $(this).rules('add', { diapasonCheck: true });
+        });
     },
 
     initValidator: function() {
         var numberRules = { number: true, min: 0 };
         var percentRules = {  number: true, min: 0, max: 100 };
+
+        $.validator.addMethod("diapasonCheck", function(value, element) {
+            var chakra = $(element).attr('data-id');
+            var dataFor = $(element).attr('data-for');
+            if (dataFor == 'from') {
+                var to = $('select[data-id="'+ chakra +'"][data-for="to"]').val();
+                return (value <= to);
+            } else
+                if (dataFor == 'to') {
+                    var from = $('select[data-id="'+ chakra +'"][data-for="from"]').val();
+                    return (from <= value);
+                }
+        }, 'Конец диапазона облочек должен быть больше чем начало.');
 
         var rules = {
             estrogen: numberRules,
@@ -440,6 +457,13 @@ var Form = {
         } else {
             $('#tab_confidence').removeClass('error');
             $('#outside label').removeClass('red');
+        }
+
+        if (!$('#shells_form').valid()) {
+            Form.tabsFormValid = false;
+            $('#tab_shells').addClass('error');
+        } else {
+            $('#tab_shells').removeClass('error');
         }
 
         if (Form.accountFormValid && !valid) {
@@ -720,6 +744,7 @@ var Form = {
 
     processShellsForm: function(oDiagnostics, widthDescriptions) {
         var mainSelector = 'form#shells_form ';
+        $(mainSelector).valid();
 
         var getListShells = function(from, to) {
             var list = [];
@@ -736,7 +761,6 @@ var Form = {
 
         var getDiagnosticsShells = function(chakraId, from, to) {
             var list = getListShells(from, to);
-
             if (list.length) {
                 var diagnostics = '';
                 var descriptions = Shells[chakraId];
@@ -756,9 +780,9 @@ var Form = {
         var diagnostics = [];
         for (var i in MainChakraViolations) {
             var chakra = MainChakraViolations[i].chakra;
-            var from = $(mainSelector + 'select[data-for="from"][data-id="'+ i +'"]').val();
-            var to = $(mainSelector + 'select[data-for="to"][data-id="'+ i +'"]').val();
-            if (from !== null && to !== null) {
+            var from = +$(mainSelector + 'select[data-for="from"][data-id="'+ i +'"]').val();
+            var to = +$(mainSelector + 'select[data-for="to"][data-id="'+ i +'"]').val();
+            if ((from != 0) && (to != 0) && (from <= to)) {
                 var s = '<b>Чакра '+ chakra +':</b> нарушены оболочки с ' + from + ' по ' + to;
                 diagnostics.push(s);
                 if (widthDescriptions == true) {
