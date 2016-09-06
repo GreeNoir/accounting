@@ -383,7 +383,7 @@ var DiagnosticsEditor = {
 
         var shellsTable = function(id) {
             var table = $('<table></table>');
-            for (var i=1; i<8; i++) {
+            for (var i=1; i<=7; i++) {
                 var row = $('<tr><td style="width: 60px; text-align: center; font-weight: bold;">'+ i +'</td><td class="edit" data-chakra="'+ id +'" data-id="'+ i +'"></td></tr>');
                 table.append(row);
             }
