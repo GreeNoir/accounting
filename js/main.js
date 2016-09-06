@@ -56,7 +56,12 @@ var Form = {
         }
     },
 
+    initZoom: function() {
+        window.parent.document.body.style.zoom = 0.9;
+    },
+
     init: function(preserv) {
+        Form.initZoom();
         Form.preservation(preserv);
         Form.checkIE();
 //        Form.bindRefreshConfirmation();
