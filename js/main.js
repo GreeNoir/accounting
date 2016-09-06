@@ -64,7 +64,7 @@ var Form = {
         Form.initZoom();
         Form.preservation(preserv);
         Form.checkIE();
-//        Form.bindRefreshConfirmation();
+        Form.bindRefreshConfirmation();
 
         if (Form.isIE) {
             $('#ie_error').modal();
