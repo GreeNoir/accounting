@@ -345,6 +345,7 @@ var Form = {
         $('form#shells_form select').change(function() {
             var id = $(this).attr('data-id');
             $('form#shells_form select[data-id="'+ id +'"]').removeClass('error');
+            $('#selectError').empty();
         });
     },
 
@@ -409,7 +410,7 @@ var Form = {
                     }
                     else if (element.is('select')) {
                         error.addClass('col-md-offset-4').addClass('col-xs-offset-0');
-                        error.insertAfter(element.parent().parent());
+                        $('#selectError').html(error);
                     } else {
                         error.appendTo(element.parent('div'));
                     }

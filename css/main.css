@@ -189,6 +189,10 @@ div.copy span {
     font-size: 12px;
 }
 
+#selectError {
+    height: 20px;
+}
+
 #Results, #Descriptions {
     margin-top: 15px;
 }
