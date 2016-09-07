@@ -190,8 +190,12 @@ div.copy span {
 }
 
 #selectError {
-    height: 25px;
+    min-height: 25px;
     padding-top: 5px;
+}
+
+#selectError .error {
+    margin-bottom: 0;
 }
 
 #Results, #Descriptions {

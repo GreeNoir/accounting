@@ -390,7 +390,7 @@ var Form = {
                     return from <= v;
                 }
             }
-        }, 'Конец диапазона облочек должен быть больше чем начало.');
+        }, 'Границы диапазона должны быть определены и конец диапазона должен быть больше чем начало.');
 
         var rules = {
             estrogen: numberRules,
@@ -426,7 +426,7 @@ var Form = {
                         error.insertAfter('#cocoon_form');
                     }
                     else if (element.is('select')) {
-                        error.addClass('col-md-offset-4').addClass('col-xs-offset-0');
+                        error.addClass('col-md-offset-2').addClass('col-xs-offset-0');
                         $('#selectError').html(error);
                     } else {
                         error.appendTo(element.parent('div'));
