@@ -161,7 +161,7 @@ var DiagnosticsEditor = {
 
         for (var i in CocoonViolations) {
             var cocoon = CocoonViolations[i];
-            var row = $('<tr><td class="first_column">'+ cocoon.violotion +'</td><td class="edit" data-id="'+i+'" class="edit">'+ cocoon.description +'</td></tr>');
+            var row = $('<tr><td class="first_column">'+ cocoon.violation +'</td><td class="edit" data-id="'+i+'" class="edit">'+ cocoon.description +'</td></tr>');
             $('#Descriptions table#descr_cocoon').append(row);
         }
 

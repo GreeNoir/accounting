@@ -614,16 +614,21 @@ var Form = {
 
         $('#kharicheskaya_violation input[type="checkbox"]:checked').each(function() {
             var position = $(this).data('id');
-            for (var i in KharicheskayaLineViolations) {
-                if (KharicheskayaLineViolations[i].position == position) {
-                    var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ';
-                    var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val().trim();
-                    if (notes.length) {
-                        s += notes + '<br />';
-                    }
-                    s += KharicheskayaLineViolations[i].description;
+            if (position == 'normal') {
+                var s = '<b>' + KharicheskayaLineViolations[0].trans + '</b>';
+                diagnostics['kharicheskaya'].push(s);
+            } else {
+                for (var i in KharicheskayaLineViolations) {
+                    if (KharicheskayaLineViolations[i].position == position) {
+                        var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ';
+                        var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val().trim();
+                        if (notes.length) {
+                            s += notes + '<br />';
+                        }
+                        s += KharicheskayaLineViolations[i].description;
 
-                    diagnostics['kharicheskaya'].push(s);
+                        diagnostics['kharicheskaya'].push(s);
+                    }
                 }
             }
         });
@@ -897,7 +902,7 @@ var Form = {
         }
 
         if (oDiagnostics.energeticForm.kharicheskaya.length) {
-            $(selector).append('<h4>Нарушения харической линии</h4>');
+            $(selector).append('<h4>Харическая линия</h4>');
             for (var i in oDiagnostics.energeticForm.kharicheskaya) {
                 var s = oDiagnostics.energeticForm.kharicheskaya[i];
                 $(selector).append('<p>'+s+'</p>');
