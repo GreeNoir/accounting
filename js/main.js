@@ -775,7 +775,7 @@ var Form = {
 
     processShellsForm: function(oDiagnostics, widthDescriptions) {
         var mainSelector = 'form#shells_form ';
-        $(mainSelector).valid();
+        $(mainSelector).validate();
 
         var getListShells = function(from, to) {
             var list = [];

@@ -190,7 +190,8 @@ div.copy span {
 }
 
 #selectError {
-    height: 20px;
+    height: 25px;
+    padding-top: 5px;
 }
 
 #Results, #Descriptions {
