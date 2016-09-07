@@ -408,7 +408,7 @@ var Form = {
                         error.insertAfter('#cocoon_form');
                     }
                     else if (element.is('select')) {
-                        error.addClass('col-md-offset-5').addClass('col-xs-offset-0');
+                        error.addClass('col-md-offset-4').addClass('col-xs-offset-0');
                         error.insertAfter(element.parent().parent());
                     } else {
                         error.appendTo(element.parent('div'));
