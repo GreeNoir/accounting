@@ -506,6 +506,7 @@ var Form = {
             Form.tabsFormValid = false;
             $('#tab_shells').addClass('error');
             $('#tab_organism').addClass('bg-danger');
+            valid = false;
         } else {
             $('#tab_shells').removeClass('error');
             $('#tab_organism').removeClass('bg-danger');

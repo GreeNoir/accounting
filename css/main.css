@@ -316,10 +316,27 @@ table caption {
 
     .print {
         display: block;
+        clear: both;
     }
 
-    #Diagnostics, #Results {
+    label {
+        font-weight: normal;
+    }
+
+    #Results {
         page-break-before: always;
+    }
+
+    .part-header .panel-body {
+        padding: 10px 15px;
+    }
+
+    .part-header .panel-body h3,
+    .part-header .panel-body p {
+        font-size: 16px;
+        line-height: 25px;
+        font-weight: bold;
+        margin: 0;
     }
 
     #scrollspy,
@@ -407,8 +424,12 @@ table caption {
         font-size: 9px;
     }
 
+    #Results h2.print {
+        font-size: 22px !important;
+    }
+
     #Results .header h4 {
-        font-size: 24px;
+        font-size: 20px;
         text-decoration: underline;
         font-weight: bold;
     }
