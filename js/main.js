@@ -212,13 +212,30 @@ var Form = {
 
         var clearNotes = function(elem) {
             var id = $(elem).data('id');
-            console.log(id);
             if (!$(elem).prop('checked')) {
                 $('#kharicheskaya_violation input[type="text"][data-id="'+ id +'"]').val('');
             }
         };
 
-        $('#kharicheskaya_violation input[type="checkbox"]').change(function() { clearNotes(this); });
+        $('#kharicheskaya_violation input[type="checkbox"]').change(function() {
+            if ($(this).attr('data-id') == 'normal') {
+                if ($(this).is(':checked')) {
+                    $('#kharicheskaya_violation input[type="checkbox"][data-id!="normal"]').prop('disabled', true);
+                    $('#kharicheskaya_violation input[type="checkbox"][data-id!="normal"]').prop('checked', false);
+                } else {
+                    $('#kharicheskaya_violation input[type="checkbox"][data-id!="normal"]').prop('disabled', false);
+                }
+            } else {
+                if ($(this).is(':checked')) {
+                    $('#kharicheskaya_violation input[type="checkbox"][data-id="normal"]').prop('disabled', true);
+                } else {
+                    if ($('#kharicheskaya_violation input[type="checkbox"][data-id!="normal"]:checked').length == 0) {
+                        $('#kharicheskaya_violation input[type="checkbox"][data-id="normal"]').prop('disabled', false);
+                    }
+                }
+            }
+            clearNotes(this);
+        });
     },
 
     initOrganSystemsDiagnosticsPart: function() {
