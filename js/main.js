@@ -879,9 +879,11 @@ var Form = {
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
             $(selector).append('<h4>Уровень гормонов</h4>');
 
+            var s = '';
             for (var i in oDiagnostics.energeticForm.hormones) {
-                $(selector).append('<p>'+ oDiagnostics.energeticForm.hormones[i] +'</p>');
+                s += oDiagnostics.energeticForm.hormones[i] + '<br>';
             }
+            $(selector).append('<p>'+ s +'</p>');
         }
 
         if (oDiagnostics.energeticForm.hasOwnProperty('cocoon')) {
