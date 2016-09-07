@@ -633,7 +633,8 @@ var Form = {
             var level = $(this).data('id');
             for (var i in ThinLevels) {
                 if (ThinLevels[i].id == level) {
-                    diagnostics['thin_levels'].push(ThinLevels[i].description);
+                    var s = '<b>' + ThinLevels[i].level + '</b>: ' + '<small>' + ThinLevels[i].description + '</small>';
+                    diagnostics['thin_levels'].push(s);
                 }
             }
         });
