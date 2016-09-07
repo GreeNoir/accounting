@@ -913,7 +913,7 @@ var Form = {
         if (oDiagnostics.energeticForm.hasOwnProperty('biofield')) {
             $(selector).append('<h4>Размер биополя</h4>');
             var s = oDiagnostics.energeticForm.biofield.description;
-            $(selector).append('<p><small>'+s+'</small></p>');
+            //$(selector).append('<p><small>'+s+'</small></p>');
 
             if (oDiagnostics.energeticForm.biofield.hasOwnProperty('cosmoearth')) {
                 var s = oDiagnostics.energeticForm.biofield.cosmoearth;
