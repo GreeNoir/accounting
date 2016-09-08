@@ -327,10 +327,6 @@ table caption {
         font-weight: normal !important;
     }
 
-    #Results {
-        page-break-before: always;
-    }
-
     #scrollspy,
     #Descriptions,
     .nav,
@@ -486,7 +482,6 @@ table caption {
 
     #confidence table .form-control {
         border: none;
-        height: 12px;
     }
 
     #confidence table th,
