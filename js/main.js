@@ -739,15 +739,19 @@ var Form = {
         var diagnostics = [];
         for (var i in OrganSystems) {
             var obj = OrganSystems[i];
+            var s = '';
+            if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"]:checked').length) {
+                s = '<b>'+ obj.name +':</b>';
+            }
             for (var l in Form.levels) {
                 if ($(mainSelector + 'input[type="checkbox"][data-id="'+i+'"][data-level="'+l+'"]').prop('checked')) {
-                    var s = obj.diagnostics[l].description;
-                    if (s.length) {
-                        s = '<b>' + obj.name + '</b>: ' + s;
-                        diagnostics.push(s);
+                    var d = obj.diagnostics[l].description;
+                    if (d.length) {
+                        s += ' ' + d;
                     }
                 }
             }
+            diagnostics.push(s);
         }
         oDiagnostics.setOrganSystemsForm(diagnostics);
     },
@@ -976,11 +980,9 @@ var Form = {
         $(selector).empty();
         if (oDiagnostics.organSystemsForm.length) {
             $(selector).append('<h3>Системы организма</h3>');
-            var s = '';
             for (var i in oDiagnostics.organSystemsForm) {
-                s += oDiagnostics.organSystemsForm[i] + ' ';
+                $(selector).append('<p>'+ oDiagnostics.organSystemsForm[i] +'</p>');
             }
-            $(selector).append('<p>'+s+'</p>');
             $(selector).append('<hr>');
         }
 
