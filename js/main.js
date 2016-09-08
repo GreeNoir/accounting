@@ -39,6 +39,14 @@ var Form = {
         });
     },
 
+    fillRecommendsForPrint: function() {
+        $('#recommends textarea').keyup(function() {
+            var id = $(this).attr('data-id');
+            var text = $(this).val().trim();
+            $('#recommends fieldset[data-id="'+ id +'"] > div.print').html(text);
+        });
+    },
+
     unbindRefreshConfirmation: function() {
         $(window).off('beforeunload');
     },
@@ -65,6 +73,7 @@ var Form = {
         Form.preservation(preserv);
         Form.checkIE();
         Form.bindRefreshConfirmation();
+        Form.fillRecommendsForPrint();
 
         if (Form.isIE) {
             $('#ie_error').modal();

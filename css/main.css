@@ -429,7 +429,7 @@ table caption {
     }
 
     #Results .header h4 {
-        font-size: 20px;
+        font-size: 25px !important;
         text-decoration: underline;
         font-weight: bold;
     }
@@ -542,6 +542,23 @@ table caption {
 
     #organ h2 {
         padding: 20px 0;
+    }
+
+    #recommends textarea {
+        display: none;
+    }
+
+    #recommends fieldset {
+        padding-bottom: 15px;
+    }
+
+    #recommends .print {
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    #Results .no-results {
+        line-height: 20px;
     }
 
 }
