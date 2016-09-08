@@ -536,4 +536,8 @@ table caption {
         display: none !important;
     }
 
+    #organ h2 {
+        padding: 20px 0;
+    }
+
 }
