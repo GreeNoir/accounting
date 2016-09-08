@@ -327,18 +327,6 @@ table caption {
         page-break-before: always;
     }
 
-    .part-header .panel-body {
-        padding: 10px 15px;
-    }
-
-    .part-header .panel-body h3,
-    .part-header .panel-body p {
-        font-size: 16px;
-        line-height: 25px;
-        font-weight: bold;
-        margin: 0;
-    }
-
     #scrollspy,
     #Descriptions,
     .nav,
@@ -424,8 +412,16 @@ table caption {
         font-size: 9px;
     }
 
+    h1, h2, h3 {
+        margin: 5px 0;
+    }
+
     h2.print {
-        font-size: 27px !important;
+        font-size: 25px !important;
+    }
+
+    h3.print {
+        font-size: 20px !important;
     }
 
     #Results .header h4 {
@@ -433,4 +429,64 @@ table caption {
         text-decoration: underline;
         font-weight: bold;
     }
+
+    .panel {
+        margin: 5px 0;
+        border: none;
+    }
+
+    .panel-body {
+        padding: 0;
+    }
+
+    .panel.part-header {
+        border: 2px solid #000000;
+        border-radius: 4px;
+    }
+
+    .panel.part-header .panel-body {
+        padding: 10px 15px;
+        page-break-inside: avoid;
+    }
+
+    .panel.part-header .panel-body h3,
+    .panel.part-header .panel-body p {
+        font-size: 20px;
+        line-height: 25px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    br {
+        display: none;
+    }
+
+    .form-group {
+        margin: 3px 0;
+    }
+
+    div#account {
+        padding: 15px 0;
+    }
+
+    div#account .form-group {
+        margin: 7px 0;
+    }
+
+    .form-control {
+        height: 25px;
+        border-radius: 0;
+        padding: 3px;
+        font-size: 12px;
+    }
+
+    .input-group-addon {
+        display: none;
+    }
+
+    legend {
+        font-size: 17px;
+        margin-bottom: 7px;
+    }
+
 }
