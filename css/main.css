@@ -494,10 +494,42 @@ table caption {
         display: none;
     }
 
+    #cocoon legend,
+    #kharicheskaya_violation legend {
+        display: none;
+    }
+
+    #cocoon {
+        padding-top: 10px;
+    }
+
+    #energetics input[type="text"],
+    #confidence input[type="text"] {
+        border: none;
+        margin: 0;
+        padding: 5px 0 0 0;
+        font-style: italic;
+        font-size: 14px;
+    }
+
+    #biofield_sizes .has-feedback,
+    #confidence .has-feedback {
+        width: 90px !important;
+    }
+
     legend {
-        font-size: 17px;
+        font-size: 16px;
         margin-bottom: 7px;
         font-weight: normal;
+    }
+
+    #hormones {
+        height: 40px;
+    }
+
+    #hormones .form-group {
+        margin: 0;
+        padding: 0;
     }
 
     #shells {
