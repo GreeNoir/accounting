@@ -319,8 +319,8 @@ table caption {
         clear: both;
     }
 
-    label {
-        font-weight: normal;
+    label, th, .left-col {
+        font-weight: normal !important;
     }
 
     #Results {
@@ -480,6 +480,16 @@ table caption {
         font-size: 12px;
     }
 
+    #confidence table .form-control {
+        border: none;
+        height: 12px;
+    }
+
+    #confidence table th,
+    #confidence table td {
+        padding: 5px;
+    }
+
     .input-group-addon {
         display: none;
     }
@@ -487,6 +497,11 @@ table caption {
     legend {
         font-size: 17px;
         margin-bottom: 7px;
+        font-weight: normal;
+    }
+
+    #shells {
+        display: none !important;
     }
 
 }
