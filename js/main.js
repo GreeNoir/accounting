@@ -348,7 +348,7 @@ var Form = {
             id ++;
             var num = id + ') ';
             var chakra = MainChakraViolations[i].chakra;
-            var row = $('<div class="form-group row"><label class="control-label col-lg-3 col-sm-4 col-xs-12 name">'+ num + chakra +'</label><label class="control-label col-sm-1 col-xs-1 appendix">c:</label><div class="col-sm-2 col-xs-4"><select data-id="'+ i +'" data-for="from" class="form-control">'+getOptions()+'</select></div><label class="control-label col-sm-1 col-xs-1 appendix">по:</label><div class="col-sm-2 col-xs-4"><select data-id="'+ i +'" data-for="to" class="form-control">'+getOptions()+'</select></div></div></div>');
+            var row = $('<div class="form-group row"><label class="control-label col-lg-3 col-md-4 col-xs-12 name">'+ num + chakra +'</label><label class="control-label col-md-1 col-xs-1 appendix">c:</label><div class="col-md-2 col-xs-4"><select data-id="'+ i +'" data-for="from" class="form-control">'+getOptions()+'</select></div><label class="control-label col-md-1 col-xs-1 appendix">по:</label><div class="col-md-2 col-xs-4"><select data-id="'+ i +'" data-for="to" class="form-control">'+getOptions()+'</select></div></div></div>');
             $('#organ #shells_form').append(row);
         }
 

@@ -424,8 +424,8 @@ table caption {
         font-size: 9px;
     }
 
-    #Results h2.print {
-        font-size: 22px !important;
+    h2.print {
+        font-size: 27px !important;
     }
 
     #Results .header h4 {
