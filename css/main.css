@@ -333,6 +333,10 @@ table caption {
     padding-right: 0;
 }
 
+#Results .panel-body .header {
+    padding: 0;
+}
+
 @media print {
 
     .print {
