@@ -325,6 +325,14 @@ table caption {
     margin-top: 25px;
 }
 
+#cocoon_violations {
+    padding: 0;
+}
+
+#cocoon_violations .basic {
+    padding-right: 0;
+}
+
 @media print {
 
     .print {
