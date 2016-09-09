@@ -851,7 +851,12 @@ var Form = {
             var from = +$(mainSelector + 'select[data-for="from"][data-id="'+ i +'"]').val();
             var to = +$(mainSelector + 'select[data-for="to"][data-id="'+ i +'"]').val();
             if ((from != 0) && (to != 0) && (from <= to)) {
-                var s = '<b>Чакра '+ chakra +':</b> нарушены оболочки с ' + from + ' по ' + to;
+                var s = '<b>Чакра '+ chakra +':</b>';
+                if (from == to) {
+                    s += ' нарушена '+ from +' оболочка';
+                } else {
+                    s += ' нарушены оболочки с '+ from +' по '+ to;
+                }
                 diagnostics.push(s);
                 if (widthDescriptions == true) {
                     var d = getDiagnosticsShells(i, from, to);
