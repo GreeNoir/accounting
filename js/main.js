@@ -207,6 +207,9 @@ var Form = {
         for (var i=2; i<7; i++) {
             var radio = $('<label class="radio-inline"><input type="radio" required="true" name="cocoon" value="'+ i +'">'+CocoonViolations[i].subname+'</label>');
             div.append(radio);
+            if (i == 4) {
+                div.append('<br />');
+            }
         }
 
         $('#cocoon_violations input[type="radio"]').change(function() {

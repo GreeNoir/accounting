@@ -487,7 +487,7 @@ table caption {
         margin: 0;
     }
 
-    br {
+    #bioenergy br, #organ br {
         display: none;
     }
 
@@ -558,10 +558,6 @@ table caption {
         font-size: 14px;
         margin-bottom: 3px;
         font-weight: normal;
-    }
-
-    #hormones {
-        height: 40px;
     }
 
     #shells {
