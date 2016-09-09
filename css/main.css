@@ -316,6 +316,15 @@ table caption {
     padding-right: 0;
 }
 
+#energetics label {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#thin_levels {
+    margin-top: 25px;
+}
+
 @media print {
 
     .print {
@@ -353,6 +362,10 @@ table caption {
     #organs .form-group.row .checkbox-inline.pair-1,
     #organs .form-group.row .checkbox-inline.additional {
         font-size: 10px;
+    }
+
+    #organs_form label {
+        font-size: 11px;
     }
 
     .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
@@ -424,8 +437,17 @@ table caption {
         font-size: 18px !important;
     }
 
+    #organs h3.print {
+        font-size: 13px !important;
+        font-weight: bold;
+    }
+
+    #organs legend {
+        font-size: 12px !important;
+    }
+
     #Results .header h4 {
-        font-size: 25px !important;
+        font-size: 20px !important;
         text-decoration: underline;
         font-weight: bold;
     }
@@ -484,6 +506,11 @@ table caption {
         font-size: 12px;
     }
 
+    #confidence .print {
+        padding-top: 20px;
+        padding-bottom: 15px;
+    }
+
     #confidence table .form-control {
         border: none;
     }
@@ -497,13 +524,12 @@ table caption {
         display: none;
     }
 
-    #cocoon legend,
-    #kharicheskaya_violation legend {
-        display: none;
+    #energetics .print {
+        padding-bottom: 15px;
     }
 
-    #cocoon {
-        padding-top: 10px;
+    #energetics legend {
+        font-size: 16px;
     }
 
     #energetics input[type="text"],
@@ -530,17 +556,8 @@ table caption {
         height: 40px;
     }
 
-    #hormones .form-group {
-        margin: 0;
-        padding: 0;
-    }
-
     #shells {
         display: none !important;
-    }
-
-    #organ h2 {
-        padding: 20px 0;
     }
 
     #recommends textarea {
@@ -556,12 +573,39 @@ table caption {
         font-style: italic;
     }
 
+    #Results p {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    #Results h2 {
+        font-size: 20px !important;
+    }
+
+    #Results h3 {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+
+    #Results h4 {
+        font-size: 15px !important;
+        margin-top: 0;
+    }
+
     #Results .no-results {
         line-height: 20px;
     }
 
+    #outside {
+        margin-top: 20px;
+    }
+
     #outside label {
         font-size: 12px;
+    }
+
+    hr {
+        margin: 15px 0 7px 0;
     }
 
 }

@@ -180,7 +180,7 @@ var Form = {
                 $('#hormones input[name="estrogen"]').prop('required', false);
                 $('#hormones div.progesteron').hide();
                 $('#hormones input[name="progesteron"]').prop('required', false);
-                $('#hormones').removeClass('hidden');
+                $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
             }
             else if (gender == 2) {
@@ -188,10 +188,10 @@ var Form = {
                 $('#hormones input[name="estrogen"]').prop('required', true);
                 $('#hormones div.progesteron').show();
                 $('#hormones input[name="progesteron"]').prop('required', true);
-                $('#hormones').removeClass('hidden');
+                $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
             } else {
-                $('#hormones').addClass('hidden');
+                $('#hormones .form-group').addClass('hidden');
                 $('#selectGenderPropose').removeClass('hidden');
             }
             Form.setGender(gender);
@@ -477,7 +477,7 @@ var Form = {
             }, 100);
         }
 
-        if (!$('#energetic_form').valid() || !$('form#hormones').valid()) {
+        if (!$('#energetic_form').valid() || !$('#hormones input').valid()) {
             Form.tabsFormValid = false;
             valid = false;
             $('#tab_energetics').addClass('error');
@@ -599,7 +599,7 @@ var Form = {
         var hormones = Form.getGenderHormones();
         for(var i in hormones) {
             var k = hormones[i];
-            var s = '<b>'+ Hormones[k].hormon + '</b>: ' + $('#hormones input[data-id="'+ k +'"]').val();
+            var s = '<b>'+ Hormones[k].hormon + '</b>: ' + $('#hormones input[data-id="'+ k +'"]').val() + ' ';
             diagnostics['hormones'].push(s);
         }
 
@@ -645,7 +645,7 @@ var Form = {
                 for (var i in KharicheskayaLineViolations) {
                     if (KharicheskayaLineViolations[i].position == position) {
                         var s = '<b>' + KharicheskayaLineViolations[i].trans + '</b>: ';
-                        var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val().trim();
+                        var notes = $('#kharicheskaya_violation input[type="text"][data-id="'+ position +'"]').val().trim()+' ';
                         if (notes.length) {
                             s += notes + '<br />';
                         }
