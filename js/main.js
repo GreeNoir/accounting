@@ -432,7 +432,7 @@ var Form = {
                         error.appendTo(element.parent('div').parent('div'));
                     }
                     else if (element.attr('name') == 'cocoon') {
-                        error.insertAfter('#cocoon_form');
+                        error.insertBefore('#cocoon_violations');
                     }
                     else if (element.is('select')) {
                         error.addClass('col-md-offset-2').addClass('col-xs-offset-0');
