@@ -376,6 +376,13 @@ table caption {
         font-size: 10px;
     }
 
+    #main .form-group,
+    #small .form-group {
+        height: 23px !important;
+    }
+
+    #main label,
+    #small label,
     #organs_form label {
         font-size: 11px;
     }
@@ -447,6 +454,7 @@ table caption {
 
     h3.print {
         font-size: 18px !important;
+        width: 100%;
     }
 
     #organs h3.print {
@@ -527,11 +535,6 @@ table caption {
         border: none;
     }
 
-    #confidence table th,
-    #confidence table td {
-        padding: 5px;
-    }
-
     .input-group-addon {
         display: none;
     }
@@ -551,6 +554,23 @@ table caption {
         padding: 5px 0 0 0;
         font-style: italic;
         font-size: 14px;
+    }
+
+    #confidence table {
+        width: 100%;
+    }
+
+    #confidence table th,
+    #confidence table td,
+    #confidence table input[type="text"] {
+        font-size: 10px;
+        padding-top: 2px;
+    }
+
+    #confidence table th,
+    #confidence table td {
+        padding: 2px;
+        height: 16px;
     }
 
     #biofield_sizes .has-feedback,
