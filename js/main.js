@@ -754,7 +754,9 @@ var Form = {
                     }
                 }
             }
-            diagnostics.push(s);
+            if (s.length) {
+                diagnostics.push(s);
+            }
         }
         oDiagnostics.setOrganSystemsForm(diagnostics);
     },
