@@ -337,6 +337,10 @@ table caption {
     padding: 0;
 }
 
+.table-striped tr.bg-info th {
+    background-color: #d9edf7;
+}
+
 @media print {
 
     .print {
