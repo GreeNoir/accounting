@@ -270,25 +270,58 @@
                                                     <fieldset id="hormones">
                                                         <legend>Уровень гормонов</legend>
                                                         <label id="selectGenderPropose" class="err hidden">Выберете пол в анкете посетителя</label>
+                                                        <label id="selectBirthdatePropose" class="err hidden">Выберете дату рождения в анкете посетителя</label>
                                                         <div class="form-group estrogen">
-                                                            <label class="col-md-5 control-label">Эстроген</label>
+                                                            <label class="col-md-4 control-label">Эстроген</label>
                                                             <div class="col-md-7">
                                                                 <input class="form-control" name="estrogen" data-id="0" type="text" required="true">
                                                             </div>
                                                         </div>
-                                                        <div class="form-group progesteron">
-                                                            <label class="col-md-5 control-label">Прогестерон</label>
-                                                            <div class="col-md-7">
-                                                                <input class="form-control" name="progesteron" data-id="1" type="text" required="true">
-                                                            </div>
-                                                        </div>
                                                         <div class="form-group testosteron">
-                                                            <label class="col-md-5 control-label">Тестостерон</label>
+                                                            <label class="col-md-4 control-label">Тестостерон</label>
                                                             <div class="col-md-7">
                                                                 <input class="form-control" name="testosteron" data-id="2" type="text" required="true">
                                                             </div>
                                                         </div>
-                                                        <label id="selectBirthdatePropose" class="err hidden">Выберете дату рождения в анкете посетителя</label>
+                                                        <div class="form-group progesteron">
+                                                            <label class="col-md-4 control-label">Прогестерон</label>
+                                                            <div class="col-md-7">
+                                                                <input class="form-control" name="progesteron" data-id="1" type="text" required="true">
+                                                            </div>
+                                                        </div>
+                                                        <div id="progesteron_states">
+                                                            <div class="row col-md-offset-0">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="state" value="0">Менструальный цикл</label>
+                                                                </div>
+                                                                <div class="row col-md-12 col-md-offset-0 phases hide" data-state="0">
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="0">фолликулярная фаза</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="1">фаза овуляции</label><br />
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="2">лютеиновая фаза</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="3">постменопауза</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-md-offset-0">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="state" value="1">Беременность</label>
+                                                                </div>
+                                                                <div class="row col-md-12 col-md-offset-0 phases hide" data-state="1">
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="0">Первый триместр</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="1">Второй триместр</label><br />
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="2">Третий триместр</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row col-md-offset-0">
+                                                                <div class="radio">
+                                                                    <label><input type="radio" name="state" value="2">Прием гормональных контрацептивов</label>
+                                                                </div>
+                                                                <div class="row col-md-12 col-md-offset-0 phases hide" data-state="2">
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="0">фолликулярная фаза</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="1">фаза овуляции</label><br />
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="2">лютеиновая фаза</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="3">постменопауза</label>                                                               </div>
+                                                            </div>
+                                                        </div>
                                                     </fieldset>
                                                     <fieldset id="cocoon">
                                                         <legend>Кокон</legend>
@@ -381,17 +414,25 @@
                                                     <fieldset id="thin_levels">
                                                         <legend>Основные проблемы на уровне 4 тонких тел</legend>
                                                         <label class="control-label">Отражены на уровне:</label>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="1" value="">Физический</label>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox col-md-12">
+                                                                <label><input type="checkbox" data-id="1" value="">Физический</label>
+                                                            </div>
                                                         </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="2" value="">Эфирный</label>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox col-md-12">
+                                                                <label><input type="checkbox" data-id="2" value="">Эфирный</label>
+                                                            </div>
                                                         </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="3" value="">Астральный</label>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox col-md-12">
+                                                                <label><input type="checkbox" data-id="3" value="">Астральный</label>
+                                                            </div>
                                                         </div>
-                                                        <div class="checkbox">
-                                                            <label><input type="checkbox" data-id="4" value="">Ментальный</label>
+                                                        <div class="form-group row">
+                                                            <div class="checkbox col-md-12">
+                                                                <label><input type="checkbox" data-id="4" value="">Ментальный</label>
+                                                            </div>
                                                         </div>
                                                     </fieldset>
                                                 </div>

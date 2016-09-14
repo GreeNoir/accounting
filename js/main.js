@@ -254,6 +254,12 @@ var Form = {
                 $('#hormones input').prop('required', true);
                 $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
+
+                $('#progesteron_states input[name="state"]').change(function(){
+                    $('#progesteron_states .phases').addClass('hide');
+                    var state = $(this).val();
+                    $('#progesteron_states .phases[data-state="'+ state +'"]').removeClass('hide');
+                });
             } else {
                 $('#hormones .form-group').addClass('hidden');
                 $('#selectGenderPropose').removeClass('hidden');

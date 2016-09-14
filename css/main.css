@@ -341,6 +341,11 @@ table caption {
     background-color: #d9edf7;
 }
 
+#progesteron_states {
+    padding-bottom: 15px;
+    margin-top: -12px;
+}
+
 @media print {
 
     .print {
