@@ -72,7 +72,7 @@ var Form = {
         Form.initZoom();
         Form.preservation(preserv);
         Form.checkIE();
-        Form.bindRefreshConfirmation();
+//        Form.bindRefreshConfirmation();
         Form.fillRecommendsForPrint();
 
         if (Form.isIE) {
@@ -159,7 +159,7 @@ var Form = {
     getGenderHormones: function() {
         var hormones = [];
         if (Form.gender == 1) {
-            hormones = [2];
+            hormones = [];
         } else
         if (Form.gender == 2) {
             hormones = [0,1,2];
@@ -176,18 +176,12 @@ var Form = {
         var genderHormones = function() {
             var gender = $('select[name="gender"]').val();
             if (gender == 1) {
-                $('#hormones div.estrogen').hide();
-                $('#hormones input[name="estrogen"]').prop('required', false);
-                $('#hormones div.progesteron').hide();
-                $('#hormones input[name="progesteron"]').prop('required', false);
-                $('#hormones .form-group').removeClass('hidden');
-                $('#selectGenderPropose').addClass('hidden');
+                $('#hormones').addClass('hidden');
+                $('#hormones input').prop('required', false);
             }
             else if (gender == 2) {
-                $('#hormones div.estrogen').show();
-                $('#hormones input[name="estrogen"]').prop('required', true);
-                $('#hormones div.progesteron').show();
-                $('#hormones input[name="progesteron"]').prop('required', true);
+                $('#hormones').removeClass('hidden');
+                $('#hormones input').prop('required', true);
                 $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
             } else {
@@ -480,7 +474,8 @@ var Form = {
             }, 100);
         }
 
-        if (!$('#energetic_form').valid() || !$('#hormones input').valid()) {
+        var needHormonesValid = Form.gender == 2 ? true : false;
+        if (!$('#energetic_form').valid() || (needHormonesValid && !$('#hormones input').valid())) {
             Form.tabsFormValid = false;
             valid = false;
             $('#tab_energetics').addClass('error');
@@ -606,17 +601,19 @@ var Form = {
             diagnostics['hormones'].push(s);
         }
 
-        var valid = $('#hormones input').valid();
-        if (valid) {
-            var hormonsInfo = [];
-            for(var i in hormones) {
-                var k = hormones[i];
-                var v = +$('#hormones input[data-id="'+ k +'"]').val();
-                var info = {'hormon': k, 'name': Hormones[k], 'value': v};
-                hormonsInfo.push(info);
-            };
-            var analise = Form.analiseHormons(hormonsInfo);
-            diagnostics['hormones'].push(analise);
+        if (Form.gender == 2) {
+            var valid = $('#hormones input').valid();
+            if (valid) {
+                var hormonsInfo = [];
+                for(var i in hormones) {
+                    var k = hormones[i];
+                    var v = +$('#hormones input[data-id="'+ k +'"]').val();
+                    var info = {'hormon': k, 'name': Hormones[k], 'value': v};
+                    hormonsInfo.push(info);
+                };
+                var analise = Form.analiseHormons(hormonsInfo);
+                diagnostics['hormones'].push(analise);
+            }
         }
 
         var cocoon = $('input[name="cocoon"]:checked').val();
