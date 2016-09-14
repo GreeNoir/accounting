@@ -134,7 +134,7 @@
                                         <label class="col-md-1 control-label" style="font-size: 11px;">Дата рождения*</label>
                                         <div class="col-md-3">
                                             <div class='input-group date' id='birthdate'>
-                                                <input type='text' class="form-control" placeholder="Дата рождения" name="birtdate" required="true">
+                                                <input type='text' class="form-control" placeholder="Дата рождения" name="birthdate" required="true">
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -142,9 +142,9 @@
                                             <script type="text/javascript">
                                                 $('#birthdate').datetimepicker({
                                                     useCurrent: false,
-                                                    format: "DD.MM.YYYY",
+                                                    format: "YYYY-MM-DD",
                                                     viewMode: 'years'
-                                                });
+                                                }).on('dp.change', function(e) { Form.initAge(); });
                                             </script>
                                         </div>
                                         <label class="col-md-1 control-label">Телефон*</label>
@@ -288,6 +288,7 @@
                                                                 <input class="form-control" name="testosteron" data-id="2" type="text" required="true">
                                                             </div>
                                                         </div>
+                                                        <label id="selectBirthdatePropose" class="err hidden">Выберете дату рождения в анкете посетителя</label>
                                                     </fieldset>
                                                     <fieldset id="cocoon">
                                                         <legend>Кокон</legend>

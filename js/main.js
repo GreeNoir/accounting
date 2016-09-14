@@ -10,6 +10,7 @@ var Form = {
     needValidate: true,
     isValid: false,
     gender: 0,
+    age: -1,
 
     levels: ['Ф', 'Э', 'А', 'М'],
     initTitle: 'Экспертная система диагностики биоэнергетического состояния',
@@ -92,6 +93,7 @@ var Form = {
             Form.initValidator();
             Form.initMainChakraPanel();
             Form.initSmallChakraPanel();
+            Form.initAge();
             Form.initHormonesPart();
             Form.initCocoonPart();
             Form.initKharicheskayaPart();
@@ -167,9 +169,77 @@ var Form = {
         return hormones;
     },
 
-    //добавить анализ гормонального фона по алгоритму
-    analiseHormons: function(hormonsInfo) {
-        return 'анализ гормонов';
+    analyzeHormons: function(hormonsInfo) {
+        var analise = [];
+
+        var age = Form.age;
+
+        for (var i in hormonsInfo) {
+            var hormon = hormonsInfo[i].hormon;
+            var value = hormonsInfo[i].value;
+            for (var k in Hormones) {
+                if (Hormones[k].hormon === hormon) {
+                    var s = '<b>'+ hormon + '</b>: ' + value + ' - ';
+                    var hormonAnalyze = Hormones[k];
+
+                    if (k == 0 || k == 2) {
+
+                        for (var i in hormonAnalyze.ages) {
+                            var ageInfo = hormonAnalyze.ages[i];
+                            var min = +ageInfo.min;
+                            var max = +ageInfo.max;
+                            if (age >= min && age <= max) {
+                                if (value < +ageInfo.low) {
+                                    s += 'понижен. ';
+                                    var description = hormonAnalyze.descriptionLow;
+                                    s += description;
+                                } else if (value > +ageInfo.high) {
+                                    s += 'повышен. ';
+                                    var description = hormonAnalyze.descriptionHigh;
+                                    s += description;
+                                } else {
+                                    s += 'находится в норме. ';
+                                }
+                                analise.push(s);
+                                break;
+                            }
+                        }
+
+                    } else {
+
+                    }
+                }
+            }
+        }
+        console.log(analise);
+        return analise;
+
+    },
+
+    initAge: function() {
+        Form.age = -1;
+        var result = true;
+        var input = $('input[name="birthdate"]').val();
+        if (!input.length) {
+            result = false;
+        } else {
+            var timestamp = Date.parse(input);
+
+            if (isNaN(timestamp) == false) {
+                var birthdate = new Date(timestamp);
+                var cur = new Date();
+                var diff = cur-birthdate; // This is the difference in milliseconds
+                Form.age = Math.floor(diff/31536000000); // Divide by 1000*60*60*24*365
+            } else {
+                result = false;
+            }
+        }
+
+        if (!result) {
+            $('#selectBirthdatePropose').removeClass('hidden');
+        } else {
+            $('#selectBirthdatePropose').addClass('hidden');
+        }
     },
 
     initHormonesPart: function() {
@@ -593,26 +663,22 @@ var Form = {
     processEnergeticForm: function(oDiagnostics) {
         var diagnostics = [];
 
-        diagnostics['hormones'] = [];
-        var hormones = Form.getGenderHormones();
-        for(var i in hormones) {
-            var k = hormones[i];
-            var s = '<b>'+ Hormones[k].hormon + '</b>: ' + $('#hormones input[data-id="'+ k +'"]').val() + ' ';
-            diagnostics['hormones'].push(s);
-        }
-
         if (Form.gender == 2) {
+
+            diagnostics['hormones'] = [];
+            var hormones = Form.getGenderHormones();
+
             var valid = $('#hormones input').valid();
-            if (valid) {
+            if (valid && Form.age > 0) {
                 var hormonsInfo = [];
                 for(var i in hormones) {
                     var k = hormones[i];
                     var v = +$('#hormones input[data-id="'+ k +'"]').val();
-                    var info = {'hormon': k, 'name': Hormones[k], 'value': v};
+                    var info = { "hormon": Hormones[k].hormon, "value": v };
                     hormonsInfo.push(info);
                 };
-                var analise = Form.analiseHormons(hormonsInfo);
-                diagnostics['hormones'].push(analise);
+                var analyses = Form.analyzeHormons(hormonsInfo);
+                diagnostics['hormones'] = analyses;
             }
         }
 
@@ -917,6 +983,7 @@ var Form = {
         $(selector).append('<hr><h3>Энергетика</h3>');
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
+            console.log(oDiagnostics.energeticForm.hormones);
             $(selector).append('<h4>Уровень гормонов</h4>');
 
             var s = '';
