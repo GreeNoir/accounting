@@ -255,10 +255,14 @@ var Form = {
                 $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
 
+                $('#progesteron_states input[name="state"]').prop('checked', false);
+                $('#progesteron_states .phases').addClass('hide');
+
                 $('#progesteron_states input[name="state"]').change(function(){
                     $('#progesteron_states .phases').addClass('hide');
                     var state = $(this).val();
                     $('#progesteron_states .phases[data-state="'+ state +'"]').removeClass('hide');
+                    $('#progesteron_states input[name="phase"]').prop('checked', false);
                 });
             } else {
                 $('#hormones .form-group').addClass('hidden');
