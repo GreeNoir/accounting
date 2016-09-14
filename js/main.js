@@ -87,7 +87,7 @@ var Form = {
             var v = $('input[name="validate"]:checked').val();
             Form.setNeedValidate(v);
         });
-        $('button[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+        $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
         loadData(function() {
             Form.initValidator();
@@ -255,6 +255,7 @@ var Form = {
                 $('#hormones .form-group').removeClass('hidden');
                 $('#selectGenderPropose').addClass('hidden');
 
+                $('#progesteron_states').removeClass('hidden');
                 $('#progesteron_states input[name="state"]').prop('checked', false);
                 $('#progesteron_states .phases').addClass('hide');
 
