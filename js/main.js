@@ -170,6 +170,7 @@ var Form = {
     },
 
     analyzeHormons: function(hormonsInfo) {
+        console.log(hormonsInfo);
         var analise = [];
 
         var age = Form.age;
@@ -205,8 +206,22 @@ var Form = {
                             }
                         }
 
-                    } else {
-
+                    } else {    //progesteron
+                        var state = hormonsInfo[k].state;
+                        var phase = hormonsInfo[k].phase;
+                        var row = hormonAnalyze.states[state].phases[phase];
+                        if (value < +row.low) {
+                            s += 'понижен. ';
+                            var description = hormonAnalyze.descriptionLow;
+                            s += description;
+                        } else if (value > +row.high) {
+                            s += 'повышен. ';
+                            var description = hormonAnalyze.descriptionHigh;
+                            s += description;
+                        } else {
+                            s += 'находится в норме. ';
+                        }
+                        analise.push(s);
                     }
                 }
             }
@@ -695,6 +710,10 @@ var Form = {
                     var k = hormones[i];
                     var v = +$('#hormones input[data-id="'+ k +'"]').val();
                     var info = { "hormon": Hormones[k].hormon, "value": v };
+                    if (i == 1) {
+                        info.state = $('#progesteron_states input[name="state"]:checked').val();
+                        info.phase = $('#progesteron_states input[name="phase"]:checked').val();
+                    }
                     hormonsInfo.push(info);
                 };
                 var analyses = Form.analyzeHormons(hormonsInfo);
