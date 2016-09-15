@@ -341,9 +341,34 @@ table caption {
     background-color: #d9edf7;
 }
 
+#hormones legend,
+#cocoon legend {
+    margin-bottom: 10px;
+}
+
+#hormones .form-group {
+    margin-bottom: 5px;
+}
+
+#hormones label {
+    padding-top: 3px;
+}
+
+#hormones input.form-control[type="text"],
+#cocoon_undef_descript {
+    font-size: 13px;
+    padding: 4px 10px;
+    height: 25px;
+    border-radius: 2px;
+}
+
 #progesteron_states {
     padding-bottom: 15px;
-    margin-top: -12px;
+}
+
+
+#inside .form-group {
+    margin-bottom: 5px !important;
 }
 
 @media print {
@@ -584,7 +609,7 @@ table caption {
 
     #biofield_sizes .has-feedback,
     #confidence .has-feedback {
-        width: 90px !important;
+        width: 100px !important;
     }
 
     legend {
@@ -637,6 +662,7 @@ table caption {
         margin-top: 20px;
     }
 
+    #inside label,
     #outside label {
         font-size: 12px;
     }

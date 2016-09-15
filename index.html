@@ -306,9 +306,9 @@
                                                                     <label><input type="radio" name="state" value="1">Беременность</label>
                                                                 </div>
                                                                 <div class="row col-md-12 col-md-offset-1 phases hide" data-state="1">
-                                                                    <label class="radio-inline"><input type="radio" name="phase" value="0">1 триместр</label>
-                                                                    <label class="radio-inline"><input type="radio" name="phase" value="1">2 триместр</label>
-                                                                    <label class="radio-inline"><input type="radio" name="phase" value="2">3 триместр</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="0" data-toggle="tooltip" title="1-й триместр">1</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="1" data-toggle="tooltip" title="2-й триместр">2</label>
+                                                                    <label class="radio-inline"><input type="radio" name="phase" value="2" data-toggle="tooltip" title="3-й триместр">3</label>
                                                                 </div>
                                                             </div>
                                                             <div class="row col-md-offset-1">
@@ -338,7 +338,7 @@
                                                                 <div class="col-md-12">
                                                                     <label class="radio-inline"><input type="radio" name="cocoon" required="true" value="1">Неопределённая</label>
                                                                 </div>
-                                                                <div class="col-md-12" style="padding-top: 10px;">
+                                                                <div class="col-md-11" style="padding-top: 10px;">
                                                                     <input class="form-control" id="cocoon_undef_descript" data-id="1" value="" type="text">
                                                                 </div>
                                                             </div>
@@ -452,28 +452,28 @@
                                                             <div class="col-md-9">
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Сознание</label>
-                                                                    <div class="col-md-6 has-feedback">
+                                                                    <div class="col-md-7 has-feedback">
                                                                         <input class="form-control" type="text" name="conscious" value="" required="true">
                                                                         <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Подсознание</label>
-                                                                    <div class="col-md-6 has-feedback">
+                                                                    <div class="col-md-7 has-feedback">
                                                                         <input class="form-control" type="text" name="subconscious" value="" required="true">
                                                                         <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Разум</label>
-                                                                    <div class="col-md-6 has-feedback">
+                                                                    <div class="col-md-7 has-feedback">
                                                                         <input class="form-control" type="text" name="mind" value="" required="true">
                                                                         <span class="form-control-feedback">&#37;</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <label class="col-md-3 control-label">Душа</label>
-                                                                    <div class="col-md-6 has-feedback">
+                                                                    <div class="col-md-7 has-feedback">
                                                                         <input class="form-control" type="text" name="soul" value="" required="true">
                                                                         <span class="form-control-feedback">&#37;</span>
                                                                     </div>
@@ -559,7 +559,8 @@
 
                                         <div class="tab-content">
                                             <div id="organs" class="tab-pane fade">
-                                                <h3 class="print">Диагностика организма. Диагостика внутренних органов</h3>
+                                                <h2 class="print">Диагностика организма</h2>
+                                                <h3 class="print">Диагостика внутренних органов</h3>
                                                 <br>
                                                 <form id="organs_form"></form>
                                             </div>
