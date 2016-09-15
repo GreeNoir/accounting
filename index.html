@@ -269,6 +269,11 @@
                                                 <div class="division col-md-6">
                                                     <fieldset id="hormones">
                                                         <legend>Уровень гормонов</legend>
+                                                        <div class="form-group row no_hormones">
+                                                            <div class="checkbox">
+                                                                <label><input type="checkbox" id="no_hormones"><u>НЕ</u> обрабатывать уровень гормонов</label>
+                                                            </div>
+                                                        </div>
                                                         <label id="selectGenderPropose" class="err hidden">Выберете пол в анкете посетителя</label>
                                                         <label id="selectBirthdatePropose" class="err hidden">Выберете дату рождения в анкете посетителя</label>
                                                         <div class="form-group estrogen">
@@ -290,32 +295,32 @@
                                                             </div>
                                                         </div>
                                                         <div id="progesteron_states" class="hidden">
-                                                            <div class="row col-md-offset-1 col-sm-offset-1">
+                                                            <div class="row col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="state" value="0" required="true">Менструальный цикл</label>
                                                                 </div>
-                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 phases hide" data-state="0">
+                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 phases hide" data-state="0">
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="0" required="true" data-toggle="tooltip" title="Фолликулярная фаза">Ф</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="1" required="true" data-toggle="tooltip" title="Фаза овуляции">О</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="2" required="true" data-toggle="tooltip" title="Лютеиновая фаза">Л</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="3" required="true" data-toggle="tooltip" title="Постменопауза">ПМ</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="row col-md-offset-1 col-sm-offset-1">
+                                                            <div class="row col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="state" value="1" required="true">Беременность</label>
                                                                 </div>
-                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 phases hide" data-state="1">
+                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 phases hide" data-state="1">
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="0" required="true" data-toggle="tooltip" title="1-й триместр">1</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="1" required="true" data-toggle="tooltip" title="2-й триместр">2</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="2" required="true" data-toggle="tooltip" title="3-й триместр">3</label>
                                                                 </div>
                                                             </div>
-                                                            <div class="row col-md-offset-1 col-sm-offset-1">
+                                                            <div class="row col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
                                                                 <div class="radio">
                                                                     <label><input type="radio" name="state" value="2" required="true">Прием гормональных контрацептивов</label>
                                                                 </div>
-                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 phases hide" data-state="2">
+                                                                <div class="row col-md-12 col-md-offset-1 col-sm-offset-1 col-xs-offset-1 phases hide" data-state="2">
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="0" required="true" data-toggle="tooltip" title="Фолликулярная фаза">Ф</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="1 "required="true" data-toggle="tooltip" title="Фаза овуляции">О</label>
                                                                     <label class="radio-inline"><input type="radio" name="phase" value="2" required="true" data-toggle="tooltip" title="Лютеиновая фаза">Л</label>

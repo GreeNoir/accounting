@@ -11,6 +11,7 @@ var Form = {
     isValid: false,
     gender: 0,
     age: -1,
+    notAnalyzeHormones: 0,
 
     levels: ['Ф', 'Э', 'А', 'М'],
     initTitle: 'Экспертная система диагностики биоэнергетического состояния',
@@ -170,7 +171,6 @@ var Form = {
     },
 
     analyzeHormons: function(hormonsInfo) {
-        console.log(hormonsInfo);
         var analise = [];
 
         var age = Form.age;
@@ -226,7 +226,6 @@ var Form = {
                 }
             }
         }
-        console.log(analise);
         return analise;
 
     },
@@ -258,6 +257,20 @@ var Form = {
     },
 
     initHormonesPart: function() {
+
+        var NoHormonesCheck = function(checked) {
+            if (checked == 1) {
+                Form.notAnalyzeHormones = 1;
+                $('#hormones input[type="text"], #hormones input[type="radio"]').prop('disabled', true);
+                $('#hormones input[type="text"], #hormones input[type="radio"]').prop('required', false);
+                $('#hormones input[type="text"], #hormones input[type="radio"]').valid();
+            } else {
+                Form.notAnalyzeHormones = 0;
+                $('#hormones input[type="text"], #hormones input[type="radio"]').prop('disabled', false);
+                $('#hormones input[type="text"], #hormones input[type="radio"]').prop('required', true);
+            }
+        };
+
         var genderHormones = function() {
             var gender = $('select[name="gender"]').val();
             if (gender == 1) {
@@ -280,6 +293,9 @@ var Form = {
                     $('#progesteron_states .phases[data-state="'+ state +'"]').removeClass('hide');
                     $('#progesteron_states input[name="phase"]').prop('checked', false);
                 });
+
+                NoHormonesCheck(Form.notAnalyzeHormones);
+
             } else {
                 $('#hormones .form-group').addClass('hidden');
                 $('#selectGenderPropose').removeClass('hidden');
@@ -287,8 +303,13 @@ var Form = {
             Form.setGender(gender);
         };
 
+        $('#no_hormones').prop('checked', false);
         genderHormones();
         $('select[name="gender"]').change(genderHormones);
+        $('#no_hormones').change(function() {
+            var checked = $('#no_hormones').prop('checked') ? 1 : 0;
+            NoHormonesCheck(checked);
+        });
     },
 
     initCocoonPart: function() {
@@ -698,7 +719,7 @@ var Form = {
     processEnergeticForm: function(oDiagnostics) {
         var diagnostics = [];
 
-        if (Form.gender == 2) {
+        if (Form.gender == 2 && Form.notAnalyzeHormones == 0) {
 
             diagnostics['hormones'] = [];
             var hormones = Form.getGenderHormones();

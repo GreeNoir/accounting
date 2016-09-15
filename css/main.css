@@ -371,6 +371,10 @@ table caption {
     margin-bottom: 5px !important;
 }
 
+#hormones .no_hormones .checkbox {
+    padding-top: 0;
+}
+
 @media print {
 
     .print {
