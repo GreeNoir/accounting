@@ -582,7 +582,7 @@ table caption {
     }
 
     #energetics input[type="text"],
-    #confidence input[type="text"] {
+    #confidence #outside input[type="text"] {
         border: none;
         margin: 0;
         padding: 5px 0 0 0;
@@ -607,8 +607,7 @@ table caption {
         height: 16px;
     }
 
-    #biofield_sizes .has-feedback,
-    #confidence .has-feedback {
+    #biofield_sizes .has-feedback {
         width: 100px !important;
     }
 
@@ -662,7 +661,6 @@ table caption {
         margin-top: 20px;
     }
 
-    #inside label,
     #outside label {
         font-size: 12px;
     }
