@@ -90,6 +90,8 @@ var Form = {
         });
         $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
 
+        Form.showLoader();
+
         loadData(function() {
             Form.initValidator();
             Form.initMainChakraPanel();
@@ -102,13 +104,8 @@ var Form = {
             Form.initOrganDiagnosticsPart();
             Form.initShellPart();
             DiagnosticsEditor.init();
+            setTimeout(Form.hideLoader, 1000);
 
-            var hash = window.location.hash.substr(1);
-            if (hash.length && hash !== 'Form') {
-                $('html, body').animate({
-                    scrollTop: $('#'+hash).offset().top
-                }, 100);
-            }
         });
     },
 
@@ -484,6 +481,27 @@ var Form = {
             $('form#shells_form select[data-id="'+ id +'"]').removeClass('error');
             $('#selectError').empty();
         });
+    },
+
+    showLoader: function() {
+        $('#loader').show();
+        $('#Diagnostics').hide();
+        $('#Results').hide();
+        $('#Descriptions').hide();
+    },
+
+    hideLoader: function() {
+        $('#loader').hide();
+        $('#Diagnostics').show();
+        $('#Results').show();
+        $('#Descriptions').show();
+
+        var hash = window.location.hash.substr(1);
+        if (hash.length && hash !== 'Form') {
+            $('html, body').animate({
+                scrollTop: $('#'+hash).offset().top
+            }, 100);
+        }
     },
 
     initValidator: function() {
