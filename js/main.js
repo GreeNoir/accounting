@@ -499,7 +499,10 @@ var Form = {
                 ignore: false,
                 lang: 'ru',
                 messages: {
-                    'cocoon': 'Выберете форму кокона.'
+                    'cocoon': 'Выберете форму кокона.',
+                    'state': 'Выберете одно из состояний.',
+                    'phase': 'Выберете фазу в выбранном состоянии.'
+
                 },
                 rules: rules,
                 errorPlacement: function(error, element) {
@@ -508,6 +511,12 @@ var Form = {
                     }
                     else if (element.attr('name') == 'cocoon') {
                         error.insertBefore('#cocoon_violations');
+                    }
+                    else if (element.attr('name') == 'state') {
+                        error.insertBefore('#progesteron_states');
+                    }
+                    else if (element.attr('name') == 'phase') {
+                        error.insertBefore('#progesteron_states input[name="state"]:checked');
                     }
                     else if (element.is('select')) {
                         error.addClass('col-md-offset-2').addClass('col-xs-offset-0');
