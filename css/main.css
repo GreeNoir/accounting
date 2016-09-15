@@ -607,6 +607,10 @@ table caption {
         height: 16px;
     }
 
+    #biofield_sizes {
+        margin-top: 10px;
+    }
+
     #biofield_sizes .has-feedback {
         width: 100px !important;
     }
