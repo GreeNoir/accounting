@@ -131,14 +131,19 @@ var DiagnosticsEditor = {
 
         for (var i in Hormones) {
             var hormon = Hormones[i];
-            var row = $('<tr><td class="first_column" style="width: 150px;">'+ hormon.hormon +'</td><td class="edit" data-id="'+i+'" class="edit">'+ hormon.description +'</td></tr>');
+            var row = $('<tr><td class="first_column" style="width: 150px;">'+ hormon.hormon +'</td><td class="list"><table class="table table-bordered"><tr><td class="first_column">Понижен</td><td class="edit" data-id="'+i+'" data-type="low" class="edit">'+ hormon.descriptionLow +'</td></tr><tr><td class="first_column">Повышен</td><td class="edit" data-id="'+i+'" data-type="high" class="edit">'+ hormon.descriptionHigh +'</td></tr></table></td></tr>');
             $('#Descriptions table#descr_hormon').append(row);
         }
 
         $('#Descriptions table#descr_hormon .edit').editable(
             function(value, settings) {
                 var id = $(this).attr('data-id');
-                Hormones[id].description = value;
+                var type = $(this).attr('data-type');
+                if (type == 'low') {
+                    Hormones[id].descriptionLow = value;
+                } else if (type == 'high') {
+                    Hormones[id].descriptionHigh = value;
+                }
 
                 if (!Form.isIE) {
                     var key = 'hormones';
