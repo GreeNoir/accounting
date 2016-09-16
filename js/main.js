@@ -11,6 +11,7 @@ var Form = {
     isValid: false,
     gender: 0,
     age: -1,
+    ageHormonsBound: 1,
     notAnalyzeHormones: 0,
 
     levels: ['Ф', 'Э', 'А', 'М'],
@@ -742,7 +743,9 @@ var Form = {
             var hormones = Form.getGenderHormones();
 
             var valid = $('#hormones input').valid();
-            if (valid && Form.age > 0) {
+            var sAge = 'Возраст: <b>'+ Form.age +'</b> лет';
+
+            if (valid && Form.age > Form.ageHormonsBound) {
                 var hormonsInfo = [];
                 for(var i in hormones) {
                     var k = hormones[i];
@@ -754,9 +757,14 @@ var Form = {
                     }
                     hormonsInfo.push(info);
                 };
+
                 var analyses = Form.analyzeHormons(hormonsInfo);
                 diagnostics['hormones'] = analyses;
+            } else {
+                diagnostics['hormones'] = ['(нет данных. проверьте правильность заполнения формы)']
             }
+
+            diagnostics['hormones'].unshift(sAge);
         }
 
         var cocoon = $('input[name="cocoon"]:checked').val();
