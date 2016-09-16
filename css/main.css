@@ -402,6 +402,10 @@ table caption {
     100% { transform: rotate(360deg); }
 }
 
+tr.gray {
+    background-color: #f9f9f9;
+}
+
 @media print {
 
     .print {

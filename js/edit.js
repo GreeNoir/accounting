@@ -131,7 +131,7 @@ var DiagnosticsEditor = {
 
         for (var i in Hormones) {
             var hormon = Hormones[i];
-            var row = $('<tr><td class="first_column" style="width: 150px;">'+ hormon.hormon +'</td><td class="list"><table class="table table-bordered"><tr><td class="first_column">Понижен</td><td class="edit" data-id="'+i+'" data-type="low" class="edit">'+ hormon.descriptionLow +'</td></tr><tr><td class="first_column">Повышен</td><td class="edit" data-id="'+i+'" data-type="high" class="edit">'+ hormon.descriptionHigh +'</td></tr></table></td></tr>');
+            var row = $('<tr><td class="first_column" style="width: 150px;">'+ hormon.hormon +'</td><td class="list"><table class="table table-bordered"><tr><td class="first_column">Понижен</td><td class="edit" data-id="'+i+'" data-type="low" class="edit">'+ hormon.descriptionLow +'</td></tr><tr class="gray"><td class="first_column">Повышен</td><td class="edit" data-id="'+i+'" data-type="high" class="edit">'+ hormon.descriptionHigh +'</td></tr></table></td></tr>');
             $('#Descriptions table#descr_hormon').append(row);
         }
 
