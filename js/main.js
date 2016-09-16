@@ -169,16 +169,15 @@ var Form = {
 
     analyzeHormons: function(hormonsInfo) {
         var analise = [];
-
         var age = Form.age;
 
         for (var i in hormonsInfo) {
             var hormon = hormonsInfo[i].hormon;
             var value = hormonsInfo[i].value;
-            for (var k in Hormones) {
-                if (Hormones[k].hormon === hormon) {
+            for (var k in hormonAnalyses) {
+                if (hormonAnalyses[k].hormon === hormon) {
                     var s = '<b>'+ hormon + '</b>: ' + value + ' - ';
-                    var hormonAnalyze = Hormones[k];
+                    var hormonAnalyze = hormonAnalyses[k];
 
                     if (k == 0 || k == 2) {
 
@@ -189,11 +188,11 @@ var Form = {
                             if (age >= min && age <= max) {
                                 if (value < +ageInfo.low) {
                                     s += 'понижен. ';
-                                    var description = hormonAnalyze.descriptionLow;
+                                    var description = Hormones[k].descriptionLow;
                                     s += description;
                                 } else if (value > +ageInfo.high) {
                                     s += 'повышен. ';
-                                    var description = hormonAnalyze.descriptionHigh;
+                                    var description = Hormones[k].descriptionHigh;
                                     s += description;
                                 } else {
                                     s += 'находится в норме. ';
@@ -209,11 +208,11 @@ var Form = {
                         var row = hormonAnalyze.states[state].phases[phase];
                         if (value < +row.low) {
                             s += 'понижен. ';
-                            var description = hormonAnalyze.descriptionLow;
+                            var description = Hormones[k].descriptionLow;
                             s += description;
                         } else if (value > +row.high) {
                             s += 'повышен. ';
-                            var description = hormonAnalyze.descriptionHigh;
+                            var description = Hormones[k].descriptionHigh;
                             s += description;
                         } else {
                             s += 'находится в норме. ';
@@ -1061,7 +1060,6 @@ var Form = {
         $(selector).append('<hr><h3>Энергетика</h3>');
 
         if (oDiagnostics.energeticForm.hasOwnProperty('hormones')) {
-            console.log(oDiagnostics.energeticForm.hormones);
             $(selector).append('<h4>Уровень гормонов</h4>');
 
             var s = '';
