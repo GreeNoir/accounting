@@ -122,7 +122,11 @@
                                                 </span>
                                             </div>
                                             <script type="text/javascript">
-                                                $('#date').datetimepicker({});
+                                                $('#date').datetimepicker({
+                                                    sideBySide: true,
+                                                    useCurrent: true,
+                                                    disabledHours: [0,1,2,3,4,5,6,7,22,23]
+                                                });
                                             </script>
                                         </div>
                                         <label class="col-md-2 control-label">Диагностика №</label>
@@ -143,7 +147,9 @@
                                                 $('#birthdate').datetimepicker({
                                                     useCurrent: false,
                                                     format: "YYYY-MM-DD",
-                                                    viewMode: 'years'
+                                                    viewMode: 'years',
+                                                    minDate: "1900-01-01",
+                                                    maxDate: moment()
                                                 }).on('dp.change', function(e) { Form.initAge(); });
                                             </script>
                                         </div>
