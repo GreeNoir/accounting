@@ -35,7 +35,7 @@ var DiagnosticsEditor = {
             var chakra = MainChakraViolations[i];
             var row = $('<tr><td class="first_column">' +chakra.chakra+ '</td><td class="list"></td></tr>');
             var subrow_front = $('<tr><td>Спереди</td><td class="edit" data-id="'+i+'" data-position="front">' + chakra.front + '</td></tr>');
-            var subrow_middle = $('<tr data-position="middle"><td>По центру</td><td class="edit" data-id="'+i+'" data-position="middle">' + chakra.middle + '</td></tr>');
+            var subrow_middle = $('<tr data-position="middle" class="gray"><td>По центру</td><td class="edit" data-id="'+i+'" data-position="middle">' + chakra.middle + '</td></tr>');
             var subrow_back = $('<tr data-position="back"><td>Сзади</td><td class="edit" data-id="'+i+'" data-position="back">'+ chakra.back +'</td></tr>');
             var subtable = $('<table class="table"><tr class="bg-info"><th>Позиция</th><th>Описание</th></tr></table>');
             subtable.append(subrow_front).append(subrow_middle).append(subrow_back);
