@@ -58,12 +58,12 @@ var Form = {
         if (preserv == 1989) {
             return;
         }
-        var endDate = new Date(2016, 8, 16);
+        var endDate = new Date(2016, 9, 1);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
             $('body').css('background-color','black').empty();
-            alert('Использование пробной версии продукта завершено. Приобретите платную версию продукта.');
+            alert('Использование пробной версии продукта завершено.');
         }
     },
 
