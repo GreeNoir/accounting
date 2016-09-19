@@ -389,7 +389,7 @@ table caption {
     height: 100px;
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
-    margin: 40px auto;
+    margin: 0 auto;
 }
 
 @-webkit-keyframes spin {
