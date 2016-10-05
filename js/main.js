@@ -842,7 +842,7 @@ var Form = {
 
             s = '';
             if (!isNaN(native)) {
-                for (var i=4; i<7; i++) {
+                for (var i=4; i<8; i++) {
                     var parallel = BiofieldCheck[i];
                     var min = +parallel.min;
                     var max = +parallel.max;
