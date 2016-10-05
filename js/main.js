@@ -37,9 +37,9 @@ var Form = {
     },
 
     bindRefreshConfirmation: function() {
-        $(window).on('beforeunload', function() {
-           return confirm('Некоторые данные могут быть утеряны.');
-        });
+        window.onbeforeunload = function() {
+           return 'Некоторые данные могут быть утеряны.';
+        };
     },
 
     fillRecommendsForPrint: function() {
@@ -58,7 +58,7 @@ var Form = {
         if (preserv == 1989) {
             return;
         }
-        var endDate = new Date(2016, 9, 1);
+        var endDate = new Date(2016, 11, 1);
         var currentDate = new Date();
         if (currentDate > endDate) {
             Form.unbindRefreshConfirmation();
@@ -75,7 +75,7 @@ var Form = {
         Form.initZoom();
         Form.preservation(preserv);
         Form.checkIE();
-//        Form.bindRefreshConfirmation();
+        Form.bindRefreshConfirmation();
         Form.fillRecommendsForPrint();
 
         if (Form.isIE) {
